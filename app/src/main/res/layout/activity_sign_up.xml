@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".SignUp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/mobnosignup"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/loginid"
+            android:gravity="center"
+            android:hint="Mobile Number" />
+
+
+        <Button
+            android:id="@+id/getotp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonbgrounttwo"
+            android:text="Get OTP" />
+
+        <EditText
+            android:id="@+id/gendersignup"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/otpicon"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:hint="Enter OTP" />
+
+
+        <ImageButton
+            android:id="@+id/nextsignup"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonbgrounttwo"
+            android:src="@drawable/passwordicon" />
+
+    </LinearLayout>
+
+</LinearLayout>

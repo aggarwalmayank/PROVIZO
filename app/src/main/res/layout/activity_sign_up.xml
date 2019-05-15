@@ -5,50 +5,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".SignUp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-        <EditText
-            android:id="@+id/mobnosignup"
-            android:layout_width="250dp"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/provizo_bg1"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/loginid"
-            android:gravity="center"
-            android:hint="Mobile Number" />
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/app_name"
+            android:textColor="#000000"
+            android:textSize="45sp"
+            app:fontFamily="serif"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"/>
 
-
-        <Button
-            android:id="@+id/getotp"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/buttonbgrounttwo"
-            android:text="Get OTP" />
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center">
 
-        <EditText
-            android:id="@+id/gendersignup"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/otpicon"
-            android:layout_marginTop="50dp"
-            android:gravity="center"
-            android:hint="Enter OTP" />
+            <EditText
+                android:id="@+id/mobnosignup"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/loginid"
+                android:gravity="center"
+                android:hint="Mobile Number"
+                android:layout_marginTop="40dp"/>
 
+            <Button
+                android:id="@+id/getotp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ripple_effect_2"
+                android:text="Get OTP" />
 
-        <ImageButton
-            android:id="@+id/nextsignup"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/buttonbgrounttwo"
-            android:src="@drawable/passwordicon" />
+            <EditText
+                android:id="@+id/gendersignup"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:drawableLeft="@drawable/otpicon"
+                android:gravity="center"
+                android:hint="Enter OTP" />
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/nextsignup"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ripple_effect_2"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/right_pointer" />
 
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

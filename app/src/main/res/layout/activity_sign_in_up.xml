@@ -5,68 +5,105 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".SignInUp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-        <EditText
-            android:id="@+id/loginidtext"
-            android:layout_width="250dp"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:hint="Enter Login ID"
-            android:drawableLeft="@drawable/loginid"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/provizo_bg1" />
 
-        <EditText
-            android:id="@+id/passwordtext"
-            android:layout_width="250dp"
-            android:gravity="center"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter Password"
-            android:drawableLeft="@drawable/passwordicon"/>
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/app_name"
+            android:textColor="#000000"
+            android:textSize="45sp"
+            app:fontFamily="serif"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_gravity="center">
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/signinbutton"
-            android:background="@drawable/buttonbground"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Sign In"
-            android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/login_id_text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="95dp"
+                android:drawableStart="@drawable/loginid"
+                android:drawableLeft="@drawable/loginid"
+                android:gravity="center"
+                android:hint="Enter Login ID" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text="OR"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"/>
+            <EditText
+                android:id="@+id/password_text"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/passwordicon"
+                android:drawableLeft="@drawable/passwordicon"
+                android:gravity="center"
+                android:hint="Enter Password" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Haven't registered yet? "
-            android:layout_marginTop="10dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/signuobutton"
-            android:layout_width="150dp"
-            android:background="@drawable/buttonbground"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:layout_marginTop="10dp"/>
+                <Button
+                    android:id="@+id/sign_in"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Sign In" />
+
+                <TextView
+                    android:id="@+id/or_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sign_in"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="30dp"
+                    android:text="OR"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/not_yet_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/or_text"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Haven't registered yet? " />
+
+                <Button
+                    android:id="@+id/sign_up"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/not_yet_text"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Sign Up" />
+
+            </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
-
+    </RelativeLayout>
 </LinearLayout>

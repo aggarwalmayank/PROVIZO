@@ -28,10 +28,10 @@ public class SignUpSecond extends AppCompatActivity {
         password=findViewById(R.id.password);
 
         TextView tv=findViewById(R.id.appnamesignupsecond);
-         Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
+        Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.genderspinner);
+        final Spinner spinner = findViewById(R.id.genderspinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

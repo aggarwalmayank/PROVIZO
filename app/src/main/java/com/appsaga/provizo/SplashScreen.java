@@ -25,6 +25,7 @@ Typeface typeface;
             public void run() {
 
                 startActivity(new Intent(SplashScreen.this,com.appsaga.provizo.SignInUp.class));
+                finish();
             }
         }, DELAY);
     }

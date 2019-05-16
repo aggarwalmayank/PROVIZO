@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "209253065332-drn9a5fe1gkfa6vcfvdo7jgp44bscd6h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appsaga.provizo",
+            "certificate_hash": "0442fc66fc11b103c55f5047820bd13866f0cae0"
+          }
+        },
+        {
           "client_id": "209253065332-76do6qitpv7b6cd309sf06rd6jaotp5h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -52,7 +52,7 @@
                 android:layout_marginTop="40dp"/>
 
             <Button
-                android:id="@+id/get_otp"
+                android:id="@+id/getotp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -60,7 +60,15 @@
                 android:background="@drawable/ripple_effect_2"
                 android:text="Get OTP" />
 
+            <ProgressBar
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/pbar"/>
+
             <EditText
+                android:visibility="gone"
                 android:id="@+id/enter_otp"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -70,6 +78,7 @@
                 android:hint="Enter OTP" />
 
             <ImageButton
+                android:visibility="gone"
                 android:id="@+id/nextsignup"
                 android:layout_width="150dp"
                 android:layout_height="50dp"

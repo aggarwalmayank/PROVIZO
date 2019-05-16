@@ -54,70 +54,7 @@ public class SignUp extends AppCompatActivity {
         pbar=findViewById(R.id.pbar);
 
         mAuth=FirebaseAuth.getInstance();
-        /*auth = FirebaseAuth.getInstance();
 
-        getOTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                StartFirebaseLogin();
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        phone_num.getText().toString(),        // Phone number to verify
-                        60,                 // Timeout duration
-                        TimeUnit.SECONDS,   // Unit of timeout
-                        SignUp.this,               // Activity (for callback binding)
-                        mCallback);        // OnVerificationStateChangedCallbacks
-            }
-        });
-
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String OTP = enterOTP.getText().toString();
-                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, OTP);
-                SigninWithPhone(credential);
-            }
-        });
-    }
-
-    private void StartFirebaseLogin() {
-
-        mCallback = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-            @Override
-            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                Toast.makeText(SignUp.this,"verification completed",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-                Toast.makeText(SignUp.this,"verification failed",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                super.onCodeSent(s, forceResendingToken);
-                verificationCode = s;
-                Toast.makeText(SignUp.this,"Code sent",Toast.LENGTH_SHORT).show();
-            }
-        };
-    }
-
-    private void SigninWithPhone(PhoneAuthCredential credential) {
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            startActivity(new Intent(SignUp.this,SignUpSecond.class));
-                            finish();
-                        } else {
-                            Toast.makeText(SignUp.this,"Incorrect OTP",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }*/
         getOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,8 +128,9 @@ public class SignUp extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             Intent i=new Intent(SignUp.this,SignUpSecond.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                         //   i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(i);
+                            finish();
                         }
                         else
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -63,9 +63,7 @@ public class SignUp extends AppCompatActivity {
                 else {
                     phonenumber = "+91" + phone_num.getText().toString().trim();
                     sendVerificationCode(phonenumber);
-                    signup.setVisibility(View.VISIBLE);
-                    enterOTP.setVisibility(View.VISIBLE);
-                    pbar.setVisibility(View.VISIBLE);
+                    signup.setClickable(Boolean.TRUE);
                 }
             }
         });

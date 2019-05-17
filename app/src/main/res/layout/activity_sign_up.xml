@@ -68,7 +68,6 @@
                 android:id="@+id/pbar"/>
 
             <EditText
-                android:visibility="gone"
                 android:id="@+id/enter_otp"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
@@ -78,7 +77,6 @@
                 android:hint="Enter OTP" />
 
             <ImageButton
-                android:visibility="gone"
                 android:id="@+id/nextsignup"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
@@ -88,7 +86,8 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/right_pointer" />
+                android:src="@drawable/right_pointer"
+                android:clickable="false"/>
 
         </LinearLayout>
     </RelativeLayout>

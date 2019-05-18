@@ -71,8 +71,18 @@
                 android:hint="Enter Pick-Up Date"
                 android:inputType="text" />
 
-
-
+            <ImageButton
+                android:id="@+id/nextdelivery"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/ripple_effect_2"
+                android:clickable="false"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/right_pointer" />
 
 
 

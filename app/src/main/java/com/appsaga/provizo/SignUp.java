@@ -3,6 +3,7 @@ package com.appsaga.provizo;
 import android.arch.core.executor.TaskExecutor;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class SignUp extends AppCompatActivity {
     String phonenumber,verificationId;
 
     FirebaseAuth mAuth;
-
+    PhoneAuthProvider.ForceResendingToken token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,17 @@ public class SignUp extends AppCompatActivity {
                 mCallBack
         );
     }
+
+    private void resendVerificationCode(String phoneNumber,
+                                        PhoneAuthProvider.ForceResendingToken token) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallBack,         // OnVerificationStateChangedCallbacks
+                token);             // ForceResendingToken from callbacks
+    }
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
             mCallBack=new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -97,6 +109,8 @@ public class SignUp extends AppCompatActivity {
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
             verificationId=s;
+            token = forceResendingToken;
+            resendVerificationCode(phonenumber,token);
         }
 
         @Override

@@ -54,7 +54,7 @@ public class SignUp extends AppCompatActivity {
         pbar=findViewById(R.id.pbar);
 
         mAuth=FirebaseAuth.getInstance();
-
+        signup.setClickable(Boolean.FALSE);
         getOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +69,7 @@ public class SignUp extends AppCompatActivity {
         });
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {z
                 String code=enterOTP.getText().toString().trim();
                 if(code.isEmpty()||code.length()<6) {
                     enterOTP.setError("Enter Code...");

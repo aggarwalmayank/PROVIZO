@@ -27,15 +27,15 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+               /* FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
                     startActivity(new Intent(SplashScreen.this, com.appsaga.provizo.DeliveryLocation.class));
                     finish();
-                } else {
+                } else {*/
                     startActivity(new Intent(SplashScreen.this, com.appsaga.provizo.SignInUp.class));
                     finish();
-                }
+                //}
             }
         }, DELAY);
     }

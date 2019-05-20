@@ -32,9 +32,9 @@ public class SignUp extends AppCompatActivity {
     Typeface typeface;
     ImageButton signup;
     Button getOTP;
-    EditText phone_num,enterOTP;
+    EditText phone_num, enterOTP;
     ProgressBar pbar;
-    String phonenumber,verificationId;
+    String phonenumber, verificationId;
 
     FirebaseAuth mAuth;
     PhoneAuthProvider.ForceResendingToken token;
@@ -45,34 +45,37 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         TextView tv = findViewById(R.id.appname);
-        typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
 
-        signup=findViewById(R.id.nextsignup);
-        getOTP=findViewById(R.id.getotp);
+        signup = findViewById(R.id.nextsignup);
+        getOTP = findViewById(R.id.getotp);
         enterOTP = findViewById(R.id.enter_otp);
         phone_num = findViewById(R.id.mobile_num);
-        pbar=findViewById(R.id.pbar);
+        pbar = findViewById(R.id.pbar);
 
-        mAuth=FirebaseAuth.getInstance();
-        signup.setClickable(Boolean.FALSE);
+        mAuth = FirebaseAuth.getInstance();
+        signup.setEnabled(Boolean.FALSE);
         getOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(phone_num.getText().toString().equalsIgnoreCase("")&&phone_num.getText().toString().length()<10)
+                if (phone_num.getText().toString().equalsIgnoreCase("") && phone_num.getText().toString().length() < 10) {
                     phone_num.setError("Invalid Number");
-                else {
+                    //finish();
+                } else {
                     phonenumber = "+91" + phone_num.getText().toString().trim();
                     sendVerificationCode(phonenumber);
-                    signup.setClickable(Boolean.TRUE);
+                    pbar.setVisibility(View.VISIBLE);
+                    getOTP.setVisibility(View.GONE);
+                    signup.setEnabled(Boolean.TRUE);
                 }
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {z
-                String code=enterOTP.getText().toString().trim();
-                if(code.isEmpty()||code.length()<6) {
+            public void onClick(View v) {
+                String code = enterOTP.getText().toString().trim();
+                if (code.isEmpty() || code.length() < 6) {
                     enterOTP.setError("Enter Code...");
                     enterOTP.requestFocus();
                     return;
@@ -82,7 +85,8 @@ public class SignUp extends AppCompatActivity {
         });
 
     }
-    private void sendVerificationCode(String number){
+
+    private void sendVerificationCode(String number) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 number,
                 60,
@@ -102,22 +106,22 @@ public class SignUp extends AppCompatActivity {
                 mCallBack,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
     }
+
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallBack=new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            verificationId=s;
+            verificationId = s;
             token = forceResendingToken;
-            resendVerificationCode(phonenumber,token);
+            resendVerificationCode(phonenumber, token);
         }
 
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-            String code=phoneAuthCredential.getSmsCode();
-            if(code!=null)
-            {
+            String code = phoneAuthCredential.getSmsCode();
+            if (code != null) {
                 enterOTP.setText(code);
                 verifyCode(code);
             }
@@ -128,23 +132,23 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(SignUp.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     };
-    private void verifyCode(String code){
-        PhoneAuthCredential credential=PhoneAuthProvider.getCredential(verificationId,code);
+
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);
     }
-    private void signInWithCredential(PhoneAuthCredential credential){
+
+    private void signInWithCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential).
                 addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            Intent i=new Intent(SignUp.this,SignUpSecond.class);
-                         //   i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (task.isSuccessful()) {
+                            Intent i = new Intent(SignUp.this, SignUpSecond.class);
+                            //   i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(i);
                             finish();
-                        }
-                        else
+                        } else
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

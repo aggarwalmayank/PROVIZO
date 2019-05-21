@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ public class SignUp extends AppCompatActivity {
     Typeface typeface;
     ImageButton signup;
     Button getOTP;
+    Button resendOTP;
     EditText phone_num, enterOTP;
     ProgressBar pbar;
     String phonenumber, verificationId;
@@ -53,6 +55,7 @@ public class SignUp extends AppCompatActivity {
         enterOTP = findViewById(R.id.enter_otp);
         phone_num = findViewById(R.id.mobile_num);
         pbar = findViewById(R.id.pbar);
+        resendOTP = findViewById(R.id.resendotp);
 
         mAuth = FirebaseAuth.getInstance();
         signup.setEnabled(Boolean.FALSE);
@@ -71,6 +74,7 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +88,14 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        resendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                phonenumber = "+91" + phone_num.getText().toString().trim();
+                resendVerificationCode(phonenumber, token);
+            }
+        });
     }
 
     private void sendVerificationCode(String number) {
@@ -94,6 +106,8 @@ public class SignUp extends AppCompatActivity {
                 TaskExecutors.MAIN_THREAD,
                 mCallBack
         );
+
+        Log.d("Test....","sendVerificationCode");
     }
 
     private void resendVerificationCode(String phoneNumber,
@@ -105,6 +119,8 @@ public class SignUp extends AppCompatActivity {
                 this,               // Activity (for callback binding)
                 mCallBack,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
+
+        Log.d("Test....","resendVerificationCode");
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -112,10 +128,11 @@ public class SignUp extends AppCompatActivity {
 
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
+           // super.onCodeSent(s, forceResendingToken);
             verificationId = s;
             token = forceResendingToken;
-            resendVerificationCode(phonenumber, token);
+
+            Log.d("Test....","onCodeSent");
         }
 
         @Override
@@ -123,8 +140,10 @@ public class SignUp extends AppCompatActivity {
             String code = phoneAuthCredential.getSmsCode();
             if (code != null) {
                 enterOTP.setText(code);
-                verifyCode(code);
+                verifyCode(verificationId);
             }
+
+            Log.d("Test....","onVerificationCompleted");
         }
 
         @Override
@@ -136,6 +155,8 @@ public class SignUp extends AppCompatActivity {
     private void verifyCode(String code) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);
+
+        Log.d("Test....","verifyCode");
     }
 
     private void signInWithCredential(PhoneAuthCredential credential) {
@@ -152,5 +173,7 @@ public class SignUp extends AppCompatActivity {
                             Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        Log.d("Test....","signInWithCredential");
     }
 }

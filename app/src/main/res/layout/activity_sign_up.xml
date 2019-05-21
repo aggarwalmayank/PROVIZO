@@ -73,6 +73,15 @@
                 android:background="@drawable/ripple_effect_2"
                 android:text="Get OTP" />
 
+            <Button
+                android:id="@+id/resendotp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ripple_effect_2"
+                android:text="Resend OTP" />
+
             <ProgressBar
                 android:visibility="gone"
                 android:layout_width="wrap_content"

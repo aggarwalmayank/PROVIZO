@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".completed"></activity>
+        <activity android:name=".completed" />
         <activity android:name=".consignee_details" />
         <activity android:name=".consignor_details" />
         <activity android:name=".goods" />
@@ -25,6 +25,7 @@
         <activity android:name=".SignInUp" />
         <activity android:name=".SignUpSecond" />
         <activity android:name=".DeliveryLocation" />
+        <activity android:name=".SelectServiceTruck"></activity>
     </application>
 
 </manifest>

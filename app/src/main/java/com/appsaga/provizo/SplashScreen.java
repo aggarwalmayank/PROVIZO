@@ -33,8 +33,8 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(new Intent(SplashScreen.this, com.appsaga.provizo.DeliveryLocation.class));
                     finish();
                 } else {*/
-                    startActivity(new Intent(SplashScreen.this, com.appsaga.provizo.SignInUp.class));
-                    finish();
+                startActivity(new Intent(SplashScreen.this, com.appsaga.provizo.SignInUp.class));
+                finish();
                 //}
             }
         }, DELAY);

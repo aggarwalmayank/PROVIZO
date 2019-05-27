@@ -54,10 +54,20 @@
                 android:id="@+id/password_text"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:drawableStart="@drawable/passwordicon"
                 android:drawableLeft="@drawable/passwordicon"
                 android:gravity="center"
                 android:hint="Enter Password" />
+            <TextView
+                android:layout_marginLeft="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#0000FF"
+                android:id="@+id/forgot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password"/>
 
             <ProgressBar
                 android:layout_width="wrap_content"

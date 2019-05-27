@@ -1,6 +1,7 @@
 package com.appsaga.provizo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignInUp extends AppCompatActivity {
+public class SignInUp extends AppCompatActivity implements Dialog.DialogListener {
 
     Button signUp,signIn;
     Typeface typeface;
     ProgressBar pbar;
     EditText email,pass;
     FirebaseAuth mAuth;
+    TextView forgot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class SignInUp extends AppCompatActivity {
         signIn=findViewById(R.id.sign_in);
         mAuth=FirebaseAuth.getInstance();
         pbar=findViewById(R.id.pbar);
+        forgot=findViewById(R.id.forgot);
 
         TextView tv=findViewById(R.id.appnamesigninup);
         typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
@@ -52,7 +55,7 @@ public class SignInUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pbar.setVisibility(View.VISIBLE);
-                mAuth.signInWithEmailAndPassword(email.getText().toString(),pass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mAuth.signInWithEmailAndPassword(email.getText().toString().trim(),pass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         pbar.setVisibility(View.GONE);
@@ -70,6 +73,35 @@ public class SignInUp extends AppCompatActivity {
                             Toast.makeText(SignInUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgot.setTextColor(Color.parseColor("#800080"));
+                openDialog();
+            }
+        });
+    }
+    public void openDialog() {
+        Dialog exampleDialog = new Dialog();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void applyTexts(String username) {
+        mAuth.sendPasswordResetEmail(username.trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(SignInUp.this, "Reset Password link sent to Registered Email", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(SignInUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

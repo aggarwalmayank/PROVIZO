@@ -27,6 +27,7 @@ public class SignUpSecond extends AppCompatActivity {
     private EditText name,password,email,dob;
     private ProgressBar pbar;
     private Button signup;
+    DatabaseHelperUser myDb;
     FirebaseAuth firebaseAuth;
     String emailid,pass,dateofbirth,sex,fullname;
 
@@ -60,7 +61,8 @@ public class SignUpSecond extends AppCompatActivity {
                 pbar.setVisibility(View.VISIBLE);
                 emailid=email.getText().toString().trim();
                 pass=password.getText().toString().trim();
-                dateofbirth=spinner.getSelectedItem().toString().trim();
+                sex=spinner.getSelectedItem().toString().trim();
+                dateofbirth=dob.getText().toString().trim();
                 fullname=name.getText().toString().trim();
 
                 firebaseAuth.createUserWithEmailAndPassword(emailid,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -73,8 +75,10 @@ public class SignUpSecond extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if ((task.isSuccessful())){
+                                        Bundle bundle = getIntent().getExtras();
                                         Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(SignUpSecond.this,SignInUp.class);
+                                       addToLocalDataBase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
                                         startActivity(i);
                                         finish();
                                     }
@@ -95,5 +99,10 @@ public class SignUpSecond extends AppCompatActivity {
         });
 
 
+    }
+    void addToLocalDataBase(String email,String name,String number,String sex,String dob) {
+        boolean isInserted = myDb.insertData(email, name, number, sex, dob);
+        if(isInserted)
+            Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
     }
 }

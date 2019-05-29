@@ -7,7 +7,7 @@
         <item>Other</item>
     </string-array>
 
-    <string-array name="services">
+    <string-array name="service">
         <item>Full Truck Load</item>
         <item>Part Load</item>
         <item>Housing Material</item>

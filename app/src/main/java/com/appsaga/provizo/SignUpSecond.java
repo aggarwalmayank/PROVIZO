@@ -1,5 +1,9 @@
 package com.appsaga.provizo;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -9,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -20,7 +25,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class SignUpSecond extends AppCompatActivity {
@@ -30,6 +38,8 @@ public class SignUpSecond extends AppCompatActivity {
     DatabaseHelperUser myDb;
     FirebaseAuth firebaseAuth;
     String emailid,pass,dateofbirth,sex,fullname;
+    int year_x,month_x,day_x;
+    static final int DIALOG_ID=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,17 @@ public class SignUpSecond extends AppCompatActivity {
         TextView tv=findViewById(R.id.appnamesignupsecond);
         Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
+
+        final Calendar calendar=Calendar.getInstance();
+        year_x=calendar.get(Calendar.YEAR);
+        month_x=calendar.get(Calendar.MONTH);
+        day_x=calendar.get(Calendar.DAY_OF_MONTH);
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_ID);
+            }
+        });
 
         final Spinner spinner = findViewById(R.id.genderspinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -104,5 +125,56 @@ public class SignUpSecond extends AppCompatActivity {
         boolean isInserted = myDb.insertData(email, name, number, sex, dob);
         if(isInserted)
             Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        if (id == DIALOG_ID) {
+            return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
+        }
+        return null;
+
+    }
+    private DatePickerDialog.OnDateSetListener dpickerListener=new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            year_x=year;
+            month_x=month+1;
+            day_x=dayOfMonth;
+            setdob();
+        }
+    };
+    public void setdob(){
+        Boolean flag= Boolean.TRUE;
+        long timeInMilliseconds,timeinmuli=Calendar.getInstance().getTimeInMillis();
+        String selectedDate=day_x+"-"+month_x+"-"+year_x;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            java.util.Date mDate = sdf.parse(selectedDate);
+            timeInMilliseconds = mDate.getTime();
+            if(timeInMilliseconds>=timeinmuli)
+                flag=Boolean.FALSE;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(!flag){
+            alertbox("INVALID DATE");
+        }
+        else
+        {
+            dob.setText(selectedDate);
+        }
+
+    }
+    public void alertbox(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(msg);
+        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
     }
 }

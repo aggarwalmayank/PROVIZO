@@ -22,7 +22,7 @@ public class SelectServiceTruck extends AppCompatActivity {
         Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
 
-        service = findViewById(R.id.servicesbutton);
+        service = findViewById(R.id.servicesbuttons);
         service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +33,7 @@ public class SelectServiceTruck extends AppCompatActivity {
 
         Spinner spinner = (Spinner) findViewById(R.id.boxspinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.services, android.R.layout.simple_spinner_item);
+                R.array.service, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }

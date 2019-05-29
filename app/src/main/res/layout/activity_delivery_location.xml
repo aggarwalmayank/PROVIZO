@@ -45,7 +45,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:drawableLeft="@drawable/loginid"
+                android:drawableLeft="@drawable/mappin"
                 android:gravity="center"
                 android:hint="Enter Pick-Up Location"
                 android:inputType="text" />
@@ -56,7 +56,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/calendaricon"
+                android:drawableLeft="@drawable/mappin"
                 android:gravity="center"
                 android:hint="Enter Drop Location"
                 android:inputType="text" />
@@ -65,6 +65,7 @@
                 android:id="@+id/pickupdate"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/calendaricon"
                 android:gravity="center"

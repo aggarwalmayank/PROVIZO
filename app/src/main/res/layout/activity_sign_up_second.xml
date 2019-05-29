@@ -98,6 +98,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/calendaricon"
                 android:gravity="center"
+                android:focusable="false"
                 android:hint="Date of Birth"
                 android:inputType="text" />
 

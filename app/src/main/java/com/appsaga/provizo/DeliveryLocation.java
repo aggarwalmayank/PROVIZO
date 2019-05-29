@@ -57,9 +57,7 @@ public class DeliveryLocation extends AppCompatActivity {
                 showDialog(DIALOG_ID);
             }
         });
-        if(isServicesOK()){
-            init();
-        }
+
 
         deliveryNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,44 +119,6 @@ public class DeliveryLocation extends AppCompatActivity {
         });
         builder.show();
     }
-    private void init(){
-        EditText pickup= (EditText) findViewById(R.id.pickuploc);
-        EditText drop= (EditText) findViewById(R.id.droploc);
-        pickup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DeliveryLocation.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
-        drop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DeliveryLocation.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 
-    public boolean isServicesOK(){
-        Log.d(TAG, "isServicesOK: checking google services version");
-
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(DeliveryLocation.this);
-
-        if(available == ConnectionResult.SUCCESS){
-            //everything is fine and the user can make map requests
-            Log.d(TAG, "isServicesOK: Google Play Services is working");
-            return true;
-        }
-        else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
-            //an error occured but we can resolve it
-            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(DeliveryLocation.this, available, ERROR_DIALOG_REQUEST);
-            dialog.show();
-        }else{
-            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
 
 }

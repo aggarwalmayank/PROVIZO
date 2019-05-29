@@ -42,6 +42,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         TextView tv=findViewById(R.id.appnamesigninup);
         typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
+
         signUp = findViewById(R.id.sign_up);
 
         signUp.setOnClickListener(new View.OnClickListener() {

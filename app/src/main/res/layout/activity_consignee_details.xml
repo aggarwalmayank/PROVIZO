@@ -81,28 +81,15 @@
                 android:hint="Consignee GST Number"
                 android:inputType="text" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/price"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="19dp"
-                    android:src="@drawable/rupee"/>
-
-                <Spinner
-                    android:id="@+id/consigneespinner"
-                    android:layout_width="271dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:textAlignment="center"
-                    android:background="@drawable/spinner_rect"/>
-
-            </LinearLayout>
-
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/rupee"
+                android:gravity="center"
+                android:hint="Total Amount"
+                android:inputType="number" />
 
             <View
                 android:layout_width="match_parent"

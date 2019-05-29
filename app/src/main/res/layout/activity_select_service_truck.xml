@@ -136,7 +136,7 @@
                 android:background="@android:color/darker_gray"/>
 
             <ImageButton
-                android:id="@+id/nextgoods"
+                android:id="@+id/servicesbutton"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"

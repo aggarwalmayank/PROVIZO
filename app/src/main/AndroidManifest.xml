@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDRVmeqdYWXv_TP4ylXSImg0QeMkmaNL8A" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".MapActivity"></activity>
         <activity android:name=".completed" />
         <activity android:name=".consignee_details" />
         <activity android:name=".consignor_details" />
@@ -25,7 +33,7 @@
         <activity android:name=".SignInUp" />
         <activity android:name=".SignUpSecond" />
         <activity android:name=".DeliveryLocation" />
-        <activity android:name=".SelectServiceTruck"></activity>
+        <activity android:name=".SelectServiceTruck" />
     </application>
 
 </manifest>

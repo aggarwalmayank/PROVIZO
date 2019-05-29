@@ -45,6 +45,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:focusable="false"
                 android:drawableLeft="@drawable/mappin"
                 android:gravity="center"
                 android:hint="Enter Pick-Up Location"
@@ -58,6 +59,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/mappin"
                 android:gravity="center"
+                android:focusable="false"
                 android:hint="Enter Drop Location"
                 android:inputType="text" />
 
@@ -86,5 +88,11 @@
                 android:src="@drawable/right_pointer" />
 
         </LinearLayout>
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:layout_width="500dp"
+            android:layout_marginBottom="-150dp"
+            android:layout_height="500dp"
+            android:src="@drawable/location"/>
     </RelativeLayout>
 </LinearLayout>

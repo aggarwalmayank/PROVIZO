@@ -149,5 +149,12 @@
                 android:src="@drawable/right_pointer" />
 
         </LinearLayout>
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:layout_width="290dp"
+            android:layout_marginLeft="180dp"
+            android:layout_marginBottom="-80dp"
+            android:layout_height="290dp"
+            android:src="@drawable/truck1"/>
     </RelativeLayout>
 </LinearLayout>

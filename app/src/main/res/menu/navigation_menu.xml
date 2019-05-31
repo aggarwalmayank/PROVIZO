@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/wallet"
+        android:icon="@drawable/wallet"
+        android:title="Wallet"/>
+
+    <item android:id="@+id/partnerlogin"
+        android:icon="@drawable/wallet"
+        android:title="Partner Login"/>
+
+    <item android:id="@+id/mybooking"
+        android:icon="@drawable/wallet"
+        android:title="My Booking"/>
+
+    <item android:id="@+id/newbooking"
+        android:icon="@drawable/wallet"
+        android:title="New Booking"/>
+
+    <item android:id="@+id/ratechart"
+        android:icon="@drawable/wallet"
+        android:title="Rate Chart"/>
+
+    <item android:id="@+id/notification"
+        android:icon="@drawable/wallet"
+        android:title="Notification"/>
+
+    <item android:id="@+id/addcard"
+        android:icon="@drawable/wallet"
+        android:title="Add Card"/>
+
+    <item android:id="@+id/support"
+        android:icon="@drawable/wallet"
+        android:title="Support"/>
+
+    <item android:id="@+id/about"
+        android:icon="@drawable/wallet"
+        android:title="About"/>
+    <item android:id="@+id/signout"
+        android:icon="@drawable/wallet"
+        android:title="SignOut"/>
+
+
+</menu>

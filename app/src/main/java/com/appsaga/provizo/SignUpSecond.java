@@ -21,9 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,13 +46,15 @@ public class SignUpSecond extends AppCompatActivity {
     int year_x,month_x,day_x;
     static final int DIALOG_ID=0;
 
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_second);
 
         name=findViewById(R.id.fullname);
-
+        db=FirebaseFirestore.getInstance();
         dob=findViewById(R.id.dob);
         email=findViewById(R.id.email);
         password=findViewById(R.id.password);
@@ -100,6 +107,7 @@ public class SignUpSecond extends AppCompatActivity {
                                         Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(SignUpSecond.this,SignInUp.class);
                                        addToLocalDataBase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
+                                       addToFirebaseDatabase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
                                         startActivity(i);
                                         finish();
                                     }
@@ -120,6 +128,23 @@ public class SignUpSecond extends AppCompatActivity {
         });
 
 
+    }
+    void addToFirebaseDatabase(String email,String name,String number,String sex,String dob)
+    {
+        CollectionReference dbInfo=db.collection("Users");
+        UserInfo userInfo=new UserInfo(email,name,number,dob,sex,"Not Known");
+
+        dbInfo.add(userInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(SignUpSecond.this, "database entry completed ", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignUpSecond.this, "database entry failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     void addToLocalDataBase(String email,String name,String number,String sex,String dob) {
         boolean isInserted = myDb.insertData(email, name, number, sex, dob);
@@ -177,4 +202,5 @@ public class SignUpSecond extends AppCompatActivity {
         });
         builder.show();
     }
+
 }

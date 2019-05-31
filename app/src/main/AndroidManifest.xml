@@ -26,7 +26,8 @@
         <activity android:name=".SignUp" />
         <activity android:name=".SignInUp" />
         <activity android:name=".SignUpSecond" />
-        <activity android:name=".DeliveryLocation" />
+        <activity android:name=".DeliveryLocation"
+            />
         <activity android:name=".SelectServiceTruck" />
     </application>
 

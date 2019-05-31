@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PROVIZO</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <string-array name="gender">
         <item>Gender</item>
         <item>Male</item>

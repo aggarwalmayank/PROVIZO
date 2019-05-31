@@ -66,7 +66,7 @@ public class SignUp extends AppCompatActivity {
                     phone_num.setError("Invalid Number");
                     //finish();
                 } else {
-                    phonenumber = "+1" + phone_num.getText().toString().trim();
+                    phonenumber = "+91" + phone_num.getText().toString().trim();
                     sendVerificationCode(phonenumber);
                     pbar.setVisibility(View.VISIBLE);
                     getOTP.setVisibility(View.GONE);
@@ -92,7 +92,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                phonenumber = "+1" + phone_num.getText().toString().trim();
+                phonenumber = "+91" + phone_num.getText().toString().trim();
                 resendVerificationCode(phonenumber, token);
             }
         });

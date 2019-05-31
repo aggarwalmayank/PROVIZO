@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignInUp extends AppCompatActivity implements Dialog.DialogListener {
 
@@ -26,7 +27,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
     EditText email,pass;
     FirebaseAuth mAuth;
     TextView forgot;
-
+    private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,17 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         TextView tv=findViewById(R.id.appnamesigninup);
         typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user!=null&&mAuth.getCurrentUser().isEmailVerified()){
+                    startActivity(new Intent(SignInUp.this,DeliveryLocation.class));
+                }
+            }
+        };
 
         signUp = findViewById(R.id.sign_up);
 
@@ -105,5 +117,16 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
 
             }
         });
+    }
+    public void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    public void onStop(){
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+
+        }
     }
 }

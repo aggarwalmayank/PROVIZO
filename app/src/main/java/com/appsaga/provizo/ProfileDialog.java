@@ -8,13 +8,15 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Dialog extends DialogFragment {
-    private EditText editTextUsername;
+public class ProfileDialog extends DialogFragment {
+    private TextView name,gender,dob,number,email;
     private DialogListener listener;
+    FirebaseUser user;
 
     @Override
     public android.app.Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -22,26 +24,17 @@ public class Dialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_dialog, null);
+        View view = inflater.inflate(R.layout.profiledialog, null);
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        String emailid=user.getEmail().trim();
+        builder.setView(view);
+        name=view.findViewById(R.id.name);
+        gender=view.findViewById(R.id.gender);
+        dob=view.findViewById(R.id.dob);
+        number=view.findViewById(R.id.number);
+        email=view.findViewById(R.id.email);
 
 
-        builder.setView(view)
-                .setTitle("Forgot Password")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setPositiveButton("Reset", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String username = editTextUsername.getText().toString();
-                        listener.applyTexts(username);
-                    }
-                });
-
-        editTextUsername = view.findViewById(R.id.edit_username);
         return builder.create();
     }
 
@@ -58,6 +51,6 @@ public class Dialog extends DialogFragment {
     }
 
     public interface DialogListener {
-        void applyTexts(String username);
+        void applyTexts();
     }
 }

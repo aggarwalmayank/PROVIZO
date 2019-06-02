@@ -111,6 +111,8 @@
         android:layout_height="match_parent"
         app:menu="@menu/navigation_menu"
         android:background="#c8dfe0"
+        app:itemTextColor="#000000"
+        app:itemIconTint="#000000"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         android:id="@+id/nv">

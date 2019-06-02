@@ -177,4 +177,10 @@ public class SignUp extends AppCompatActivity {
 
         Log.d("Test....","signInWithCredential");
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FirebaseAuth.getInstance().signOut();
+    }
 }

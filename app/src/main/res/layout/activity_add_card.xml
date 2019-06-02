@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9CADB6"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent"
+        android:background="#c8dfe0"
+        android:orientation="vertical"
+        tools:context=".AddCard">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Card"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:id="@+id/about"
+            android:padding="8dp"/>
+        <com.wajahatkarim3.easyflipview.EasyFlipView
+            android:id="@+id/flip"
+            android:layout_below="@+id/about"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flipDuration="500"
+            app:flipEnabled="true"
+            app:flipOnTouch="true"
+            app:flipType="horizontal">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_margin="16dp"
+                android:background="#005796"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/magnet"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#000000"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:id="@+id/sign"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/magnet"
+                    android:layout_marginTop="15dp"
+                    android:background="#c2c2c2"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/cvv"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/magnet"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/sign"
+                    android:background="#ffffff"
+                    android:text="194"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/hologram" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/debitfront"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/chip"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/chip" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:id="@+id/typecard"
+                    android:layout_marginTop="-20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="120dp"/>
+
+                <ImageView
+                    android:id="@+id/hologram"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/hologram" />
+
+                <TextView
+                    android:id="@+id/cardnumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chip"
+                    android:maxLength="22"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:inputType="number"
+                    android:text="XXXX  XXXX  XXXX  XXXX"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/exp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardnumber"
+                    android:layout_marginLeft="140dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Exp "
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/expdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="mm/yy"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/holdername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/exp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:text="HOLDER NAME"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="#c8dfe0"
+            android:layout_below="@+id/flip"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:gravity="center"
+                android:maxLength="22"
+                android:hint="Card Number" />
+
+            <EditText
+                android:id="@+id/expiry"
+                android:layout_width="match_parent"
+                android:focusable="false"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Expiry mm/yy" />
+
+            <EditText
+                android:id="@+id/holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                android:hint="Holder Name" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CVV"
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:id="@+id/cvvno"/>
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+
+               <Button
+                   android:id="@+id/save"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="left"
+                   android:layout_marginTop="5dp"
+                   android:background="@drawable/ripple_effect"
+                   android:gravity="center"
+                   android:text="SAVE" />
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="View "
+                   android:layout_gravity="right"
+                   android:layout_marginLeft="8dp"
+                   android:gravity="center"
+                   android:layout_marginTop="5dp"
+                   android:background="@drawable/ripple_effect"
+                   android:id="@+id/view"/>
+           </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    </LinearLayout>

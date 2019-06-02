@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
+        <activity android:name=".ViewCards"></activity>
+        <activity android:name=".AddCard" />
+        <activity android:name=".AboutUs" />
         <activity android:name=".completed" />
         <activity android:name=".consignee_details" />
         <activity android:name=".consignor_details" />
@@ -26,8 +27,7 @@
         <activity android:name=".SignUp" />
         <activity android:name=".SignInUp" />
         <activity android:name=".SignUpSecond" />
-        <activity android:name=".DeliveryLocation"
-            />
+        <activity android:name=".DeliveryLocation" />
         <activity android:name=".SelectServiceTruck" />
     </application>
 

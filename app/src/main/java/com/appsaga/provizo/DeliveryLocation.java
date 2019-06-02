@@ -115,10 +115,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     case R.id.notification:
                         Toast.makeText(DeliveryLocation.this, "Notification",Toast.LENGTH_SHORT).show();break;
                     case R.id.addcard:
+                        startActivity(new Intent(DeliveryLocation.this,AddCard.class));
                         Toast.makeText(DeliveryLocation.this, "add card",Toast.LENGTH_SHORT).show();break;
                     case R.id.support:
                         Toast.makeText(DeliveryLocation.this, "Support",Toast.LENGTH_SHORT).show();break;
                     case R.id.about:
+                        startActivity(new Intent(DeliveryLocation.this,AboutUs.class));
                         Toast.makeText(DeliveryLocation.this, "about us",Toast.LENGTH_SHORT).show();break;
                     case R.id.signout:
                         Toast.makeText(DeliveryLocation.this, "SignOut",Toast.LENGTH_SHORT).show();
@@ -202,5 +204,11 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     @Override
     public void applyTexts() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

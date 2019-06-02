@@ -6,38 +6,39 @@
         android:title="Wallet"/>
 
     <item android:id="@+id/partnerlogin"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/partnerlogin"
         android:title="Partner Login"/>
 
     <item android:id="@+id/mybooking"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/mybooking"
         android:title="My Booking"/>
 
     <item android:id="@+id/newbooking"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/newbooking"
         android:title="New Booking"/>
 
     <item android:id="@+id/ratechart"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/ratechart"
         android:title="Rate Chart"/>
 
     <item android:id="@+id/notification"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/notofocation"
         android:title="Notification"/>
 
     <item android:id="@+id/addcard"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/card"
         android:title="Add Card"/>
 
     <item android:id="@+id/support"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/support"
         android:title="Support"/>
 
     <item android:id="@+id/about"
-        android:icon="@drawable/wallet"
-        android:title="About"/>
+        android:icon="@drawable/aboutus"
+        android:title="About Us"/>
+
     <item android:id="@+id/signout"
-        android:icon="@drawable/wallet"
+        android:icon="@drawable/signout"
         android:title="SignOut"/>
 
 

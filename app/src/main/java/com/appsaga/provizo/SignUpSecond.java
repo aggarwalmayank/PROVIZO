@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,7 +36,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SignUpSecond extends AppCompatActivity {
     private EditText name,password,email,dob;
@@ -46,15 +50,20 @@ public class SignUpSecond extends AppCompatActivity {
     int year_x,month_x,day_x;
     static final int DIALOG_ID=0;
 
-    private FirebaseFirestore db;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mRef,databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_second);
 
+        mDatabase=FirebaseDatabase.getInstance();
+        databaseReference=mDatabase.getReference();
+        mRef=databaseReference.child("users");
+
         name=findViewById(R.id.fullname);
-        db=FirebaseFirestore.getInstance();
         dob=findViewById(R.id.dob);
         email=findViewById(R.id.email);
         password=findViewById(R.id.password);
@@ -106,7 +115,7 @@ public class SignUpSecond extends AppCompatActivity {
                                         Bundle bundle = getIntent().getExtras();
                                         Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(SignUpSecond.this,SignInUp.class);
-                                       addToLocalDataBase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
+                                      // addToLocalDataBase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
                                        addToFirebaseDatabase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
                                         startActivity(i);
                                         finish();
@@ -131,26 +140,22 @@ public class SignUpSecond extends AppCompatActivity {
     }
     void addToFirebaseDatabase(String email,String name,String number,String sex,String dob)
     {
-        CollectionReference dbInfo=db.collection("Users");
-        UserInfo userInfo=new UserInfo(email,name,number,dob,sex,"Not Known");
 
-        dbInfo.add(userInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(SignUpSecond.this, "database entry completed ", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SignUpSecond.this, "database entry failed", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Map<String,Object> insert=new HashMap<>();
+        insert.put("Name",name);
+        insert.put("Email",email);
+        insert.put("Phone Number",number);
+        insert.put("Gender",sex);
+        insert.put("Date of Birth",dob);
+        insert.put("Email Verification","NOT KNOWN");
+
+        mRef.child(email).setValue(name);
     }
-    void addToLocalDataBase(String email,String name,String number,String sex,String dob) {
+  /*  void addToLocalDataBase(String email,String name,String number,String sex,String dob) {
         boolean isInserted = myDb.insertData(email, name, number, sex, dob);
         if(isInserted)
             Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
-    }
+    }*/
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_ID) {
@@ -202,5 +207,9 @@ public class SignUpSecond extends AppCompatActivity {
         });
         builder.show();
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FirebaseAuth.getInstance().signOut();
+    }
 }

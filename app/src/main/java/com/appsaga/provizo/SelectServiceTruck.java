@@ -36,5 +36,12 @@ public class SelectServiceTruck extends AppCompatActivity {
                 R.array.service, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+
+        Spinner trucktype = (Spinner) findViewById(R.id.truckspinner);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.trucktype, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        trucktype.setAdapter(adapter2);
     }
 }

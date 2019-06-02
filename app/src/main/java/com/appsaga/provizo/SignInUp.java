@@ -26,7 +26,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
     ProgressBar pbar;
     EditText email,pass;
     FirebaseAuth mAuth;
-    TextView forgot;
+    TextView forgot,verification;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +39,16 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         mAuth=FirebaseAuth.getInstance();
         pbar=findViewById(R.id.pbar);
         forgot=findViewById(R.id.forgot);
-
         TextView tv=findViewById(R.id.appnamesigninup);
         typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
+        Button b=findViewById(R.id.temp);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener(){
@@ -95,6 +101,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
                 openDialog();
             }
         });
+
     }
     public void openDialog() {
         Dialog exampleDialog = new Dialog();
@@ -103,7 +110,8 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
 
     @Override
     public void applyTexts(String username) {
-        mAuth.sendPasswordResetEmail(username.trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+       mAuth.sendPasswordResetEmail(username.trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful())
@@ -117,6 +125,8 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
 
             }
         });
+      // mAuth.getCurrentUser().sendEmailVerification();
+
     }
     public void onStart(){
         super.onStart();

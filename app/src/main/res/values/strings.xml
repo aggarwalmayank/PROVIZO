@@ -16,4 +16,33 @@
         <item>Parcel Services</item>
     </string-array>
 
+    <string-array name="forgot_verification">
+        <item>--Select Issue--</item>
+        <item>Forgot Password</item>
+        <item>Send Verification Email</item>
+    </string-array>
+
+    <string-array name="trucktype">
+        <item>Select Truck Type</item>
+        <item>2.5 MT Open</item>
+        <item>2.5 MT Closed</item>
+        <item>3.5 MT Closed</item>
+        <item>4 MT Open</item>
+        <item>5 MT Open</item>
+        <item>7 MT Closed</item>
+        <item>7 MT Open</item>
+        <item>9 MT Closed</item>
+        <item>9 MT Open</item>
+        <item>16 MT Open</item>
+        <item>16 MT Closed</item>
+        <item>21 MT Closed</item>
+        <item>21 MT Open</item>
+        <item>26 MT Closed</item>
+        <item>26 MT Closed</item>
+        <item>20 MT Trailor 40ft</item>
+        <item>26 MT Trailor 40ft</item>
+        <item>ODC Trailor</item>
+        <item>Tempo</item>
+    </string-array>
+
 </resources>

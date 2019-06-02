@@ -7,8 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:background="#c8dfe0"
-    android:elevation="12dp"
+    android:background="#DCDCDC"
+    android:elevation="14dp"
     tools:context=".AddCard">
 
     <com.wajahatkarim3.easyflipview.EasyFlipView

@@ -3,15 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent"
-    android:background="#ffffff"
+    android:background="#F5F5F5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ViewCards">
 
 
+<android.support.v7.widget.Toolbar
+    android:layout_width="match_parent"
+    android:id="@+id/toolbar"
+    app:title="Saved Cards"
+    app:titleTextColor="#000000"
+    app:titleTextAppearance="@style/mystyle"
+    android:layout_height="wrap_content"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/AllList"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="8dp"

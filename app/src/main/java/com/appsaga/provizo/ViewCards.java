@@ -15,9 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.ArrayList;
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
@@ -25,6 +28,7 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class ViewCards extends AppCompatActivity {
 
     RecyclerView allList;
+
     static ArrayList<String> CardNumber;
     static ArrayList<String> Holder;
     static ArrayList<String> Cvv;
@@ -40,6 +44,18 @@ public class ViewCards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_cards);
 
+
+        android.support.v7.widget.Toolbar toolbar = (
+                android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.backicon);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         allList = findViewById(R.id.AllList);
 

@@ -3,6 +3,7 @@ package com.appsaga.provizo;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -54,6 +55,17 @@ public class AddCard extends AppCompatActivity {
         save = findViewById(R.id.save);
         view = findViewById(R.id.view);
         adapterClass = new AdapterCards(ViewCards.CardNumber, ViewCards.Holder, ViewCards.Exp, ViewCards.Cvv, this);
+        android.support.v7.widget.Toolbar toolbar = (
+                android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.backicon);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         number.addTextChangedListener(new TextWatcher() {
             @Override

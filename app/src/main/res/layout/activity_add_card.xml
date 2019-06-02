@@ -5,27 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9CADB6"
+    android:background="#ffffff"
     android:orientation="vertical">
 
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        app:title="Saved Cards"
+        android:elevation="12dp"
+        app:titleTextColor="#000000"
+        app:titleTextAppearance="@style/mystyle"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_margin="16dp"
         android:layout_height="match_parent"
-        android:background="#c8dfe0"
+        android:background="#F5F5F5"
         android:orientation="vertical"
         tools:context=".AddCard">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Card"
-            android:layout_marginTop="5dp"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:gravity="center"
-            android:id="@+id/about"
-            android:padding="8dp"/>
+
         <com.wajahatkarim3.easyflipview.EasyFlipView
             android:id="@+id/flip"
             android:layout_below="@+id/about"
@@ -175,7 +173,8 @@
             android:layout_margin="16dp"
             android:gravity="center"
             android:padding="10dp"
-            android:background="#c8dfe0"
+            android:elevation="12dp"
+            android:background="#DCDCDC"
             android:layout_below="@+id/flip"
             android:orientation="vertical">
 

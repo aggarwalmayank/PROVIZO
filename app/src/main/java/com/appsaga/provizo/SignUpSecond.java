@@ -46,10 +46,10 @@ public class SignUpSecond extends AppCompatActivity {
     private Button signup;
     DatabaseHelperUser myDb;
     FirebaseAuth firebaseAuth;
-    String emailid,pass,dateofbirth,sex,fullname;
+    String emailid,pass,dateofbirth,sex,fullname,MobileNo;
     int year_x,month_x,day_x;
     static final int DIALOG_ID=0;
-
+      Spinner spinner;
     FirebaseDatabase mDatabase;
     DatabaseReference mRef,databaseReference;
 
@@ -58,6 +58,8 @@ public class SignUpSecond extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_second);
+
+        myDb=new DatabaseHelperUser(this);
 
         mDatabase=FirebaseDatabase.getInstance();
         databaseReference=mDatabase.getReference();
@@ -86,7 +88,7 @@ public class SignUpSecond extends AppCompatActivity {
             }
         });
 
-        final Spinner spinner = findViewById(R.id.genderspinner);
+        spinner = findViewById(R.id.genderspinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -113,10 +115,12 @@ public class SignUpSecond extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if ((task.isSuccessful())){
                                         Bundle bundle = getIntent().getExtras();
+                                        MobileNo=bundle.getString("phnumber");
+                                        addToLocalDatabase();
                                         Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(SignUpSecond.this,SignInUp.class);
-                                      // addToLocalDataBase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
-                                       addToFirebaseDatabase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
+
+                                     //   addToFirebaseDatabase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
                                         startActivity(i);
                                         finish();
                                     }
@@ -138,7 +142,20 @@ public class SignUpSecond extends AppCompatActivity {
 
 
     }
-    void addToFirebaseDatabase(String email,String name,String number,String sex,String dob)
+    public void addToLocalDatabase() {
+
+        boolean isInserted = myDb.insertData(email.getText().toString(),name.getText().toString(),
+                MobileNo,dob.getText().toString(),spinner.getSelectedItem().toString(),"not","");
+
+        if (isInserted == true) {
+            Toast.makeText(SignUpSecond.this, "Saved", Toast.LENGTH_LONG).show();
+
+
+        } else
+            Toast.makeText(SignUpSecond.this, "Data is not inserted", Toast.LENGTH_LONG).show();
+
+    }
+    /*void addToFirebaseDatabase(String email,String name,String number,String sex,String dob)
     {
 
         Map<String,Object> insert=new HashMap<>();
@@ -150,12 +167,8 @@ public class SignUpSecond extends AppCompatActivity {
         insert.put("Email Verification","NOT KNOWN");
 
         mRef.child(email).setValue(name);
-    }
-  /*  void addToLocalDataBase(String email,String name,String number,String sex,String dob) {
-        boolean isInserted = myDb.insertData(email, name, number, sex, dob);
-        if(isInserted)
-            Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
     }*/
+
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_ID) {

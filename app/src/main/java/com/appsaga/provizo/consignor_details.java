@@ -26,27 +26,44 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
 
     ImageButton consignor;
     DatabaseHelperUser db;
-    EditText name, number;
+    EditText name, number,gst;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     ImageView menuicon;
-
+    boolean isupdate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consignor_details);
+        db=new DatabaseHelperUser(this);
 
         TextView tv = findViewById(R.id.appnamesignupsecond);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
         name = findViewById(R.id.consignorname);
         number = findViewById(R.id.consignorphone);
+        gst=findViewById(R.id.consignorgst);
         menuicon = findViewById(R.id.menuicon);
         consignor = findViewById(R.id.consignorr);
+        setDetails();
         consignor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(consignor_details.this, FirebaseAuth.getInstance().getCurrentUser().getEmail().trim(), Toast.LENGTH_SHORT).show();
+                Cursor res1 = db.GetOneData( FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                if (res1.getCount() == 0) {
+                    Toast.makeText(consignor_details.this, "No Data", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    while (res1.moveToNext()) {
+                        if(!(res1.getString(6).equals("")))
+                            isupdate=db.updateSingleCol("GST",gst.getText().toString(),
+                                    FirebaseAuth.getInstance().getCurrentUser().getEmail().trim());
+                        if(isupdate)
+                            Toast.makeText(consignor_details.this, "hogya update", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
                 startActivity(new Intent(consignor_details.this, com.appsaga.provizo.consignee_details.class));
             }
@@ -88,6 +105,9 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                         Toast.makeText(consignor_details.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
+                        Intent gotoScreenVar = new Intent(consignor_details.this, DeliveryLocation.class);
+                        gotoScreenVar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(gotoScreenVar);
                         Toast.makeText(consignor_details.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
@@ -122,6 +142,21 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         });
     }
 
+    public void setDetails(){
+        Cursor res = db.GetOneData(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        if (res.getCount() == 0) {
+            Toast.makeText(consignor_details.this, "No Data", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            while (res.moveToNext()) {
+                name.setText(res.getString(1));
+                number.setText(res.getString(2));
+                if(!(res.getString(6).equals("")))
+                    gst.setText(res.getString(6));
+            }
+        }
+    }
     public void openDialog() {
         ProfileDialog exampleDialog = new ProfileDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");

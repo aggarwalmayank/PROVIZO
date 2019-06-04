@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,8 +27,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SignUpSecond extends AppCompatActivity {
+
     private EditText name,password,email,dob;
     private ProgressBar pbar;
     private Button signup;
@@ -50,8 +55,8 @@ public class SignUpSecond extends AppCompatActivity {
     int year_x,month_x,day_x;
     static final int DIALOG_ID=0;
       Spinner spinner;
-    FirebaseDatabase mDatabase;
-    DatabaseReference mRef,databaseReference;
+    //FirebaseDatabase mDatabase;
+    DatabaseReference databaseReference;
 
 
     @Override
@@ -61,9 +66,8 @@ public class SignUpSecond extends AppCompatActivity {
 
         myDb=new DatabaseHelperUser(this);
 
-        mDatabase=FirebaseDatabase.getInstance();
-        databaseReference=mDatabase.getReference();
-        mRef=databaseReference.child("users");
+       // mDatabase=FirebaseDatabase.getInstance();
+        databaseReference=FirebaseDatabase.getInstance().getReference();
 
         name=findViewById(R.id.fullname);
         dob=findViewById(R.id.dob);
@@ -104,12 +108,14 @@ public class SignUpSecond extends AppCompatActivity {
                 dateofbirth=dob.getText().toString().trim();
                 fullname=name.getText().toString().trim();
 
+                Log.d("Test.....","yes");
                 firebaseAuth.createUserWithEmailAndPassword(emailid,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         pbar.setVisibility(View.GONE);
                         if(task.isSuccessful())
                         {
+                            Log.d("Test.....","yes2");
                             firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -117,6 +123,8 @@ public class SignUpSecond extends AppCompatActivity {
                                         Bundle bundle = getIntent().getExtras();
                                         MobileNo=bundle.getString("phnumber");
                                         addToLocalDatabase();
+                                        addToFirebaseDatabase();
+                                        Log.d("Test.....","yes3");
                                         Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(SignUpSecond.this,SignInUp.class);
 
@@ -155,19 +163,35 @@ public class SignUpSecond extends AppCompatActivity {
             Toast.makeText(SignUpSecond.this, "Data is not inserted", Toast.LENGTH_LONG).show();
 
     }
-    /*void addToFirebaseDatabase(String email,String name,String number,String sex,String dob)
+
+    void addToFirebaseDatabase()
     {
 
-        Map<String,Object> insert=new HashMap<>();
-        insert.put("Name",name);
-        insert.put("Email",email);
-        insert.put("Phone Number",number);
-        insert.put("Gender",sex);
-        insert.put("Date of Birth",dob);
-        insert.put("Email Verification","NOT KNOWN");
+        Log.d("Test.....","yes4");
+        final HashMap<String,Object> insert=new HashMap<>();
+        insert.put("Name",name.getText().toString());
+        insert.put("Email",email.getText().toString());
+        insert.put("Phone Number",MobileNo);
+        insert.put("Gender",spinner.getSelectedItem().toString());
+        insert.put("Date of Birth",dob.getText().toString());
+        insert.put("Email Verification","Verified");
 
-        mRef.child(email).setValue(name);
-    }*/
+       // databaseReference.child("users").child("emails").child(name.getText().toString()+dob.getText().toString()+(int)(100*Math.random())).setValue(insert);
+        //databaseReference.child("users").setValue(5);
+        databaseReference.child("users").child("emails").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Log.d("Test.....","yes5");
+                databaseReference.child("users").child("emails").child(name.getText().toString()+dataSnapshot.getChildrenCount()+dob.getText().toString()+(int)(100*Math.random())).setValue(insert);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     protected Dialog onCreateDialog(int id) {

@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SelectServiceTruck extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
 
@@ -31,14 +33,23 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     ImageView menuicon;
+    String orderid,currentuser;
+    DatabaseReference myref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_service_truck);
+
         radioWeightGroup=(RadioGroup)findViewById(R.id.radiogroup);
+        myref = FirebaseDatabase.getInstance().getReference();
+
         TextView tv=findViewById(R.id.appnamesignupsecond);
         Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
+
+        Bundle bundle = getIntent().getExtras();
+        orderid=bundle.getString("Order ID");
+        currentuser=bundle.getString("Current User");
 
         menuicon=findViewById(R.id.menuicon);
         service = findViewById(R.id.servicesbuttons);
@@ -135,4 +146,10 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+      myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
+
+    }
 }

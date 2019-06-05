@@ -59,6 +59,7 @@
                 android:layout_marginTop="40dp"
                 android:drawableLeft="@drawable/mappin"
                 android:gravity="center"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:hint="Enter Pick-Up Location"
                 android:inputType="text" />
 
@@ -66,6 +67,7 @@
             <EditText
                 android:id="@+id/droploc"
                 android:layout_width="250dp"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/mappin"

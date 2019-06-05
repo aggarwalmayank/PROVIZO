@@ -10,6 +10,7 @@
     </string-array>
 
     <string-array name="service">
+        <item>Type of Service</item>
         <item>Full Truck Load</item>
         <item>Part Load</item>
         <item>Housing Material</item>

@@ -174,16 +174,17 @@ public class SignUpSecond extends AppCompatActivity {
         insert.put("Phone Number",MobileNo);
         insert.put("Gender",spinner.getSelectedItem().toString());
         insert.put("Date of Birth",dob.getText().toString());
-        insert.put("Email Verification","Verified");
+        insert.put("Email Verification","Not Verified");
+        insert.put("Bookings","");
 
        // databaseReference.child("users").child("emails").child(name.getText().toString()+dob.getText().toString()+(int)(100*Math.random())).setValue(insert);
         //databaseReference.child("users").setValue(5);
-        databaseReference.child("users").child("emails").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Log.d("Test.....","yes5");
-                databaseReference.child("users").child("emails").child(name.getText().toString()+dataSnapshot.getChildrenCount()+dob.getText().toString()+(int)(100*Math.random())).setValue(insert);
+                databaseReference.child("users").child(name.getText().toString()+"-"+dob.getText().toString()+"-"+MobileNo).setValue(insert);
             }
 
             @Override

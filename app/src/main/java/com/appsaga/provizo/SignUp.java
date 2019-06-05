@@ -142,7 +142,13 @@ public class SignUp extends AppCompatActivity {
                 enterOTP.setText(code);
                 verifyCode(verificationId);
             }
-
+            else {
+                Toast.makeText(SignUp.this,"Phone Number was already verified",Toast.LENGTH_LONG).show();
+                Intent i = new Intent(SignUp.this, SignUpSecond.class);
+                i.putExtra("phnumber", phonenumber);
+                startActivity(i);
+                finish();
+            }
             Log.d("Test....","onVerificationCompleted");
         }
 
@@ -165,6 +171,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Log.d("Test.....","no");
                             Intent i = new Intent(SignUp.this, SignUpSecond.class);
                             i.putExtra("phnumber",phonenumber);
                             //   i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

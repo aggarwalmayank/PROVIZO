@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseCard extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = " card.db";
+    public static final String DATABASE_NAME = " bankcard.db";
     public static final String TABLE_NAME = "debit_card";
     public static final String COL_1 = "card_number";
     public static final String COL_2 = "holder";

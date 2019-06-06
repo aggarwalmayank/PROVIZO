@@ -70,7 +70,7 @@
                     android:src="@drawable/box" />
 
                 <Spinner
-                    android:id="@+id/boxspinner"
+                    android:id="@+id/servicetype"
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -87,9 +87,10 @@
                 android:background="@android:color/darker_gray" />
 
             <EditText
-                android:id="@+id/pickuploc"
+                android:id="@+id/materialdesp"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-/."
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/deliverpack"
                 android:gravity="center"
@@ -120,6 +121,9 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/weight"
+                android:id="@+id/weight"
+                android:inputType="number"
+                android:digits="1234567890."
                 android:gravity="center"
                 android:hint="Weight" />
 

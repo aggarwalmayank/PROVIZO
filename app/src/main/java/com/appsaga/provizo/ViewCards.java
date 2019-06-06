@@ -61,8 +61,8 @@ public class ViewCards extends AppCompatActivity {
 
         db = new DatabaseCard(this);
 
-        Holder= new ArrayList<>();
-        CardNumber= new ArrayList<>();
+        Holder = new ArrayList<>();
+        CardNumber = new ArrayList<>();
         Cvv= new ArrayList<>();
         Exp = new ArrayList<>();
 

@@ -3,6 +3,7 @@ package com.appsaga.provizo;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -44,7 +46,7 @@ import java.util.HashMap;
 
 import android.support.design.widget.NavigationView;
 
-public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
+public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener, com.appsaga.provizo.PartnerDialog.DialogListener {
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
@@ -57,6 +59,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private static final String TAG = "MainActivity";
+    private  ValueEventListener mQueryListener;
+    DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
@@ -107,7 +111,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         profilename.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openDialog("profile");
             }
         });
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -120,6 +124,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         Toast.makeText(DeliveryLocation.this, "Wallet", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.partnerlogin:
+                        dl.closeDrawer(Gravity.LEFT);
+                        openDialog("partner");
                         Toast.makeText(DeliveryLocation.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
@@ -199,14 +205,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                 else if (pickupdate.getText().toString().equalsIgnoreCase(""))
                     pickupdate.setError("Invalid Date");
                 else {
-                    DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ",java.util.Locale.getDefault());
+                    DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
                     Date today = Calendar.getInstance().getTime();
                     orderid = df.format(today);
                     AddtoFirebase();
-                    Intent i=new Intent(DeliveryLocation.this,SelectServiceTruck.class);
-                    i.putExtra("Order ID",orderid);
-                    i.putExtra("Current User",current_user);
-                //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(DeliveryLocation.this, SelectServiceTruck.class);
+                    i.putExtra("Order ID", orderid);
+                    i.putExtra("Current User", current_user);
+                    //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
                     startActivity(i);
                 }
 
@@ -294,15 +300,48 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         builder.show();
     }
 
-    public void openDialog() {
-        ProfileDialog exampleDialog = new ProfileDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    public void openDialog(String a) {
+        if (a.equals("partner")) {
+            PartnerDialog dialog = new PartnerDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        } else {
+            ProfileDialog exampleDialog = new ProfileDialog();
+            exampleDialog.show(getSupportFragmentManager(), "example dialog");
+        }
     }
 
     @Override
     public void applyTexts() {
 
     }
+
+
+    @Override
+    public void loginid(final String username) {
+    mQueryListener=new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    if(snapshot.getKey().equals(username))
+                    {
+                        Intent i=new Intent(DeliveryLocation.this,Partner.class);
+                        i.putExtra("partner id",username);
+                        startActivity(i);
+                        break;
+                    }
+                }
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+        Query query=mref.child("partners").orderByChild("partners");
+        query.addValueEventListener(mQueryListener);
+    }
+
 
 
 }

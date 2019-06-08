@@ -1,6 +1,7 @@
 package com.appsaga.provizo;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -170,6 +171,9 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
     @Override
     public void loginid(final String username) {
         final Boolean[] flag = {false};
+
+        final ProgressDialog dialog = ProgressDialog.show(SignInUp.this, "Confirming Id", "Please wait...", true);
+
         mQueryListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -177,6 +181,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
                     if(snapshot.getKey().equals(username))
                     {
                         flag[0] =true;
+                        dialog.dismiss();
                         break;
                     }
                 }
@@ -185,10 +190,12 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
                     Intent i=new Intent(SignInUp.this,Partner.class);
                     i.putExtra("partner id",username);
                     startActivity(i);
+                    dialog.dismiss();
                 }
                 else
                 {
                     alertbox("Invalid Partner ID");
+                    dialog.dismiss();
                 }
 
             }

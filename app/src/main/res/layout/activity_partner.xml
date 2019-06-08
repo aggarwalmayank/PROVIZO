@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,188 +8,197 @@
     android:orientation="vertical"
     tools:context=".Partner">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="12dp"
-        app:title="Partner"
-        app:titleTextAppearance="@style/mystyle"
-        app:titleTextColor="#000000" />
-
-    <TextView
-        android:id="@+id/companyname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
-        android:text="Company Name"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="12dp"
+            app:title="Partner"
+            app:titleTextAppearance="@style/mystyle"
+            app:titleTextColor="#000000" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/companyname"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Trucks Current Status"
-            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:text="Company Name"
             android:textColor="#000000"
-            android:layout_weight="1">
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        </TextView>
-
-        <TextView
-            android:id="@+id/currentstatus"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Available"
-            android:gravity="center"
-            android:layout_weight="1">
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
 
-        </TextView>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Trucks Current Status"
+                android:textColor="#000000">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+            </TextView>
+
+            <TextView
+                android:id="@+id/currentstatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Available">
+
+            </TextView>
+
+        </LinearLayout>
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:id="@+id/changeavail"
-            android:text="Update Availability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:background="@drawable/ripple_effect"
             android:gravity="center"
-            android:layout_weight="1">
+            android:padding="5dp"
+            android:text="Update Availability">
 
         </Button>
 
-        <RadioGroup
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:id="@+id/radiogrp2"
-            android:layout_height="wrap_content">
-            <RadioButton
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/radiogrp2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Available"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All Booked"/>
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
-        </RadioGroup>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available" />
 
-    </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Update"
-        android:id="@+id/confirmavail"
-        android:background="@drawable/ripple_effect"
-        android:layout_marginTop="10dp"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All Booked" />
 
-    <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:elevation="12dp"
-        android:orientation="horizontal">
+            </RadioGroup>
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1">
-
-        </Spinner>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:src="@drawable/destination" />
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:elevation="12dp">
-
-        </Spinner>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Current Rate"
-            android:textColor="#000000"
-            android:textSize="15sp">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/current_rate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="#000000"
-            android:textSize="15sp">
-
-        </TextView>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        </LinearLayout>
 
         <Button
-            android:layout_width="0dp"
+            android:id="@+id/confirmavail"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Change Rate"
-            android:id="@+id/ratechange"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:background="@drawable/ripple_effect"
+            android:text="Update" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="5dp"
+            android:background="#ffffff"
+            android:elevation="12dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1">
+
+            </Spinner>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/destination" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:elevation="12dp">
+
+            </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Current Rate"
+                android:textColor="#000000"
+                android:textSize="15sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/current_rate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="15sp">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/ratechange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ripple_effect"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Change Rate"
             android:textColor="#000000"
             android:textSize="15sp">
 
@@ -197,65 +206,70 @@
 
         <EditText
             android:id="@+id/new_rate"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:inputType="number"
             android:gravity="center"
             android:hint="Enter new Rate "
-            android:textSize="15sp">
+            android:inputType="number"
+            android:textSize="15sp"
+            android:padding="10dp">
 
         </EditText>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/selectunit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="per unit"
+                android:textColor="#000000"
+                android:textSize="15sp">
+
+            </TextView>
+
+            <RadioGroup
+                android:id="@+id/radiogrp1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kg" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tonne" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quintal" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirmrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/selectunit"
-            android:text="per unit"
-            android:textColor="#000000"
-            android:textSize="15sp">
-
-        </TextView>
-
-        <RadioGroup
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:id="@+id/radiogrp1"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kg"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tone"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quintal"/>
-        </RadioGroup>
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ripple_effect"
+            android:text="Update" />
 
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Update"
-        android:id="@+id/confirmrate"
-        android:background="@drawable/ripple_effect"
-        android:layout_marginTop="10dp"/>
-
-
-</LinearLayout>
+</ScrollView>

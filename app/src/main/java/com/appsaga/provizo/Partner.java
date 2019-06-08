@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Partner extends AppCompatActivity {
+
     Button updaterate, updateavail, changerate, changeavail;
     TextView companyname, availability, currentRate, selectunit;
     Spinner spinner1, spinner2;
@@ -36,11 +37,11 @@ public class Partner extends AppCompatActivity {
     private RadioGroup rgavail, rgunit;
     private RadioButton rbavail, rbunit;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partner);
+
         newrate = findViewById(R.id.new_rate);
         updaterate = findViewById(R.id.confirmrate);
         updateavail = findViewById(R.id.confirmavail);
@@ -56,7 +57,6 @@ public class Partner extends AppCompatActivity {
         rgavail.setVisibility(View.INVISIBLE);
         selectunit.setVisibility(View.INVISIBLE);
         newrate.setVisibility(View.INVISIBLE);
-
 
         final String username = getIntent().getStringExtra("partner id");
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -78,12 +78,12 @@ public class Partner extends AppCompatActivity {
         spinner2 = findViewById(R.id.spinner2);
         currentRate = findViewById(R.id.current_rate);
 
-
         databaseReference.child("partners").child(username).child("operations").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                 final PartnerValue partnerValue = dataSnapshot.getValue(PartnerValue.class);
+                Log.d("Run.....", "Yes");
+                final PartnerValue partnerValue = dataSnapshot.getValue(PartnerValue.class);
 
                 companyname.setText(partnerValue.getCompanyName());
                 availability.setText(partnerValue.getTruckStatus());
@@ -148,6 +148,7 @@ public class Partner extends AppCompatActivity {
 
             }
         });
+
         changeavail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,53 +165,60 @@ public class Partner extends AppCompatActivity {
                 newrate.setVisibility(View.VISIBLE);
             }
         });
-        updateavail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = rgavail.getCheckedRadioButtonId();
-                rbavail = (RadioButton) findViewById(selectedId);
-                if (rgavail.getCheckedRadioButtonId()==-1)
-                    alertbox("Invalid status");
-                else {
-                    databaseReference.child("partners").child(username).child("operations").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            databaseReference.child("partners").child(username).child("operations").child("truckStatus").setValue(rbavail.getText());
-                            availability.setText(rbavail.getText());
-                            if (availability.getText().equals("Available"))
-                                availability.setTextColor(Color.parseColor("#008000"));
-                            else
-                                availability.setTextColor(Color.parseColor("#ff0000"));
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                    rgavail.setVisibility(View.INVISIBLE);
-                    updateavail.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
         updaterate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 int selectedId = rgunit.getCheckedRadioButtonId();
                 rbunit = (RadioButton) findViewById(selectedId);
-                if (rgunit.getCheckedRadioButtonId()==-1)
+                if (rgunit.getCheckedRadioButtonId() == -1)
                     alertbox("Invalid Unit");
-                else if(newrate.getText().toString().equalsIgnoreCase(""))
+                else if (newrate.getText().toString().equalsIgnoreCase(""))
                     newrate.setError("Invalid Rate");
                 else {
 
-                    //yha pe likhna h
+                    Log.d("Run....", "Yes2");
+                    DatabaseReference myRef;
+                    myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").
+                            child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+
+                    if (rbunit.getText().toString().equals("Kg")) {
+                        myRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.01);
+                    } else if (rbunit.getText().toString().equals("Tonne")) {
+                        myRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
+                    } else {
+                        myRef.setValue(Long.parseLong(newrate.getText().toString()));
+                    }
 
                     rgunit.setVisibility(View.INVISIBLE);
                     selectunit.setVisibility(View.INVISIBLE);
                     updaterate.setVisibility(View.INVISIBLE);
                     newrate.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        updateavail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedId = rgavail.getCheckedRadioButtonId();
+                rbavail = (RadioButton) findViewById(selectedId);
+                if (rgavail.getCheckedRadioButtonId() == -1) {
+                    alertbox("Invalid status");
+                } else {
+                    Log.d("Run....", "Yes3");
+                    DatabaseReference myRef;
+                    myRef = databaseReference.child("partners").child(username).child("operations").child("truckStatus");
+                    myRef.setValue(rbavail.getText());
+                    availability.setText(rbavail.getText());
+                    if (availability.getText().equals("Available"))
+                        availability.setTextColor(Color.parseColor("#008000"));
+                    else
+                        availability.setTextColor(Color.parseColor("#ff0000"));
+
+                    rgavail.setVisibility(View.INVISIBLE);
+                    updateavail.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -229,5 +237,10 @@ public class Partner extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+
+    }
 }

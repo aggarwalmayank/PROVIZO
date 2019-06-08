@@ -27,7 +27,6 @@ public class PartnerDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.partnerdialog, null);
 
-
         builder.setView(view)
                 .setTitle("Enter Partner ID")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

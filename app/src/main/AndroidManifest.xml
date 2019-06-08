@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Partner"></activity>
+        <activity android:name=".Confirmation"></activity>
+        <activity android:name=".AvailableServices" />
+        <activity android:name=".Partner" />
         <activity android:name=".RateChart" />
         <activity android:name=".ViewCards" />
         <activity android:name=".AddCard" />

@@ -46,7 +46,7 @@ import java.util.HashMap;
 
 import android.support.design.widget.NavigationView;
 
-public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener, com.appsaga.provizo.PartnerDialog.DialogListener {
+public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener{
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
@@ -125,7 +125,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         break;
                     case R.id.partnerlogin:
                         dl.closeDrawer(Gravity.LEFT);
-                        openDialog("partner");
+                        //openDialog("partner");
                         Toast.makeText(DeliveryLocation.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
@@ -316,7 +316,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     }
 
 
-    @Override
+   /* @Override
     public void loginid(final String username) {
     mQueryListener=new ValueEventListener() {
         @Override
@@ -340,7 +340,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     };
         Query query=mref.child("partners").orderByChild("partners");
         query.addValueEventListener(mQueryListener);
-    }
+    }*/
 
 
 

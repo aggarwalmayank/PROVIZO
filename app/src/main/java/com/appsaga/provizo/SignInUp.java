@@ -1,5 +1,7 @@
 package com.appsaga.provizo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -18,15 +20,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-public class SignInUp extends AppCompatActivity implements Dialog.DialogListener {
+public class SignInUp extends AppCompatActivity implements Dialog.DialogListener, com.appsaga.provizo.PartnerDialog.DialogListener  {
 
-    Button signUp,signIn;
+    Button signUp,signIn,partner;
     Typeface typeface;
     ProgressBar pbar;
     EditText email,pass;
     FirebaseAuth mAuth;
-    TextView forgot,verification;
+    TextView forgot;
+    private  ValueEventListener mQueryListener;
+    DatabaseReference mref= FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +59,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
                 mAuth.signOut();
             }
         });
-
+        partner=findViewById(R.id.partnerlogin);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener(){
             @Override
@@ -98,14 +108,26 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
             @Override
             public void onClick(View v) {
                 forgot.setTextColor(Color.parseColor("#800080"));
-                openDialog();
+                openDialog("");
+            }
+        });
+        partner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog("partner");
             }
         });
 
     }
-    public void openDialog() {
-        Dialog exampleDialog = new Dialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    public void openDialog(String a) {
+        if (a.equals("partner")) {
+            PartnerDialog dialog = new PartnerDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        } else {
+            Dialog exampleDialog = new Dialog();
+            exampleDialog.show(getSupportFragmentManager(), "example dialog");
+        }
+
     }
 
     @Override
@@ -126,6 +148,12 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
             }
         });
       // mAuth.getCurrentUser().sendEmailVerification();
+        partner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
     public void onStart(){
@@ -139,4 +167,64 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
 
         }
     }
+    @Override
+    public void loginid(final String username) {
+        final Boolean[] flag = {false};
+        mQueryListener=new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    if(snapshot.getKey().equals(username))
+                    {
+                        flag[0] =true;
+                        break;
+                    }
+                }
+                if(flag[0])
+                {
+                    Intent i=new Intent(SignInUp.this,Partner.class);
+                    i.putExtra("partner id",username);
+                    startActivity(i);
+                }
+                else
+                {
+                    alertbox("Invalid Partner ID");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        Query query=mref.child("partners").orderByChild("partners");
+        query.addValueEventListener(mQueryListener);
+    }
+
+
+
+    public void alertbox(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(msg);
+        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -68,7 +68,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Forgot Password"/>
-            android:hint="Enter Password" />
 
 
             <ProgressBar
@@ -130,5 +129,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/temp"
             android:background="@drawable/profilepic"/>
+        <Button
+            android:layout_margin="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Partner Login"
+            android:id="@+id/partnerlogin"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ripple_effect"/>
     </RelativeLayout>
+
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.appsaga.provizo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -9,6 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,19 +28,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Partner extends AppCompatActivity {
-
-    TextView companyname;
-    Spinner spinner1;
-    Spinner spinner2;
+    Button updaterate, updateavail, changerate, changeavail;
+    TextView companyname, availability, currentRate, selectunit;
+    Spinner spinner1, spinner2;
+    EditText newrate;
     DatabaseReference databaseReference;
-    TextView currentRate;
+    private RadioGroup rgavail, rgunit;
+    private RadioButton rbavail, rbunit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partner);
+        newrate = findViewById(R.id.new_rate);
+        updaterate = findViewById(R.id.confirmrate);
+        updateavail = findViewById(R.id.confirmavail);
+        changeavail = findViewById(R.id.changeavail);
+        changerate = findViewById(R.id.ratechange);
+        selectunit = findViewById(R.id.selectunit);
+        availability = findViewById(R.id.currentstatus);
+        rgavail = findViewById(R.id.radiogrp2);
+        rgunit = findViewById(R.id.radiogrp1);
+        updaterate.setVisibility(View.INVISIBLE);
+        updateavail.setVisibility(View.INVISIBLE);
+        rgunit.setVisibility(View.INVISIBLE);
+        rgavail.setVisibility(View.INVISIBLE);
+        selectunit.setVisibility(View.INVISIBLE);
+        newrate.setVisibility(View.INVISIBLE);
 
-        String username = getIntent().getStringExtra("partner id");
+
+        final String username = getIntent().getStringExtra("partner id");
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         android.support.v7.widget.Toolbar toolbar = (
@@ -49,23 +73,28 @@ public class Partner extends AppCompatActivity {
             }
         });
 
-        companyname =findViewById(R.id.companyname);
+        companyname = findViewById(R.id.companyname);
         spinner1 = findViewById(R.id.spinner1);
         spinner2 = findViewById(R.id.spinner2);
         currentRate = findViewById(R.id.current_rate);
+
 
         databaseReference.child("partners").child(username).child("operations").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                final PartnerValue partnerValue = dataSnapshot.getValue(PartnerValue.class);
+                 final PartnerValue partnerValue = dataSnapshot.getValue(PartnerValue.class);
 
                 companyname.setText(partnerValue.getCompanyName());
+                availability.setText(partnerValue.getTruckStatus());
+                if (availability.getText().equals("Available"))
+                    availability.setTextColor(Color.parseColor("#008000"));
+                else
+                    availability.setTextColor(Color.parseColor("#ff0000"));
 
                 ArrayList<String> source = new ArrayList<>();
 
-                for(HashMap.Entry<String,HashMap<String,Long>> entry : partnerValue.getLocationMap().entrySet())
-                {
+                for (HashMap.Entry<String, HashMap<String, Long>> entry : partnerValue.getLocationMap().entrySet()) {
                     source.add(entry.getKey());
                 }
 
@@ -79,12 +108,11 @@ public class Partner extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                        final HashMap<String,Long> source_dest = partnerValue.getLocationMap().get(parent.getItemAtPosition(position).toString());
+                        final HashMap<String, Long> source_dest = partnerValue.getLocationMap().get(parent.getItemAtPosition(position).toString());
 
                         ArrayList<String> dest = new ArrayList<>();
 
-                        for(HashMap.Entry<String,Long> entry : source_dest.entrySet())
-                        {
+                        for (HashMap.Entry<String, Long> entry : source_dest.entrySet()) {
                             dest.add(entry.getKey());
                         }
 
@@ -98,7 +126,7 @@ public class Partner extends AppCompatActivity {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                                currentRate.setText(source_dest.get(parent.getItemAtPosition(position).toString())+"");
+                                currentRate.setText(source_dest.get(parent.getItemAtPosition(position).toString()) + " per Quintal");
                             }
 
                             @Override
@@ -120,5 +148,86 @@ public class Partner extends AppCompatActivity {
 
             }
         });
+        changeavail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rgavail.setVisibility(View.VISIBLE);
+                updateavail.setVisibility(View.VISIBLE);
+            }
+        });
+        changerate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rgunit.setVisibility(View.VISIBLE);
+                updaterate.setVisibility(View.VISIBLE);
+                selectunit.setVisibility(View.VISIBLE);
+                newrate.setVisibility(View.VISIBLE);
+            }
+        });
+        updateavail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedId = rgavail.getCheckedRadioButtonId();
+                rbavail = (RadioButton) findViewById(selectedId);
+                if (rgavail.getCheckedRadioButtonId()==-1)
+                    alertbox("Invalid status");
+                else {
+                    databaseReference.child("partners").child(username).child("operations").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            databaseReference.child("partners").child(username).child("operations").child("truckStatus").setValue(rbavail.getText());
+                            availability.setText(rbavail.getText());
+                            if (availability.getText().equals("Available"))
+                                availability.setTextColor(Color.parseColor("#008000"));
+                            else
+                                availability.setTextColor(Color.parseColor("#ff0000"));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    rgavail.setVisibility(View.INVISIBLE);
+                    updateavail.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        updaterate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int selectedId = rgunit.getCheckedRadioButtonId();
+                rbunit = (RadioButton) findViewById(selectedId);
+                if (rgunit.getCheckedRadioButtonId()==-1)
+                    alertbox("Invalid Unit");
+                else if(newrate.getText().toString().equalsIgnoreCase(""))
+                    newrate.setError("Invalid Rate");
+                else {
+
+                    //yha pe likhna h
+
+                    rgunit.setVisibility(View.INVISIBLE);
+                    selectunit.setVisibility(View.INVISIBLE);
+                    updaterate.setVisibility(View.INVISIBLE);
+                    newrate.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
+
+    public void alertbox(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(msg);
+        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
+    }
+
+
 }

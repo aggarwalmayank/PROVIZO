@@ -166,7 +166,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     material.setError("Invalid Description");
                 else if (weight.getText().toString().equalsIgnoreCase(""))
                     weight.setError("Invalid weight");
-                else if (!radioWeightButton.isChecked())
+                else if (radioWeightGroup.getCheckedRadioButtonId()==-1)
                     alertbox("No Unit Selected");
                 else if (trucktype.getSelectedItem().toString().equals("Select Truck Type"))
                     alertbox("Please Select Truck");

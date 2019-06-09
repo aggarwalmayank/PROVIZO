@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,7 +71,7 @@ public class AvailableServices extends AppCompatActivity {
                             String priceVal = "0";
 
                             for (HashMap.Entry<String, Long> entry : locationMap.entrySet()) {
-                                if (entry.getKey().equals(getIntent().getStringExtra("drop"))) {
+                                if (entry.getKey().equalsIgnoreCase(getIntent().getStringExtra("drop"))) {
                                     priceVal = entry.getValue() + "";
                                     break;
                                 }
@@ -93,6 +96,16 @@ public class AvailableServices extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        serviceView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                TextView company = view.findViewById(R.id.comp_name);
+
+                Toast.makeText(AvailableServices.this,company.getText().toString(),Toast.LENGTH_LONG).show();
             }
         });
     }

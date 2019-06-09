@@ -212,6 +212,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     Intent i = new Intent(DeliveryLocation.this, SelectServiceTruck.class);
                     i.putExtra("Order ID", orderid);
                     i.putExtra("Current User", current_user);
+                    i.putExtra("pickup",pickuploc.getText().toString());
+                    i.putExtra("drop",droploc.getText().toString());
                     //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
                     startActivity(i);
                 }

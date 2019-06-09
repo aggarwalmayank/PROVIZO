@@ -172,9 +172,13 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     alertbox("Please Select Truck");
                 else {
                     AddtoFirebase();
-                    Intent i=new Intent(SelectServiceTruck.this,consignor_details.class);
+                    Intent i=new Intent(SelectServiceTruck.this,AvailableServices.class);
                     i.putExtra("Order ID",orderid);
                     i.putExtra("Current User",currentuser);
+                    i.putExtra("type of service",spinner.getSelectedItem().toString());
+                    i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                    i.putExtra("drop",getIntent().getStringExtra("drop"));
+                    i.putExtra("weight",weight.getText().toString());
                     startActivity(i);
                 }
             }

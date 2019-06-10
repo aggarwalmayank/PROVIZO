@@ -13,7 +13,7 @@ public class completed extends AppCompatActivity {
         setContentView(R.layout.activity_completed);
 
 
-        TextView tv=findViewById(R.id.appnamesignupsecond);
+        TextView tv=findViewById(R.id.appname);
         Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
 

@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -123,7 +124,7 @@ public class SignUpSecond extends AppCompatActivity {
                                         Bundle bundle = getIntent().getExtras();
                                         MobileNo=bundle.getString("phnumber");
                                         addToLocalDatabase();
-                                        addToFirebaseDatabase();
+                                        addToFirebaseDatabase(firebaseAuth.getCurrentUser());
                                         Log.d("Test.....","yes3");
                                         Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(SignUpSecond.this,SignInUp.class);
@@ -164,7 +165,7 @@ public class SignUpSecond extends AppCompatActivity {
 
     }
 
-    void addToFirebaseDatabase()
+    void addToFirebaseDatabase(final FirebaseUser u)
     {
 
         Log.d("Test.....","yes4");
@@ -184,7 +185,8 @@ public class SignUpSecond extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Log.d("Test.....","yes5");
-                databaseReference.child("users").child(name.getText().toString()+"-"+dob.getText().toString()+"-"+MobileNo).setValue(insert);
+                Toast.makeText(SignUpSecond.this, u.getUid(), Toast.LENGTH_SHORT).show();
+                databaseReference.child("users").child(u.getUid()).setValue(insert);
             }
 
             @Override

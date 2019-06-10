@@ -30,6 +30,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,17 +55,17 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     EditText pickupdate, droploc, pickuploc;
     DatabaseHelperUser db;
     ImageView menuicon;
-    String current_user, orderid;
+    String  orderid;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "DeliveryLoc";
     private  ValueEventListener mQueryListener;
-    DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
+    Intent tonext;
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
-    DatabaseReference myref;
+    DatabaseReference myref = FirebaseDatabase.getInstance().getReference();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         t = new ActionBarDrawerToggle(this, dl, R.string.open, R.string.close);
         dl.addDrawerListener(t);
         t.syncState();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         nv = (NavigationView) findViewById(R.id.nv);
         menuicon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +157,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     case R.id.signout:
                         Toast.makeText(DeliveryLocation.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
-                        //startActivity(new Intent(DeliveryLocation.this,SignInUp.class));
                         finish();
                         break;
                     default:
@@ -166,34 +166,37 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
             }
         });
+        /*FirebaseUser mAuth=FirebaseAuth.getInstance().getCurrentUser();
 
-        myref = FirebaseDatabase.getInstance().getReference();
-        Cursor res = db.GetOneData(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        current_user = mAuth.getDisplayName()+"-"+mAuth.getPhoneNumber();
+        Toast.makeText(this, current_user, Toast.LENGTH_SHORT).show();
+        myref.child("users").child(current_user).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                dataSnapshot.getRef().child("Email Verification").setValue("Verified");
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("User", databaseError.getMessage());
+            }
+        });
+*/
+        /*Cursor res = db.GetOneData(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (res.getCount() == 0) {
             Toast.makeText(DeliveryLocation.this, "error", Toast.LENGTH_SHORT).show();
             return;
         } else {
             while (res.moveToNext()) {
                 current_user = res.getString(1) + "-" + res.getString(3) + "-" + res.getString(2);
-                myref.child("users").child(current_user).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        dataSnapshot.getRef().child("Email Verification").setValue("Verified");
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d("User", databaseError.getMessage());
-                    }
-                });
 
             }
 
         }
-
+*/
 
         deliveryNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,36 +211,45 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
                     Date today = Calendar.getInstance().getTime();
                     orderid = df.format(today);
+                    tonext= new Intent(DeliveryLocation.this, SelectServiceTruck.class);
                     AddtoFirebase();
-                    Intent i = new Intent(DeliveryLocation.this, SelectServiceTruck.class);
-                    i.putExtra("Order ID", orderid);
-                    i.putExtra("Current User", current_user);
-                    i.putExtra("pickup",pickuploc.getText().toString());
-                    i.putExtra("drop",droploc.getText().toString());
+
+                    tonext.putExtra("Order ID", orderid);
+                    tonext.putExtra("pickup",pickuploc.getText().toString().toLowerCase());
+                    tonext.putExtra("drop",droploc.getText().toString().toLowerCase());
+                    tonext.putExtra("date",pickupdate.getText().toString());
                     //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
-                    startActivity(i);
+                    startActivity(tonext);
                 }
 
             }
         });
+
     }
 
     public void AddtoFirebase() {
 
         Log.d("Delivery Location", "i am here");
         final HashMap<String, Object> insert = new HashMap<>();
-        insert.put("Pick Up Location", pickuploc.getText().toString());
-        insert.put("Drop Location", droploc.getText().toString());
-        insert.put("Pick Up Date", pickupdate.getText().toString());
+        String pick,drop,date;
+        pick=pickuploc.getText().toString().toLowerCase();
+        drop=droploc.getText().toString().toLowerCase();
+        date=pickupdate.getText().toString();
+        insert.put("Pick Up Location", pick);
+        insert.put("Drop Location", drop);
+        insert.put("Pick Up Date", date);
 
-        myref.child("users").child(current_user).child("Bookings").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        //Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
+        tonext.putExtra("Current User", user.getUid());
+        myref.child("users").child(user.getUid()).child("Bookings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Log.d("Delivery Location", "heyy");
 
-
-                myref.child("users").child(current_user).child("Bookings").child(orderid).setValue(insert);
+                myref.child("users").child(user.getUid()).child("Bookings").child(orderid).setValue(insert);
 
             }
 

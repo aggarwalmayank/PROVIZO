@@ -81,7 +81,8 @@
                 android:drawableLeft="@drawable/phone"
                 android:gravity="center"
                 android:hint="Consignee Mobile Number"
-                android:inputType="text" />
+                android:inputType="number"
+                android:maxLength="10"/>
 
             <EditText
                 android:id="@+id/consigneegst"
@@ -90,18 +91,26 @@
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/gst"
                 android:gravity="center"
+                android:maxLength="15"
                 android:hint="Consignee GST Number"
                 android:inputType="text" />
 
-            <EditText
+            <TextView
                 android:id="@+id/price"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:digits="1234657890abcdefghijklmnopqrstvuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/rupee"
+                android:textColor="#000000"
+                android:textSize="18sp"
                 android:gravity="center"
-                android:hint="Total Amount"
-                android:inputType="number" />
+                android:hint="Total Amount" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/darker_gray"/>
 
 
 

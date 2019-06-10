@@ -1,5 +1,6 @@
 package com.appsaga.provizo;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class AvailableServices extends AppCompatActivity {
     ArrayList<Services> services;
     ListView serviceView;
     ServiceAdapter serviceAdapter;
+    String currentuser,orderid,onlyamount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,11 @@ public class AvailableServices extends AppCompatActivity {
         serviceType = getIntent().getStringExtra("type of service");
         serviceView = findViewById(R.id.service_list);
         services = new ArrayList<>();
+
+        orderid = getIntent().getStringExtra("Order ID");
+        currentuser = getIntent().getStringExtra("Current User");
+
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -103,10 +110,38 @@ public class AvailableServices extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                TextView company = view.findViewById(R.id.comp_name);
+                final TextView company = view.findViewById(R.id.comp_name);
+                TextView price=view.findViewById(R.id.price);
+                databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").setValue(company.getText());
+                    }
 
-                Toast.makeText(AvailableServices.this,company.getText().toString(),Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                Intent i=new Intent(AvailableServices.this,Confirmation.class);
+                i.putExtra("Order ID",orderid);
+                i.putExtra("Current User",currentuser);
+                i.putExtra("date",getIntent().getStringExtra("date"));
+                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("amount",price.getText().toString());
+                i.putExtra("company",company.getText());
+                startActivity(i);
+                //Toast.makeText(AvailableServices.this,company.getText().toString(),Toast.LENGTH_LONG).show();
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).child("Service Truck Details").removeValue();
+        finish();
+
+    }
+
 }

@@ -32,7 +32,7 @@ public class ServiceAdapter extends ArrayAdapter<Services> {
         TextView price = serviceView.findViewById(R.id.price);
 
         compName.setText(services.getCompanyName());
-        price.setText("Price\n"+services.getPrice());
+        price.setText(services.getPrice());
         return serviceView;
     }
 }

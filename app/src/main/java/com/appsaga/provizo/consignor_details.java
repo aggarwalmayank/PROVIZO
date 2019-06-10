@@ -1,5 +1,7 @@
 package com.appsaga.provizo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -13,6 +15,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,52 +23,85 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 
-public class consignor_details extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener{
+public class consignor_details extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
 
     ImageButton consignor;
-    DatabaseHelperUser db;
-    EditText name, number,gst;
+    EditText name, number, gst, address;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     ImageView menuicon;
     boolean isupdate;
+    String regex = "\\d+";
+    String regex2 = "^[a-zA-Z]*$";
+    CheckBox c1, c2, c3, c4;
+    DatabaseReference mRef;
+    String orderid, currentuser, amount;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consignor_details);
-        db=new DatabaseHelperUser(this);
 
         TextView tv = findViewById(R.id.appnamesignupsecond);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
         name = findViewById(R.id.consignorname);
         number = findViewById(R.id.consignorphone);
-        gst=findViewById(R.id.consignorgst);
+        gst = findViewById(R.id.consignorgst);
         menuicon = findViewById(R.id.menuicon);
         consignor = findViewById(R.id.consignorr);
-        setDetails();
+        address = findViewById(R.id.consignoradd);
+        c1 = findViewById(R.id.chkbox1);
+        c2 = findViewById(R.id.chkbox2);
+        c3 = findViewById(R.id.chkbox3);
+        c4 = findViewById(R.id.chkbox4);
+
+        mRef= FirebaseDatabase.getInstance().getReference();
+
+        amount = getIntent().getStringExtra("amount");
+        currentuser = getIntent().getStringExtra("Current User");
+        orderid = getIntent().getStringExtra("Order ID");
+
+
         consignor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(consignor_details.this, FirebaseAuth.getInstance().getCurrentUser().getEmail().trim(), Toast.LENGTH_SHORT).show();
-                Cursor res1 = db.GetOneData( FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                if (res1.getCount() == 0) {
-                    Toast.makeText(consignor_details.this, "No Data", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    while (res1.moveToNext()) {
-                        if(!(res1.getString(6).equals("")))
-                            isupdate=db.updateSingleCol("GST",gst.getText().toString(),
-                                    FirebaseAuth.getInstance().getCurrentUser().getEmail().trim());
-                        if(isupdate)
-                            Toast.makeText(consignor_details.this, "hogya update", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                String p = gst.getText().toString();
+                if (name.getText().toString().equalsIgnoreCase(""))
+                    name.setError("Enter Name");
+                else if (address.getText().toString().equalsIgnoreCase(""))
+                    address.setError("Enter Address");
+                else if (gst.getText().toString().equalsIgnoreCase(""))
+                    gst.setError("Enter GST Number");
+                else if (gst.getText().toString().length() != 15)
+                    gst.setError("Invalid Number");
+              /*  else if (!(p.substring(5, 9)).matches(regex) || !(p.substring(2, 7)).matches(regex2) || !(p.substring(11)).matches(regex2) || !(p.substring(13)).matches(regex2)
+                        || !(p.substring(0, 2)).matches(regex) || !(p.substring(14)).matches(regex) || !(p.substring(12)).matches(regex))
+                    gst.setError("Invalid Number");*/
+                else if (number.getText().toString().equalsIgnoreCase(""))
+                    number.setError("Enter Number");
+                else if (!c1.isChecked() || !c2.isChecked() || !c3.isChecked() || !c4.isChecked())
+                    alertbox("Plese Check all boxes");
+                else {
+                    addtofirebase();
 
-                startActivity(new Intent(consignor_details.this, com.appsaga.provizo.consignee_details.class));
+                    Intent i = new Intent(consignor_details.this, com.appsaga.provizo.consignee_details.class);
+                    i.putExtra("Current User", currentuser);
+                    i.putExtra("Order ID", orderid);
+                    i.putExtra("amount", amount);
+                    startActivity(i);
+                }
             }
         });
 
@@ -73,7 +109,7 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         t = new ActionBarDrawerToggle(this, dl, R.string.open, R.string.close);
         dl.addDrawerListener(t);
         t.syncState();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         nv = (NavigationView) findViewById(R.id.nv);
         menuicon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,21 +178,29 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         });
     }
 
-    public void setDetails(){
-        Cursor res = db.GetOneData(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+    public void addtofirebase()
+    {
+        final HashMap<String, Object> insert = new HashMap<>();
+        insert.put("Consignor Name",name.getText().toString());
+        insert.put("Phone Number", number.getText().toString());
+        insert.put("Address", address.getText().toString());
+        insert.put("GST", gst.getText().toString());
 
-        if (res.getCount() == 0) {
-            Toast.makeText(consignor_details.this, "No Data", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            while (res.moveToNext()) {
-                name.setText(res.getString(1));
-                number.setText(res.getString(2));
-                if(!(res.getString(6).equals("")))
-                    gst.setText(res.getString(6));
+
+        mRef.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                mRef.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignor").setValue(insert);
             }
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
+
     public void openDialog() {
         ProfileDialog exampleDialog = new ProfileDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");
@@ -164,6 +208,26 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
 
     @Override
     public void applyTexts() {
+
+    }
+
+    public void alertbox(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(msg);
+        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
 
     }
 }

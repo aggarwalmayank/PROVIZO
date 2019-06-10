@@ -178,6 +178,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     i.putExtra("type of service",spinner.getSelectedItem().toString());
                     i.putExtra("pickup",getIntent().getStringExtra("pickup"));
                     i.putExtra("drop",getIntent().getStringExtra("drop"));
+                    i.putExtra("date",getIntent().getStringExtra("date"));
                     i.putExtra("weight",weight.getText().toString());
                     startActivity(i);
                 }
@@ -229,6 +230,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     public void onBackPressed() {
         super.onBackPressed();
         myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
+        finish();
 
     }
 

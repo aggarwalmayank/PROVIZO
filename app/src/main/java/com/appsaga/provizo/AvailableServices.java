@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class AvailableServices extends AppCompatActivity {
@@ -45,8 +46,6 @@ public class AvailableServices extends AppCompatActivity {
 
         orderid = getIntent().getStringExtra("Order ID");
         currentuser = getIntent().getStringExtra("Current User");
-
-
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

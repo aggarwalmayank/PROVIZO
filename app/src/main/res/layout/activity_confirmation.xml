@@ -88,15 +88,41 @@
                 android:drawableLeft="@drawable/ratechart"
                 android:id="@+id/amount"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:textColor="#000000"
                 android:layout_width="250dp"
-                android:drawableRight="@drawable/downarrow"
                 android:layout_height="wrap_content" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:layout_marginTop="2dp"
                 android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:id="@+id/fulldetails"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Base Price: 15000 "
+                    android:layout_gravity="right"
+                    android:id="@+id/baseprice"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="GST(5%): 1452"
+                    android:id="@+id/tax"/>
+                <TextView
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total:100000 "
+                    android:id="@+id/finalprice"/>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_marginTop="15dp"
@@ -116,7 +142,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Book"
+                    android:text="Pay"
                     android:id="@+id/book"
                     android:background="@drawable/ripple_effect_2"/>
             </LinearLayout>

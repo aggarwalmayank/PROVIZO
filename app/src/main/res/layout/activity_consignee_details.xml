@@ -54,6 +54,7 @@
 
             <EditText
                 android:id="@+id/consigneename"
+                android:maxLines="1"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -66,6 +67,7 @@
             <EditText
                 android:id="@+id/consigneeadd"
                 android:layout_width="300dp"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/calendaricon"
@@ -80,6 +82,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/phone"
                 android:gravity="center"
+                android:maxLines="1"
                 android:hint="Consignee Mobile Number"
                 android:inputType="number"
                 android:maxLength="10"/>
@@ -89,40 +92,29 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:maxLines="1"
                 android:drawableLeft="@drawable/gst"
                 android:gravity="center"
                 android:maxLength="15"
                 android:hint="Consignee GST Number"
                 android:inputType="text" />
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:digits="1234657890abcdefghijklmnopqrstvuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/rupee"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:hint="Total Amount" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/darker_gray"/>
 
 
 
 
-            <Button
+            <ImageButton
                 android:id="@+id/pay"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/ripple_effect"
-                android:text="Pay" />
+                android:layout_marginTop="50dp"
+                android:background="@drawable/ripple_effect_2"
+                android:clickable="false"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/right_pointer" />
 
 
         </LinearLayout>

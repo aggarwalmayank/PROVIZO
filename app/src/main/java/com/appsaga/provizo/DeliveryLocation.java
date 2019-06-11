@@ -62,10 +62,10 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     private static final String TAG = "DeliveryLoc";
     private  ValueEventListener mQueryListener;
     Intent tonext;
-
+    DatabaseReference myref;
     private static final int ERROR_DIALOG_REQUEST = 9001;
+     FirebaseUser user;
 
-    DatabaseReference myref = FirebaseDatabase.getInstance().getReference();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         setContentView(R.layout.activity_delivery_location);
 
         db = new DatabaseHelperUser(this);
-
+        myref = FirebaseDatabase.getInstance().getReference();;
         TextView tv = findViewById(R.id.appnamesignupsecond);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
@@ -166,37 +166,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
             }
         });
-        /*FirebaseUser mAuth=FirebaseAuth.getInstance().getCurrentUser();
 
-        current_user = mAuth.getDisplayName()+"-"+mAuth.getPhoneNumber();
-        Toast.makeText(this, current_user, Toast.LENGTH_SHORT).show();
-        myref.child("users").child(current_user).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                dataSnapshot.getRef().child("Email Verification").setValue("Verified");
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("User", databaseError.getMessage());
-            }
-        });
-*/
-        /*Cursor res = db.GetOneData(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        if (res.getCount() == 0) {
-            Toast.makeText(DeliveryLocation.this, "error", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            while (res.moveToNext()) {
-                current_user = res.getString(1) + "-" + res.getString(3) + "-" + res.getString(2);
-
-            }
-
-        }
-*/
 
         deliveryNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,14 +210,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         insert.put("Pick Up Date", date);
 
 
-        final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-        //Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
+        user=FirebaseAuth.getInstance().getCurrentUser();
         tonext.putExtra("Current User", user.getUid());
         myref.child("users").child(user.getUid()).child("Bookings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("Delivery Location", "heyy");
 
                 myref.child("users").child(user.getUid()).child("Bookings").child(orderid).setValue(insert);
 

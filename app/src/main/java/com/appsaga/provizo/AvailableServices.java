@@ -122,7 +122,7 @@ public class AvailableServices extends AppCompatActivity {
 
                     }
                 });
-                Intent i=new Intent(AvailableServices.this,Confirmation.class);
+                Intent i=new Intent(AvailableServices.this,consignor_details.class);
                 i.putExtra("Order ID",orderid);
                 i.putExtra("Current User",currentuser);
                 i.putExtra("date",getIntent().getStringExtra("date"));

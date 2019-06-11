@@ -36,5 +36,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
+    implementation files('libs\\activation.jar')
+    implementation files('libs\\additionnal.jar')
+    implementation files('libs\\mail.jar')
 }
 apply plugin: 'com.google.gms.google-services'

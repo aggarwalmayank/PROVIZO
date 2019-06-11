@@ -57,6 +57,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:maxLines="1"
                 android:drawableLeft="@drawable/mappin"
                 android:gravity="center"
                 android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -72,6 +73,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/mappin"
                 android:gravity="center"
+                android:maxLines="1"
                 android:hint="Enter Drop Location"
                 android:inputType="text" />
 
@@ -81,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:layout_marginTop="10dp"
+                android:maxLines="1"
                 android:drawableLeft="@drawable/calendaricon"
                 android:gravity="center"
                 android:hint="Enter Pick-Up Date"

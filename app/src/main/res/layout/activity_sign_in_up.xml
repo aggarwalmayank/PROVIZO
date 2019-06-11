@@ -45,6 +45,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="95dp"
+                android:maxLines="1"
                 android:drawableStart="@drawable/loginid"
                 android:drawableLeft="@drawable/loginid"
                 android:gravity="center"
@@ -58,6 +59,7 @@
                 android:drawableStart="@drawable/passwordicon"
                 android:drawableLeft="@drawable/passwordicon"
                 android:gravity="center"
+                android:maxLines="1"
                 android:hint="Enter Password" />
             <TextView
                 android:layout_marginLeft="50dp"

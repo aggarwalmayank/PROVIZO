@@ -45,7 +45,7 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
     String regex2 = "^[a-zA-Z]*$";
     CheckBox c1, c2, c3, c4;
     DatabaseReference mRef;
-    String orderid, currentuser, amount;
+    String orderid, currentuser, amount, company;
 
 
     @Override
@@ -67,11 +67,12 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         c3 = findViewById(R.id.chkbox3);
         c4 = findViewById(R.id.chkbox4);
 
-        mRef= FirebaseDatabase.getInstance().getReference();
+        mRef = FirebaseDatabase.getInstance().getReference();
 
         amount = getIntent().getStringExtra("amount");
         currentuser = getIntent().getStringExtra("Current User");
         orderid = getIntent().getStringExtra("Order ID");
+        company = getIntent().getStringExtra("company");
 
 
         consignor.setOnClickListener(new View.OnClickListener() {
@@ -82,15 +83,36 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                     name.setError("Enter Name");
                 else if (address.getText().toString().equalsIgnoreCase(""))
                     address.setError("Enter Address");
-                else if (gst.getText().toString().equalsIgnoreCase(""))
-                    gst.setError("Enter GST Number");
-                else if (gst.getText().toString().length() != 15)
-                    gst.setError("Invalid Number");
-              /*  else if (!(p.substring(5, 9)).matches(regex) || !(p.substring(2, 7)).matches(regex2) || !(p.substring(11)).matches(regex2) || !(p.substring(13)).matches(regex2)
+                else if (!gst.getText().toString().isEmpty()) {
+                    if (gst.getText().toString().length() != 15)
+                        gst.setError("Invalid Number");
+                  /*else if (!(p.substring(5, 9)).matches(regex) || !(p.substring(2, 7)).matches(regex2) || !(p.substring(11)).matches(regex2) || !(p.substring(13)).matches(regex2)
                         || !(p.substring(0, 2)).matches(regex) || !(p.substring(14)).matches(regex) || !(p.substring(12)).matches(regex))
                     gst.setError("Invalid Number");*/
-                else if (number.getText().toString().equalsIgnoreCase(""))
+                    else if (number.getText().toString().equalsIgnoreCase(""))
+                        number.setError("Enter Number");
+                    else if (number.getText().toString().length() != 10)
+                        number.setError("Invalid Error");
+                    else if (!c1.isChecked() || !c2.isChecked() || !c3.isChecked() || !c4.isChecked())
+                        alertbox("Plese Check all boxes");
+                    else {
+                        addtofirebase();
+
+                        Intent i = new Intent(consignor_details.this, com.appsaga.provizo.consignee_details.class);
+                        i.putExtra("Current User", currentuser);
+                        i.putExtra("Order ID", orderid);
+                        i.putExtra("amount", amount);
+                        i.putExtra("company", company);
+                        i.putExtra("consignor gst",gst.getText().toString());
+                        i.putExtra("date",getIntent().getStringExtra("date"));
+                        i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                        i.putExtra("drop",getIntent().getStringExtra("drop"));
+                        startActivity(i);
+                    }
+                } else if (number.getText().toString().equalsIgnoreCase(""))
                     number.setError("Enter Number");
+                else if (number.getText().toString().length() != 10)
+                    number.setError("Invalid Error");
                 else if (!c1.isChecked() || !c2.isChecked() || !c3.isChecked() || !c4.isChecked())
                     alertbox("Plese Check all boxes");
                 else {
@@ -100,6 +122,11 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                     i.putExtra("Current User", currentuser);
                     i.putExtra("Order ID", orderid);
                     i.putExtra("amount", amount);
+                    i.putExtra("company", company);
+                    i.putExtra("consignor gst",gst.getText().toString());
+                    i.putExtra("date",getIntent().getStringExtra("date"));
+                    i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                    i.putExtra("drop",getIntent().getStringExtra("drop"));
                     startActivity(i);
                 }
             }
@@ -178,10 +205,9 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         });
     }
 
-    public void addtofirebase()
-    {
+    public void addtofirebase() {
         final HashMap<String, Object> insert = new HashMap<>();
-        insert.put("Consignor Name",name.getText().toString());
+        insert.put("Consignor Name", name.getText().toString());
         insert.put("Phone Number", number.getText().toString());
         insert.put("Address", address.getText().toString());
         insert.put("GST", gst.getText().toString());
@@ -227,6 +253,7 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        mRef.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").removeValue();
         finish();
 
     }

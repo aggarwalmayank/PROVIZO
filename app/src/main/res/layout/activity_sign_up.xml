@@ -59,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/loginid"
                 android:inputType="number"
+                android:maxLines="1"
                 android:maxLength="110"
                 android:gravity="center"
                 android:hint="Mobile Number"
@@ -94,6 +95,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:maxLines="1"
                 android:drawableLeft="@drawable/otpicon"
                 android:gravity="center"
                 android:hint="Enter OTP" />

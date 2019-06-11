@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,15 +28,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class consignee_details extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
-    TextView price;
-    Button pay;
+
+    ImageButton pay;
     EditText name, address, number, gst;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     ImageView menuicon;
-    String currentuser, orderid, amount;
+    String currentuser, orderid, amount,company,gstconsignor;
     DatabaseReference mRef;
+    String regex = "\\d+";
+    String regex2 = "^[a-zA-Z]*$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +54,17 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
         number = findViewById(R.id.consigneephone);
         name = findViewById(R.id.consigneename);
         address = findViewById(R.id.consigneeadd);
-        price = findViewById(R.id.price);
+
         pay = findViewById(R.id.pay);
 
         currentuser = getIntent().getStringExtra("Current User");
         orderid = getIntent().getStringExtra("Order ID");
         amount = getIntent().getStringExtra("amount");
+        company=getIntent().getStringExtra("company");
+        gstconsignor=getIntent().getStringExtra("consignor gst");
         mRef = FirebaseDatabase.getInstance().getReference();
-        price.setText("Rs " + amount);
+
+
 
         dl = (DrawerLayout) findViewById(R.id.deliverylocation);
         t = new ActionBarDrawerToggle(this, dl, R.string.open, R.string.close);
@@ -135,21 +141,46 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
                     name.setError("Enter Name");
                 else if (address.getText().toString().equalsIgnoreCase(""))
                     address.setError("Enter Address");
-                else if (gst.getText().toString().equalsIgnoreCase(""))
-                    gst.setError("Enter GST Number");
-                else if (gst.getText().toString().length() != 15)
-                    gst.setError("Invalid Number");
-              /*  else if (!(p.substring(5, 9)).matches(regex) || !(p.substring(2, 7)).matches(regex2) || !(p.substring(11)).matches(regex2) || !(p.substring(13)).matches(regex2)
-                        || !(p.substring(0, 2)).matches(regex) || !(p.substring(14)).matches(regex) || !(p.substring(12)).matches(regex))
-                    gst.setError("Invalid Number");*/
-                else if (number.getText().toString().equalsIgnoreCase(""))
+                else if (!gst.getText().toString().isEmpty()) {
+                    if (gst.getText().toString().length() != 15)
+                        gst.setError("Invalid Number");
+                  /*  else if (!(p.substring(5, 9)).matches(regex) || !(p.substring(2, 7)).matches(regex2) || !(p.substring(11)).matches(regex2) || !(p.substring(13)).matches(regex2)
+                            || !(p.substring(0, 2)).matches(regex) || !(p.substring(14)).matches(regex) || !(p.substring(12)).matches(regex))
+                        gst.setError("Invalid Number");*/
+                    else if (number.getText().toString().equalsIgnoreCase(""))
+                        number.setError("Enter Number");
+                    else if (number.getText().toString().length() != 10)
+                        number.setError("Invalid Error");
+                    else {
+                        addtofirebase();
+                        Intent i = new Intent(consignee_details.this, Confirmation.class);
+                        i.putExtra("Current User", currentuser);
+                        i.putExtra("Order ID", orderid);
+                        i.putExtra("amount", amount);
+                        i.putExtra("company",company);
+                        i.putExtra("date",getIntent().getStringExtra("date"));
+                        i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                        i.putExtra("drop",getIntent().getStringExtra("drop"));
+                        i.putExtra("consignee gst",gst.getText().toString());
+                        i.putExtra("consignor gst",gstconsignor);
+                        startActivity(i);
+                    }
+                } else if (number.getText().toString().equalsIgnoreCase(""))
                     number.setError("Enter Number");
+                else if (number.getText().toString().length() != 10)
+                    number.setError("Invalid Error");
                 else {
                     addtofirebase();
-                    Intent i = new Intent(consignee_details.this, completed.class);
+                    Intent i = new Intent(consignee_details.this, Confirmation.class);
                     i.putExtra("Current User", currentuser);
                     i.putExtra("Order ID", orderid);
                     i.putExtra("amount", amount);
+                    i.putExtra("company",company);
+                    i.putExtra("date",getIntent().getStringExtra("date"));
+                    i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                    i.putExtra("drop",getIntent().getStringExtra("drop"));
+                    i.putExtra("consignee gst",gst.getText().toString());
+                    i.putExtra("consignor gst",gstconsignor);
                     startActivity(i);
                 }
             }
@@ -169,7 +200,7 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 mRef.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").setValue(insert);
-                mRef.child("users").child(currentuser).child("Bookings").child(orderid).child("Amount").setValue(amount);
+
             }
 
             @Override

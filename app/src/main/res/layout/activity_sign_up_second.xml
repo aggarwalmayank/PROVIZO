@@ -58,6 +58,7 @@
                 android:id="@+id/fullname"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:layout_marginTop="40dp"
                 android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:drawableLeft="@drawable/loginid"
@@ -97,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/calendaricon"
+                android:maxLines="1"
                 android:gravity="center"
                 android:focusable="false"
                 android:hint="Date of Birth"
@@ -110,6 +112,7 @@
                 android:drawableLeft="@drawable/mailicon"
                 android:gravity="center"
                 android:hint="Email ID"
+                android:maxLines="1"
                 android:inputType="text" />
 
             <EditText
@@ -120,6 +123,7 @@
                 android:drawableLeft="@drawable/passwordicon"
                 android:gravity="center"
                 android:hint="Password"
+                android:maxLines="1"
                 android:inputType="textPassword" />
 
 

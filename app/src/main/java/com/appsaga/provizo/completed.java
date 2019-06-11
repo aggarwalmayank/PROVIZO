@@ -24,7 +24,7 @@ import java.net.URL;
 public class completed extends AppCompatActivity {
     DatabaseReference mref;
     String number, orderid, currentuser, amount, company;
-
+    String numbers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,7 @@ public class completed extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     number=dataSnapshot.child("Phone Number").getValue().toString();
                     number=number.substring(1);
-                   // Toast.makeText(completed.this, number, Toast.LENGTH_SHORT).show();
+                    numbers = "&numbers=" +"918209819712";                   // Toast.makeText(completed.this, number, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -61,7 +61,7 @@ public class completed extends AppCompatActivity {
             String apiKey = "apikey=" + "YHI9M3C6dKE-M4GFP2WI84j5gsA4v9HZ2wCCJRvc5k";
             String message = "&message=" + "Congrats!!! Your Booking With "+company+" with Booking ID "+orderid+" of amount "+amount+" only is confirmed.";
             String sender = "&sender=" + "Provizo";
-            String numbers = "&numbers=" +"918209819712";
+
 
             // Send data
             HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();

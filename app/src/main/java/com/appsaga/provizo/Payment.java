@@ -68,7 +68,7 @@ public class Payment extends AppCompatActivity {
                 i.putExtra("company",company);
                 i.putExtra("amount",amount);
                 startActivity(i);
-                 payUsingUpi(amount);
+                // payUsingUpi(amount);
             }
         });
     }

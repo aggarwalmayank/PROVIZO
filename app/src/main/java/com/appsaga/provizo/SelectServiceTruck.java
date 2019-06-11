@@ -189,12 +189,12 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     public void AddtoFirebase() {
         int selectedId = radioWeightGroup.getCheckedRadioButtonId();
         radioWeightButton = (RadioButton) findViewById(selectedId);
-        Log.d("Delivery Location", "i am here");
+        Log.d("DeliveryLocation", "i am here");
         final HashMap<String, Object> insert = new HashMap<>();
-        insert.put("Service Type", spinner.getSelectedItem().toString());
-        insert.put("Material Description", material.getText().toString());
+        insert.put("ServiceType", spinner.getSelectedItem().toString());
+        insert.put("MaterialDescription", material.getText().toString());
         insert.put("Weight", weight.getText().toString() + " " + radioWeightButton.getText());
-        insert.put("Truck Type", trucktype.getSelectedItem().toString());
+        insert.put("TruckType", trucktype.getSelectedItem().toString());
 
         myref.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -203,7 +203,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                 Log.d("Delivery Location", "heyy");
 
 
-                myref.child("users").child(currentuser).child("Bookings").child(orderid).child("Service Truck Details").setValue(insert);
+                myref.child("users").child(currentuser).child("Bookings").child(orderid).child("ServiceTruckDetails").setValue(insert);
 
             }
 

@@ -130,7 +130,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         Toast.makeText(DeliveryLocation.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        Toast.makeText(DeliveryLocation.this, "My Booking", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(DeliveryLocation.this,MyBookings.class));
                         break;
                     case R.id.newbooking:
                         dl.closeDrawer(Gravity.LEFT);
@@ -205,9 +205,9 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         pick=pickuploc.getText().toString().toLowerCase();
         drop=droploc.getText().toString().toLowerCase();
         date=pickupdate.getText().toString();
-        insert.put("Pick Up Location", pick);
-        insert.put("Drop Location", drop);
-        insert.put("Pick Up Date", date);
+        insert.put("PickUpLocation", pick);
+        insert.put("DropLocation", drop);
+        insert.put("PickUpDate", date);
 
 
         user=FirebaseAuth.getInstance().getCurrentUser();

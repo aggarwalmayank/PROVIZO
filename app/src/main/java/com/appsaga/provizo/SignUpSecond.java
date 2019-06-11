@@ -167,8 +167,6 @@ public class SignUpSecond extends AppCompatActivity {
 
     void addToFirebaseDatabase(final FirebaseUser u)
     {
-
-        Log.d("Test.....","yes4");
         final HashMap<String,Object> insert=new HashMap<>();
         insert.put("Name",name.getText().toString());
         insert.put("Email",email.getText().toString());
@@ -184,7 +182,6 @@ public class SignUpSecond extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("Test.....","yes5");
                 Toast.makeText(SignUpSecond.this, u.getUid(), Toast.LENGTH_SHORT).show();
                 databaseReference.child("users").child(u.getUid()).setValue(insert);
             }

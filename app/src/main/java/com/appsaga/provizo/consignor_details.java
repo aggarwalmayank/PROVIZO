@@ -207,8 +207,8 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
 
     public void addtofirebase() {
         final HashMap<String, Object> insert = new HashMap<>();
-        insert.put("Consignor Name", name.getText().toString());
-        insert.put("Phone Number", number.getText().toString());
+        insert.put("ConsignorName", name.getText().toString());
+        insert.put("PhoneNumber", number.getText().toString());
         insert.put("Address", address.getText().toString());
         insert.put("GST", gst.getText().toString());
 

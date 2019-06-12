@@ -33,11 +33,11 @@ public class BookingsAdapter extends ArrayAdapter<Bookings> {
         TextView pickDate = bookingsView.findViewById(R.id.pick_date);
         TextView amount = bookingsView.findViewById(R.id.amount);
 
-        key.setText("Order ID: "+currentBooking.getKey());
-        pickupLoc.setText("Pick Up Location\n"+currentBooking.getPickUpLocation());
-        dropLoc.setText("Drop Up Location\n"+currentBooking.getDropLocation());
-        pickDate.setText("Pick Up Date\n"+currentBooking.getPickUpDate());
-        amount.setText("Amount\n"+currentBooking.getAmount());
+        key.setText("Booking ID: "+currentBooking.getKey());
+        pickupLoc.setText("Pick Up Location:\n"+currentBooking.getPickUpLocation());
+        dropLoc.setText("Drop Location:\n"+currentBooking.getDropLocation());
+        pickDate.setText("Pick Up Date:\n"+currentBooking.getPickUpDate());
+        amount.setText("Amount: \nRs "+currentBooking.getAmount());
 
         return bookingsView;
     }

@@ -28,19 +28,19 @@ public class BookingsDetails extends AppCompatActivity {
         TextView consignorPhone = findViewById(R.id.consignor_phone);
         TextView consignorGST = findViewById(R.id.consignor_gst);
 
-        id.setText(booking.getKey());
-        comp.setText(booking.getTruckCompany());
-        pickup.setText(booking.getPickUpDate());
-        drop.setText(booking.getDropLocation());
-        pickDate.setText(booking.getPickUpDate());
-        amount.setText(booking.getAmount());
-        consigneeName.setText(booking.getConsignee().get("ConsigneeName"));
-        consigneeAddress.setText(booking.getConsignee().get("Address"));
-        consigneeGST.setText(booking.getConsignee().get("GST"));
-        consigneePhone.setText(booking.getConsignee().get("PhoneNumber"));
-        consignorName.setText(booking.getConsignor().get("ConsignorName"));
-        consignorAddress.setText(booking.getConsignor().get("Address"));
-        consignorGST.setText(booking.getConsignor().get("GST"));
-        consignorPhone.setText(booking.getConsignor().get("PhoneNumber"));
+        id.setText("Booking ID: "+booking.getKey());
+        comp.setText("Truck Company: "+booking.getTruckCompany());
+        pickup.setText("Pick Up Location: "+booking.getPickUpLocation());
+        drop.setText("Drop Location: "+booking.getDropLocation());
+        pickDate.setText("Pick Up Date: "+booking.getPickUpDate());
+        amount.setText("Amount: Rs "+booking.getAmount());
+        consigneeName.setText("Name: "+booking.getConsignee().get("ConsigneeName"));
+        consigneeAddress.setText("Address: "+booking.getConsignee().get("Address"));
+        consigneeGST.setText("GST: "+booking.getConsignee().get("GST"));
+        consigneePhone.setText("Phone Number: "+booking.getConsignee().get("PhoneNumber"));
+        consignorName.setText("Name: "+booking.getConsignor().get("ConsignorName"));
+        consignorAddress.setText("Address: "+booking.getConsignor().get("Address"));
+        consignorGST.setText("GST: "+booking.getConsignor().get("GST"));
+        consignorPhone.setText("Phone Number: "+booking.getConsignor().get("PhoneNumber"));
     }
 }

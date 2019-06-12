@@ -61,8 +61,6 @@ public class Payment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(Payment.this,completed.class);
-
-                Toast.makeText(Payment.this, currentuser+orderid, Toast.LENGTH_SHORT).show();
                 i.putExtra("Order ID",orderid);
                 i.putExtra("Current User",currentuser);
                 i.putExtra("company",company);

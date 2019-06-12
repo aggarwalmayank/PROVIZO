@@ -5,15 +5,15 @@ import java.util.HashMap;
 
 public class Bookings implements Serializable {
 
-    String DropLocation;
-    String PaymentStatus;
-    String PickUpDate;
-    String PickUpLocation;
-    String TruckCompany;
-    String amount;
-    HashMap<String,String> Consignee;
-    HashMap<String,String> Consignor;
-    HashMap<String,String> ServiceTruckDetails;
+    private String DropLocation;
+    private String PaymentStatus;
+    private String PickUpDate;
+    private String PickUpLocation;
+    private String TruckCompany;
+    private String amount;
+    private HashMap<String, String> Consignee;
+    private HashMap<String, String> Consignor;
+    private HashMap<String, String> ServiceTruckDetails;
     String key;
 
     public Bookings(String dropLocation, String paymentStatus, String pickUpDate, String pickUpLocation, String truckCompany, String amount, HashMap<String, String> consignee, HashMap<String, String> consignor, HashMap<String, String> serviceTruckDetails) {
@@ -28,22 +28,20 @@ public class Bookings implements Serializable {
         ServiceTruckDetails = serviceTruckDetails;
     }
 
-    public Bookings(Bookings bookings,String key)
-    {
+    public Bookings(Bookings bookings, String key) {
         DropLocation = bookings.getDropLocation();
         PaymentStatus = bookings.getPaymentStatus();
         PickUpDate = bookings.getPickUpDate();
         PickUpLocation = bookings.getPickUpLocation();
         TruckCompany = bookings.getTruckCompany();
         this.amount = bookings.getAmount();
-        Consignee=bookings.getConsignee();
-        Consignor=bookings.getConsignor();
+        Consignee = bookings.getConsignee();
+        Consignor = bookings.getConsignor();
         ServiceTruckDetails = bookings.getServiceTruckDetails();
-        this.key=key;
+        this.key = key;
     }
 
-    public Bookings()
-    {
+    public Bookings() {
 
     }
 

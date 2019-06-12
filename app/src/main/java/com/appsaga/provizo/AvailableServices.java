@@ -46,7 +46,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_services);
-
+        menuicon=findViewById(R.id.menuicon);
         TextView tv = findViewById(R.id.appnamesigninup);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);

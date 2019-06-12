@@ -182,6 +182,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
                     Date today = Calendar.getInstance().getTime();
                     orderid = df.format(today);
+                    orderid=orderid.substring(0,12);
                     tonext= new Intent(DeliveryLocation.this, SelectServiceTruck.class);
                     AddtoFirebase();
 

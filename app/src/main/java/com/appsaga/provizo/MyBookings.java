@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +26,7 @@ public class MyBookings extends AppCompatActivity {
     DatabaseReference databaseReference;
     ListView bookingsList;
     ArrayList<String> orderid;
-
+TextView nobooking;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class MyBookings extends AppCompatActivity {
                 android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
         setSupportActionBar(toolbar);
+        nobooking=findViewById(R.id.nobook);
         toolbar.setNavigationIcon(R.drawable.backicon);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +60,14 @@ public class MyBookings extends AppCompatActivity {
                     Bookings bookings1 = new Bookings(ds.getValue(Bookings.class),ds.getKey());
                     bookings.add(bookings1);
                 }
+            if(bookings.isEmpty())
+            {
+                nobooking.setVisibility(View.VISIBLE);
+                bookingsList.setVisibility(View.INVISIBLE);
+            }
 
+                nobooking.setVisibility(View.INVISIBLE);
+                bookingsList.setVisibility(View.VISIBLE);
                 BookingsAdapter bookingsAdapter = new BookingsAdapter(MyBookings.this,bookings);
                 bookingsList.setAdapter(bookingsAdapter);
 
@@ -81,4 +90,6 @@ public class MyBookings extends AppCompatActivity {
             }
         });
     }
+
+
 }

@@ -27,20 +27,28 @@ public class BookingsDetails extends AppCompatActivity {
         TextView consignorAddress = findViewById(R.id.consignor_address);
         TextView consignorPhone = findViewById(R.id.consignor_phone);
         TextView consignorGST = findViewById(R.id.consignor_gst);
+        TextView serviceType = findViewById(R.id.service_type);
+        TextView description = findViewById(R.id.desc);
+        TextView weight = findViewById(R.id.weight);
+        TextView truckType = findViewById(R.id.truck_type);
 
-        id.setText("Booking ID: "+booking.getKey());
-        comp.setText("Truck Company: "+booking.getTruckCompany());
-        pickup.setText("Pick Up Location: "+booking.getPickUpLocation());
-        drop.setText("Drop Location: "+booking.getDropLocation());
-        pickDate.setText("Pick Up Date: "+booking.getPickUpDate());
-        amount.setText("Amount: Rs "+booking.getAmount());
-        consigneeName.setText("Name: "+booking.getConsignee().get("ConsigneeName"));
-        consigneeAddress.setText("Address: "+booking.getConsignee().get("Address"));
-        consigneeGST.setText("GST: "+booking.getConsignee().get("GST"));
-        consigneePhone.setText("Phone Number: "+booking.getConsignee().get("PhoneNumber"));
-        consignorName.setText("Name: "+booking.getConsignor().get("ConsignorName"));
-        consignorAddress.setText("Address: "+booking.getConsignor().get("Address"));
-        consignorGST.setText("GST: "+booking.getConsignor().get("GST"));
-        consignorPhone.setText("Phone Number: "+booking.getConsignor().get("PhoneNumber"));
+        id.setText("Booking ID: " + booking.getKey());
+        comp.setText("Truck Company: " + booking.getTruckCompany());
+        pickup.setText("Pick Up Location: " + booking.getPickUpLocation());
+        drop.setText("Drop Location: " + booking.getDropLocation());
+        pickDate.setText("Pick Up Date: " + booking.getPickUpDate());
+        amount.setText("Amount: Rs " + booking.getAmount());
+        consigneeName.setText("Name: " + booking.getConsignee().get("ConsigneeName"));
+        consigneeAddress.setText("Address: " + booking.getConsignee().get("Address"));
+        consigneeGST.setText("GST: " + booking.getConsignee().get("GST"));
+        consigneePhone.setText("Phone Number: " + booking.getConsignee().get("PhoneNumber"));
+        consignorName.setText("Name: " + booking.getConsignor().get("ConsignorName"));
+        consignorAddress.setText("Address: " + booking.getConsignor().get("Address"));
+        consignorGST.setText("GST: " + booking.getConsignor().get("GST"));
+        consignorPhone.setText("Phone Number: " + booking.getConsignor().get("PhoneNumber"));
+        serviceType.setText("Service Type: "+booking.getServiceTruckDetails().get("Service Type"));
+        description.setText("Description: "+booking.getServiceTruckDetails().get("MaterialDescription"));
+        weight.setText("Weight: "+booking.getServiceTruckDetails().get("Weight"));
+        truckType.setText("Truck Type: "+booking.getServiceTruckDetails().get("TruckType"));
     }
 }

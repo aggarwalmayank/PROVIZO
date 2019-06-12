@@ -1,5 +1,6 @@
 package com.appsaga.provizo;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -49,6 +50,8 @@ TextView nobooking;
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings");
 
+        final ProgressDialog progressDialog = ProgressDialog.show(MyBookings.this,"Loading","Please Wait...",true);
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,6 +68,8 @@ TextView nobooking;
                 nobooking.setVisibility(View.VISIBLE);
                 bookingsList.setVisibility(View.INVISIBLE);
             }
+
+                progressDialog.dismiss();
 
                 nobooking.setVisibility(View.INVISIBLE);
                 bookingsList.setVisibility(View.VISIBLE);

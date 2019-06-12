@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyBookings"></activity>
+        <activity android:name=".BookingsDetails"></activity>
+        <activity android:name=".BookingsDetails" />
+        <activity android:name=".MyBookings" />
         <activity android:name=".Payment" />
         <activity android:name=".Confirmation" />
         <activity android:name=".AvailableServices" />

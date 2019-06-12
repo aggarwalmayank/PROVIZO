@@ -1,11 +1,13 @@
 package com.appsaga.provizo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,15 +51,28 @@ public class MyBookings extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                ArrayList<Bookings> bookings = new ArrayList<>();
+                final ArrayList<Bookings> bookings = new ArrayList<>();
 
                 for(DataSnapshot ds : dataSnapshot.getChildren())
                 {
-                    bookings.add(ds.getValue(Bookings.class));
+                    Bookings bookings1 = new Bookings(ds.getValue(Bookings.class),ds.getKey());
+                    bookings.add(bookings1);
                 }
 
                 BookingsAdapter bookingsAdapter = new BookingsAdapter(MyBookings.this,bookings);
                 bookingsList.setAdapter(bookingsAdapter);
+
+                bookingsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        Bookings booking = bookings.get(position);
+
+                        Intent intent = new Intent(MyBookings.this,BookingsDetails.class);
+                        intent.putExtra("booking",booking);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override

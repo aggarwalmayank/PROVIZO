@@ -12,9 +12,7 @@ import java.util.ArrayList;
 public class BookingsAdapter extends ArrayAdapter<Bookings> {
 
     public BookingsAdapter(Context context, ArrayList<Bookings> bookings) {
-        //super(context, 0,bookings,orderid);
-        super(context,0,bookings);
-
+        super(context, 0,bookings);
     }
 
     @Override
@@ -29,17 +27,17 @@ public class BookingsAdapter extends ArrayAdapter<Bookings> {
 
         Bookings currentBooking = getItem(position);
 
-        TextView orderid= bookingsView.findViewById(R.id.orderid);
+        TextView key = bookingsView.findViewById(R.id.orderid);
         TextView pickupLoc = bookingsView.findViewById(R.id.pick_loc);
         TextView dropLoc = bookingsView.findViewById(R.id.drop_loc);
         TextView pickDate = bookingsView.findViewById(R.id.pick_date);
         TextView amount = bookingsView.findViewById(R.id.amount);
 
-        orderid.setText("Booking ID: "+currentBooking.getTruckCompany());
-        pickupLoc.setText("Pick Up Location:\n"+currentBooking.getPickUpLocation());
-        dropLoc.setText("Drop Location:\n"+currentBooking.getDropLocation());
-        pickDate.setText("Pick Up Date:\n"+currentBooking.getPickUpDate());
-        amount.setText("Amount:\n"+"Rs "+currentBooking.getAmount());
+        key.setText("Order ID: "+currentBooking.getKey());
+        pickupLoc.setText("Pick Up Location\n"+currentBooking.getPickUpLocation());
+        dropLoc.setText("Drop Up Location\n"+currentBooking.getDropLocation());
+        pickDate.setText("Pick Up Date\n"+currentBooking.getPickUpDate());
+        amount.setText("Amount\n"+currentBooking.getAmount());
 
         return bookingsView;
     }

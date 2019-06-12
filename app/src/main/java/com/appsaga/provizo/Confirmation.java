@@ -2,19 +2,25 @@ package com.appsaga.provizo;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class Confirmation extends AppCompatActivity {
+public class Confirmation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
     String pickup, droploc, pickupdate, price;
     TextView amount, pick, drop, date, gstprice, totalprice, baseprice;
     DatabaseReference myref;
@@ -30,7 +36,10 @@ public class Confirmation extends AppCompatActivity {
     String currentuser, orderid, company, gstconsignor, gstconsignee;
     double rs;
     LinearLayout fulldetail;
-
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
+    ImageView menuicon;
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +49,77 @@ public class Confirmation extends AppCompatActivity {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
         myref = FirebaseDatabase.getInstance().getReference();
+        dl = (DrawerLayout) findViewById(R.id.deliverylocation);
+        t = new ActionBarDrawerToggle(this, dl, R.string.open, R.string.close);
+        dl.addDrawerListener(t);
+        t.syncState();
+        menuicon = findViewById(R.id.menuicon);
+        nv = (NavigationView) findViewById(R.id.nv);
+        menuicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dl.openDrawer(Gravity.LEFT);
+            }
+        });
+        View headerview = nv.getHeaderView(0);
+        TextView profilename = (TextView) headerview.findViewById(R.id.profile);
+        profilename.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch (id) {
 
+                    case R.id.wallet:
+                        Toast.makeText(Confirmation.this, "Wallet", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.partnerlogin:
+                        Toast.makeText(Confirmation.this, "partenr login", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.mybooking:
+                        Toast.makeText(Confirmation.this, "My Booking", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.newbooking:
+                        Intent gotoScreenVar = new Intent(Confirmation.this, DeliveryLocation.class);
+                        gotoScreenVar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
+                        startActivity(gotoScreenVar);
+                        Toast.makeText(Confirmation.this, "New Booking", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.ratechart:
+                        Toast.makeText(Confirmation.this, "Rate Chart", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.notification:
+                        Toast.makeText(Confirmation.this, "Notification", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.addcard:
+                        startActivity(new Intent(Confirmation.this, AddCard.class));
+                        Toast.makeText(Confirmation.this, "add card", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.support:
+                        Toast.makeText(Confirmation.this, "Support", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.about:
+                        startActivity(new Intent(Confirmation.this, AboutUs.class));
+                        Toast.makeText(Confirmation.this, "about us", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.signout:
+                        Toast.makeText(Confirmation.this, "SignOut", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        break;
+                    default:
+                        return true;
+                }
+                return true;
+
+            }
+        });
 
         amount = findViewById(R.id.amount);
         drop = findViewById(R.id.drop);
@@ -141,4 +220,14 @@ public class Confirmation extends AppCompatActivity {
         myref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").removeValue();
         finish();
     }
+    public void openDialog() {
+        ProfileDialog exampleDialog = new ProfileDialog();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void applyTexts() {
+
+    }
+
 }

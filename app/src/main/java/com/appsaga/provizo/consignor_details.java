@@ -3,7 +3,6 @@ package com.appsaga.provizo;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,7 +38,6 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     ImageView menuicon;
-    boolean isupdate;
     String regex = "\\d+";
     String regex2 = "^[a-zA-Z]*$";
     CheckBox c1, c2, c3, c4;
@@ -170,6 +167,7 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                     case R.id.newbooking:
                         Intent gotoScreenVar = new Intent(consignor_details.this, DeliveryLocation.class);
                         gotoScreenVar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mRef.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
                         startActivity(gotoScreenVar);
                         Toast.makeText(consignor_details.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
@@ -193,7 +191,6 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                     case R.id.signout:
                         Toast.makeText(consignor_details.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
-                        //startActivity(new Intent(DeliveryLocation.this,SignInUp.class));
                         finish();
                         break;
                     default:
@@ -211,7 +208,6 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         insert.put("PhoneNumber", number.getText().toString());
         insert.put("Address", address.getText().toString());
         insert.put("GST", gst.getText().toString());
-
 
         mRef.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

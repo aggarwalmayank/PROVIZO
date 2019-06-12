@@ -54,8 +54,9 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     ImageButton deliveryNext;
     EditText pickupdate, droploc, pickuploc;
     DatabaseHelperUser db;
-    ImageView menuicon;
+
     String  orderid;
+    ImageView menuicon;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
@@ -64,7 +65,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     Intent tonext;
     DatabaseReference myref;
     private static final int ERROR_DIALOG_REQUEST = 9001;
-     FirebaseUser user;
+    FirebaseUser user;
 
 
     @Override

@@ -102,6 +102,10 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
                         Toast.makeText(consignee_details.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
+                        Intent gotoScreenVar = new Intent(consignee_details.this, DeliveryLocation.class);
+                        gotoScreenVar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mRef.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
+                        startActivity(gotoScreenVar);
                         Toast.makeText(consignee_details.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:

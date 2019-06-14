@@ -1,5 +1,6 @@
 package com.appsaga.provizo;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -247,5 +248,5 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         builder.show();
     }
 
-
+    
 }

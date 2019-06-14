@@ -54,7 +54,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     ImageButton deliveryNext;
     EditText pickupdate, droploc, pickuploc;
     DatabaseHelperUser db;
-
     String  orderid;
     ImageView menuicon;
     private DrawerLayout dl;
@@ -78,7 +77,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         TextView tv = findViewById(R.id.appnamesignupsecond);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
-
         menuicon = findViewById(R.id.menuicon);
         pickuploc = findViewById(R.id.pickuploc);
         droploc = findViewById(R.id.droploc);

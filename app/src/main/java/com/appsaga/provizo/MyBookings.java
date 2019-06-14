@@ -3,6 +3,7 @@ package com.appsaga.provizo;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,17 +27,19 @@ public class MyBookings extends AppCompatActivity {
 
     DatabaseReference databaseReference;
     ListView bookingsList;
-    ArrayList<String> orderid;
-TextView nobooking;
+    ProgressDialog progressDialog;
+    TextView nobooking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bookings);
+        progressDialog = ProgressDialog.show(MyBookings.this, "Loading", "Please Wait...", true);
         android.support.v7.widget.Toolbar toolbar = (
                 android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
         setSupportActionBar(toolbar);
-        nobooking=findViewById(R.id.nobook);
+        nobooking = findViewById(R.id.nobook);
         toolbar.setNavigationIcon(R.drawable.backicon);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,13 +47,12 @@ TextView nobooking;
                 finish();
             }
         });
-
+        nobooking.setVisibility(View.VISIBLE);
         bookingsList = findViewById(R.id.bookings_list);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings");
 
-        final ProgressDialog progressDialog = ProgressDialog.show(MyBookings.this,"Loading","Please Wait...",true);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,32 +60,35 @@ TextView nobooking;
 
                 final ArrayList<Bookings> bookings = new ArrayList<>();
 
-                for(DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    Bookings bookings1 = new Bookings(ds.getValue(Bookings.class),ds.getKey());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Bookings bookings1 = new Bookings(ds.getValue(Bookings.class), ds.getKey());
                     bookings.add(bookings1);
                 }
-            if(bookings.isEmpty())
-            {
-                nobooking.setVisibility(View.VISIBLE);
-                bookingsList.setVisibility(View.INVISIBLE);
-            }
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                progressDialog.dismiss();
+                        progressDialog.dismiss();
+                    }
+                }, 1800);
 
-                nobooking.setVisibility(View.INVISIBLE);
-                bookingsList.setVisibility(View.VISIBLE);
-                BookingsAdapter bookingsAdapter = new BookingsAdapter(MyBookings.this,bookings);
-                bookingsList.setAdapter(bookingsAdapter);
+                if (bookings.isEmpty()) {
+                    nobooking.setVisibility(View.VISIBLE);
 
+                } else {
+                    nobooking.setVisibility(View.INVISIBLE);
+                    BookingsAdapter bookingsAdapter = new BookingsAdapter(MyBookings.this, bookings);
+                    bookingsList.setAdapter(bookingsAdapter);
+                }
                 bookingsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         Bookings booking = bookings.get(position);
 
-                        Intent intent = new Intent(MyBookings.this,BookingsDetails.class);
-                        intent.putExtra("booking",booking);
+                        Intent intent = new Intent(MyBookings.this, BookingsDetails.class);
+                        intent.putExtra("booking", booking);
                         startActivity(intent);
                     }
                 });

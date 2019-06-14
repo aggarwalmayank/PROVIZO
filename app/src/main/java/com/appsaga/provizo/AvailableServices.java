@@ -3,6 +3,7 @@ package com.appsaga.provizo;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -38,6 +39,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
     ArrayList<Services> services;
     ListView serviceView;
     ServiceAdapter serviceAdapter;
+    TextView nobooking;
     String currentuser, orderid, onlyamount;
     ImageView menuicon;
     private DrawerLayout dl;
@@ -49,6 +51,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_services);
         menuicon = findViewById(R.id.menuicon);
+        nobooking=findViewById(R.id.nobook);
         TextView tv = findViewById(R.id.appnamesigninup);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
@@ -175,12 +178,23 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                                 services.add(new Services(companyName, price));
                             }
                             if (services != null) {
+                                nobooking.setVisibility(View.INVISIBLE);
                                 serviceAdapter = new ServiceAdapter(AvailableServices.this, services);
                                 serviceView.setAdapter(serviceAdapter);
                             }
+                            else{
+                                nobooking.setVisibility(View.VISIBLE);
+                            }
                         }
+                        Handler h=new Handler();
+                        h.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
 
-                        progressDialog.dismiss();
+                                progressDialog.dismiss();
+                            }
+                        },1800);
+
                     }
 
                     @Override

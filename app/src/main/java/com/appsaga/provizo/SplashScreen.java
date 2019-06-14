@@ -20,7 +20,6 @@ public class SplashScreen extends AppCompatActivity {
         TextView tv = findViewById(R.id.splashtext);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
-
         final int DELAY = 2000;
         Handler handler = new Handler();
 

@@ -291,32 +291,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     }
 
 
-   /* @Override
-    public void loginid(final String username) {
-    mQueryListener=new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    if(snapshot.getKey().equals(username))
-                    {
-                        Intent i=new Intent(DeliveryLocation.this,Partner.class);
-                        i.putExtra("partner id",username);
-                        startActivity(i);
-                        break;
-                    }
-                }
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    };
-        Query query=mref.child("partners").orderByChild("partners");
-        query.addValueEventListener(mQueryListener);
-    }*/
-
 
 
 }

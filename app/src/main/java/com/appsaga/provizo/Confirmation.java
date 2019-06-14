@@ -190,11 +190,27 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Confirmation.this, Payment.class);
-                addtofirebase();
+               // addtofirebase();
                 i.putExtra("amount", amount.getText().toString().substring(3));
-                i.putExtra("Current User", currentuser);
-                i.putExtra("Order ID", orderid);
-                i.putExtra("company", company);
+                i.putExtra("Order ID",orderid);
+                i.putExtra("Current User",currentuser);
+                i.putExtra("type of service",getIntent().getStringExtra("type of service"));
+                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("date",getIntent().getStringExtra("date"));
+                i.putExtra("weight",getIntent().getStringExtra("weight"));
+                i.putExtra("Material",getIntent().getStringExtra("Material"));
+                i.putExtra("truck",getIntent().getStringExtra("truck"));
+                i.putExtra("company",getIntent().getStringExtra("company"));
+                i.putExtra("consignorname",getIntent().getStringExtra("consignorname"));
+                i.putExtra("consignoraddress",getIntent().getStringExtra("consignoraddress"));
+                i.putExtra("consignorphone",getIntent().getStringExtra("consignorphone"));
+                i.putExtra("consignor gst",gstconsignor);
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("consignee gst",gstconsignee);
+                i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
+                i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
+                i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
                 startActivity(i);
             }
         });
@@ -217,7 +233,7 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        myref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").removeValue();
+      //  myref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").removeValue();
         finish();
     }
     public void openDialog() {

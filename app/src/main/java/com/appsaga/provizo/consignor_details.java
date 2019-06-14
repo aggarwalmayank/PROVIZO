@@ -93,17 +93,26 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                     else if (!c1.isChecked() || !c2.isChecked() || !c3.isChecked() || !c4.isChecked())
                         alertbox("Plese Check all boxes");
                     else {
-                        addtofirebase();
+                       // addtofirebase();
 
                         Intent i = new Intent(consignor_details.this, com.appsaga.provizo.consignee_details.class);
-                        i.putExtra("Current User", currentuser);
-                        i.putExtra("Order ID", orderid);
-                        i.putExtra("amount", amount);
-                        i.putExtra("company", company);
-                        i.putExtra("consignor gst",gst.getText().toString());
-                        i.putExtra("date",getIntent().getStringExtra("date"));
+                        i.putExtra("Order ID",orderid);
+                        i.putExtra("Current User",currentuser);
+                        i.putExtra("type of service",getIntent().getStringExtra("type of service"));
                         i.putExtra("pickup",getIntent().getStringExtra("pickup"));
                         i.putExtra("drop",getIntent().getStringExtra("drop"));
+                        i.putExtra("date",getIntent().getStringExtra("date"));
+                        i.putExtra("weight",getIntent().getStringExtra("weight"));
+                        i.putExtra("Material",getIntent().getStringExtra("Material"));
+                        i.putExtra("truck",getIntent().getStringExtra("truck"));
+                        i.putExtra("company",getIntent().getStringExtra("company"));
+                        i.putExtra("amount", getIntent().getStringExtra("amount"));
+                        i.putExtra("consignor gst",gst.getText().toString());
+                        i.putExtra("consignorname",name.getText().toString());
+                        i.putExtra("consignoraddress",address.getText().toString());
+                        i.putExtra("consignorphone",number.getText().toString());
+                        i.putExtra("drop",getIntent().getStringExtra("drop"));
+
                         startActivity(i);
                     }
                 } else if (number.getText().toString().equalsIgnoreCase(""))
@@ -113,16 +122,24 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                 else if (!c1.isChecked() || !c2.isChecked() || !c3.isChecked() || !c4.isChecked())
                     alertbox("Plese Check all boxes");
                 else {
-                    addtofirebase();
+                  //  addtofirebase();
 
                     Intent i = new Intent(consignor_details.this, com.appsaga.provizo.consignee_details.class);
-                    i.putExtra("Current User", currentuser);
-                    i.putExtra("Order ID", orderid);
-                    i.putExtra("amount", amount);
-                    i.putExtra("company", company);
-                    i.putExtra("consignor gst",gst.getText().toString());
-                    i.putExtra("date",getIntent().getStringExtra("date"));
+                    i.putExtra("Order ID",orderid);
+                    i.putExtra("Current User",currentuser);
+                    i.putExtra("type of service",getIntent().getStringExtra("type of service"));
                     i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                    i.putExtra("drop",getIntent().getStringExtra("drop"));
+                    i.putExtra("date",getIntent().getStringExtra("date"));
+                    i.putExtra("weight",getIntent().getStringExtra("weight"));
+                    i.putExtra("Material",getIntent().getStringExtra("Material"));
+                    i.putExtra("truck",getIntent().getStringExtra("truck"));
+                    i.putExtra("company",getIntent().getStringExtra("company"));
+                    i.putExtra("amount", getIntent().getStringExtra("amount"));
+                    i.putExtra("consignor gst",gst.getText().toString());
+                    i.putExtra("consignorname",name.getText().toString());
+                    i.putExtra("consignoraddress",address.getText().toString());
+                    i.putExtra("consignorphone",number.getText().toString());
                     i.putExtra("drop",getIntent().getStringExtra("drop"));
                     startActivity(i);
                 }
@@ -249,7 +266,7 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        mRef.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").removeValue();
+       // mRef.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").removeValue();
         finish();
 
     }

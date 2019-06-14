@@ -173,7 +173,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                                     }
                                 }
 
-                                price = "" + Double.parseDouble(getIntent().getStringExtra("weight")) * Double.parseDouble(priceVal);
+                                price = "" + Double.parseDouble(getIntent().getStringExtra("weightnounit")) * Double.parseDouble(priceVal);
 
                                 services.add(new Services(companyName, price));
                             }
@@ -216,7 +216,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
 
                 final TextView company = view.findViewById(R.id.comp_name);
                 TextView price = view.findViewById(R.id.price);
-                databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
+               /* databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").setValue(company.getText());
@@ -226,15 +226,19 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                });
+                });*/
                 Intent i = new Intent(AvailableServices.this, consignor_details.class);
-                i.putExtra("Order ID", orderid);
-                i.putExtra("Current User", currentuser);
-                i.putExtra("date", getIntent().getStringExtra("date"));
-                i.putExtra("pickup", getIntent().getStringExtra("pickup"));
-                i.putExtra("drop", getIntent().getStringExtra("drop"));
+                i.putExtra("Order ID",orderid);
+                i.putExtra("Current User",currentuser);
+                i.putExtra("type of service",getIntent().getStringExtra("type of service"));
+                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("date",getIntent().getStringExtra("date"));
+                i.putExtra("weight",getIntent().getStringExtra("weight"));
+                i.putExtra("Material",getIntent().getStringExtra("Material"));
+                i.putExtra("truck",getIntent().getStringExtra("truck"));
+                i.putExtra("company",company.getText());
                 i.putExtra("amount", price.getText().toString());
-                i.putExtra("company", company.getText());
                 startActivity(i);
                 //Toast.makeText(AvailableServices.this,company.getText().toString(),Toast.LENGTH_LONG).show();
             }
@@ -244,7 +248,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).child("Service Truck Details").removeValue();
+       //databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).child("Service Truck Details").removeValue();
         finish();
 
     }

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +40,7 @@ public class Payment extends AppCompatActivity {
         company=getIntent().getStringExtra("company");
         note="Order ID: "+orderid+" Customer ID: "+currentuser+" for Company: "+company;
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
-        ref.child("users").child(currentuser).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 emailandname=dataSnapshot.child("Email").getValue()+"   "+dataSnapshot.child("Name").getValue();
@@ -61,10 +62,27 @@ public class Payment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(Payment.this,completed.class);
+
                 i.putExtra("Order ID",orderid);
                 i.putExtra("Current User",currentuser);
-                i.putExtra("company",company);
+                i.putExtra("type of service",getIntent().getStringExtra("type of service"));
+                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("date",getIntent().getStringExtra("date"));
+                i.putExtra("weight",getIntent().getStringExtra("weight"));
+                i.putExtra("Material",getIntent().getStringExtra("Material"));
+                i.putExtra("truck",getIntent().getStringExtra("truck"));
+                i.putExtra("company",getIntent().getStringExtra("company"));
+                i.putExtra("consignorname",getIntent().getStringExtra("consignorname"));
+                i.putExtra("consignoraddress",getIntent().getStringExtra("consignoraddress"));
+                i.putExtra("consignorphone",getIntent().getStringExtra("consignorphone"));
+                i.putExtra("consignor gst",getIntent().getStringExtra("consignor gst"));
                 i.putExtra("amount",amount);
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("consignee gst",getIntent().getStringExtra("consignee gst"));
+                i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
+                i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
+                i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
                 startActivity(i);
                 // payUsingUpi(amount);
             }
@@ -151,9 +169,26 @@ public class Payment extends AppCompatActivity {
             if (status.equals("success")) {
                 //Code to handle successful transaction here.
                 Intent i=new Intent(Payment.this,completed.class);
+
                 i.putExtra("Order ID",orderid);
                 i.putExtra("Current User",currentuser);
-                i.putExtra("company",company);
+                i.putExtra("type of service",getIntent().getStringExtra("type of service"));
+                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("date",getIntent().getStringExtra("date"));
+                i.putExtra("weight",getIntent().getStringExtra("weight"));
+                i.putExtra("Material",getIntent().getStringExtra("Material"));
+                i.putExtra("truck",getIntent().getStringExtra("truck"));
+                i.putExtra("company",getIntent().getStringExtra("company"));
+                i.putExtra("consignorname",getIntent().getStringExtra("consignorname"));
+                i.putExtra("consignoraddress",getIntent().getStringExtra("consignoraddress"));
+                i.putExtra("consignorphone",getIntent().getStringExtra("consignorphone"));
+                i.putExtra("consignor gst",getIntent().getStringExtra("consignor gst"));
+                i.putExtra("drop",getIntent().getStringExtra("drop"));
+                i.putExtra("consignee gst",getIntent().getStringExtra("consignee gst"));
+                i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
+                i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
+                i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
                 i.putExtra("amount",amount);
                 startActivity(i);
                 Toast.makeText(Payment.this, "Transaction successful.", Toast.LENGTH_SHORT).show();

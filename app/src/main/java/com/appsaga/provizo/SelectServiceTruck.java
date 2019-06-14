@@ -172,7 +172,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                 else if (trucktype.getSelectedItem().toString().equals("Select Truck Type"))
                     alertbox("Please Select Truck");
                 else {
-                    AddtoFirebase();
+                    //AddtoFirebase();
                     Intent i=new Intent(SelectServiceTruck.this,AvailableServices.class);
                     i.putExtra("Order ID",orderid);
                     i.putExtra("Current User",currentuser);
@@ -180,7 +180,10 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     i.putExtra("pickup",getIntent().getStringExtra("pickup"));
                     i.putExtra("drop",getIntent().getStringExtra("drop"));
                     i.putExtra("date",getIntent().getStringExtra("date"));
-                    i.putExtra("weight",weight.getText().toString());
+                    i.putExtra("weight",weight.getText().toString()+" "+radioWeightButton.getText());
+                    i.putExtra("weightnounit",weight.getText().toString());
+                    i.putExtra("Material",material.getText().toString());
+                    i.putExtra("truck",trucktype.getSelectedItem().toString());
                     startActivity(i);
                 }
             }
@@ -230,7 +233,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
+       // myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
         finish();
 
     }
@@ -248,5 +251,5 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         builder.show();
     }
 
-    
+
 }

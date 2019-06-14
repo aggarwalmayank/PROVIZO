@@ -24,18 +24,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -62,7 +55,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     private static final String TAG = "DeliveryLoc";
     private  ValueEventListener mQueryListener;
     Intent tonext;
-    DatabaseReference myref;
+   // DatabaseReference myref;
     private static final int ERROR_DIALOG_REQUEST = 9001;
     FirebaseUser user;
 
@@ -73,7 +66,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         setContentView(R.layout.activity_delivery_location);
 
         db = new DatabaseHelperUser(this);
-        myref = FirebaseDatabase.getInstance().getReference();;
         TextView tv = findViewById(R.id.appnamesignupsecond);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
@@ -182,7 +174,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     orderid = df.format(today);
                     orderid=orderid.substring(0,12);
                     tonext= new Intent(DeliveryLocation.this, SelectServiceTruck.class);
-                    AddtoFirebase();
+                   // AddtoFirebase();
 
                     tonext.putExtra("Order ID", orderid);
                     tonext.putExtra("pickup",pickuploc.getText().toString().toLowerCase());
@@ -197,7 +189,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
     }
 
-    public void AddtoFirebase() {
+   /* public void AddtoFirebase() {
 
         Log.d("Delivery Location", "i am here");
         final HashMap<String, Object> insert = new HashMap<>();
@@ -227,7 +219,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
             }
         });
 
-    }
+    }*/
 
     @Override
     protected Dialog onCreateDialog(int id) {

@@ -119,6 +119,7 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
                         Toast.makeText(consignee_details.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
+                        startActivity(new Intent(consignee_details.this, Support.class));
                         Toast.makeText(consignee_details.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:

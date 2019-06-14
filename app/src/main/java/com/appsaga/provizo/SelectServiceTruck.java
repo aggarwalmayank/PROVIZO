@@ -132,6 +132,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                         Toast.makeText(SelectServiceTruck.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
+                        startActivity(new Intent(SelectServiceTruck.this, Support.class));
                         Toast.makeText(SelectServiceTruck.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:

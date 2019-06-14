@@ -139,6 +139,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         Toast.makeText(DeliveryLocation.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
+                        startActivity(new Intent(DeliveryLocation.this, Support.class));
                         Toast.makeText(DeliveryLocation.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:

@@ -68,6 +68,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user!=null&&mAuth.getCurrentUser().isEmailVerified()){
                     startActivity(new Intent(SignInUp.this,DeliveryLocation.class));
+                    finish();
                 }
             }
         };
@@ -93,6 +94,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
                         {
                             if(mAuth.getCurrentUser().isEmailVerified()){
                                 startActivity(new Intent(SignInUp.this,DeliveryLocation.class));
+                                finish();
                             }
                             else
                             {

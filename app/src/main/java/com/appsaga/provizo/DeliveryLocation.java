@@ -149,6 +149,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     case R.id.signout:
                         Toast.makeText(DeliveryLocation.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(DeliveryLocation.this,SignInUp.class));
                         finish();
                         break;
                     default:
@@ -290,7 +291,9 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        finish();
+    }
 }

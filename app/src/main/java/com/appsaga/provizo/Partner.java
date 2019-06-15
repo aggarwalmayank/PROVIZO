@@ -78,7 +78,7 @@ public class Partner extends AppCompatActivity {
         spinner2 = findViewById(R.id.spinner2);
         currentRate = findViewById(R.id.current_rate);
 
-        databaseReference.child("partners").child(username).child("operations").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("partners").child(username).child("operations").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -149,6 +149,7 @@ public class Partner extends AppCompatActivity {
             }
         });
 
+
         changeavail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,17 +180,31 @@ public class Partner extends AppCompatActivity {
                 else {
 
                     Log.d("Run....", "Yes2");
-                    DatabaseReference myRef;
+                    final DatabaseReference myRef;
                     myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").
                             child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
 
-                    if (rbunit.getText().toString().equals("Kg")) {
-                        myRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.01);
-                    } else if (rbunit.getText().toString().equals("Tonne")) {
-                        myRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
-                    } else {
-                        myRef.setValue(Long.parseLong(newrate.getText().toString()));
-                    }
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            if (rbunit.getText().toString().equals("Kg")) {
+                                myRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.01);
+                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 0.01+" Quintal");
+                            } else if (rbunit.getText().toString().equals("Tonne")) {
+                                myRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
+                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 10+" Quintal");
+                            } else {
+                                myRef.setValue(Long.parseLong(newrate.getText().toString()));
+                                currentRate.setText(Long.parseLong(newrate.getText().toString())+" Quintal");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                     rgunit.setVisibility(View.INVISIBLE);
                     selectunit.setVisibility(View.INVISIBLE);
@@ -208,9 +223,21 @@ public class Partner extends AppCompatActivity {
                     alertbox("Invalid status");
                 } else {
                     Log.d("Run....", "Yes3");
-                    DatabaseReference myRef;
+                    final DatabaseReference myRef;
                     myRef = databaseReference.child("partners").child(username).child("operations").child("truckStatus");
-                    myRef.setValue(rbavail.getText());
+
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            myRef.setValue(rbavail.getText());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     availability.setText(rbavail.getText());
                     if (availability.getText().equals("Available"))
                         availability.setTextColor(Color.parseColor("#008000"));

@@ -126,6 +126,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                     case R.id.signout:
                         Toast.makeText(AvailableServices.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(AvailableServices.this,SignInUp.class));
                         finish();
                         break;
                     default:

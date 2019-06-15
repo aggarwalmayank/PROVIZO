@@ -174,6 +174,21 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     alertbox("Please Select Truck");
                 else {
                     //AddtoFirebase();
+                    String weight1="0";
+
+                    if(radioWeightGroup.getCheckedRadioButtonId()==R.id.radiobtn1)
+                    {
+                        weight1 = String.valueOf(Double.parseDouble(weight.getText().toString())*(0.01));
+                    }
+                    else if(radioWeightGroup.getCheckedRadioButtonId()==R.id.radiobtn2)
+                    {
+                        weight1 = weight.getText().toString();
+                    }
+                    else if(radioWeightGroup.getCheckedRadioButtonId()==R.id.radiobtn3)
+                    {
+                        weight1 = String.valueOf(Double.parseDouble(weight.getText().toString())*(10));
+                    }
+
                     Intent i=new Intent(SelectServiceTruck.this,AvailableServices.class);
                     i.putExtra("Order ID",orderid);
                     i.putExtra("Current User",currentuser);
@@ -181,8 +196,8 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     i.putExtra("pickup",getIntent().getStringExtra("pickup"));
                     i.putExtra("drop",getIntent().getStringExtra("drop"));
                     i.putExtra("date",getIntent().getStringExtra("date"));
-                    i.putExtra("weight",weight.getText().toString()+" "+radioWeightButton.getText());
-                    i.putExtra("weightnounit",weight.getText().toString());
+                    i.putExtra("weight",weight1+" "+radioWeightButton.getText());
+                    i.putExtra("weightnounit",weight1);
                     i.putExtra("Material",material.getText().toString());
                     i.putExtra("truck",trucktype.getSelectedItem().toString());
                     startActivity(i);

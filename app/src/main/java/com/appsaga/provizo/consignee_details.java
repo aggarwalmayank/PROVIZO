@@ -129,6 +129,7 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
                     case R.id.signout:
                         Toast.makeText(consignee_details.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(consignee_details.this,SignInUp.class));
                         finish();
                         break;
                     default:

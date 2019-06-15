@@ -210,6 +210,7 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                     case R.id.signout:
                         Toast.makeText(consignor_details.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(consignor_details.this,SignInUp.class));
                         finish();
                         break;
                     default:

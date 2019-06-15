@@ -19,7 +19,8 @@
         <activity android:name=".Payment" />
         <activity android:name=".Confirmation" />
         <activity android:name=".AvailableServices" />
-        <activity android:name=".Partner" />
+        <activity android:name=".Partner"
+            android:launchMode="singleTask"/>
         <activity android:name=".RateChart" />
         <activity android:name=".ViewCards" />
         <activity android:name=".AddCard" />

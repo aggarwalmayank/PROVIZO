@@ -13,14 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Support"></activity>
+        <activity android:name=".PartnerBookingDetails"></activity>
+        <activity android:name=".PartnerBooking" />
+        <activity android:name=".Support" />
         <activity android:name=".BookingsDetails" />
         <activity android:name=".MyBookings" />
         <activity android:name=".Payment" />
         <activity android:name=".Confirmation" />
         <activity android:name=".AvailableServices" />
-        <activity android:name=".Partner"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".Partner"
+            android:launchMode="singleTask" />
         <activity android:name=".RateChart" />
         <activity android:name=".ViewCards" />
         <activity android:name=".AddCard" />

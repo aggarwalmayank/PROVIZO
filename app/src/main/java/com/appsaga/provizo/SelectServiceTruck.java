@@ -86,6 +86,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         t = new ActionBarDrawerToggle(this, dl, R.string.open, R.string.close);
         dl.addDrawerListener(t);
         t.syncState();
+
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         nv = (NavigationView) findViewById(R.id.nv);
         menuicon.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +97,8 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         });
         View headerview = nv.getHeaderView(0);
         TextView profilename = (TextView) headerview.findViewById(R.id.profile);
+        TextView mobno = (TextView) headerview.findViewById(R.id.mobno);
+        mobno.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         profilename.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

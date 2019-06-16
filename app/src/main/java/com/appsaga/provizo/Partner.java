@@ -41,6 +41,7 @@ public class Partner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partner);
+        Button viewbooking=findViewById(R.id.viewbooking);
 
         newrate = findViewById(R.id.new_rate);
         updaterate = findViewById(R.id.confirmrate);
@@ -247,6 +248,14 @@ public class Partner extends AppCompatActivity {
                     rgavail.setVisibility(View.INVISIBLE);
                     updateavail.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+        viewbooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(Partner.this,PartnerBooking.class);
+                i.putExtra("partner id",username);
+                startActivity(i);
             }
         });
     }

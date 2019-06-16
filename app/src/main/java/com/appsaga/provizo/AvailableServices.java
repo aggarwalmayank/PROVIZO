@@ -40,7 +40,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
     ListView serviceView;
     ServiceAdapter serviceAdapter;
     TextView nobooking;
-    String currentuser, orderid, onlyamount;
+    String currentuser, orderid;
     ImageView menuicon;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;

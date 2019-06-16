@@ -100,6 +100,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         });
         View headerview = nv.getHeaderView(0);
         TextView profilename = (TextView) headerview.findViewById(R.id.profile);
+        TextView mobno = (TextView) headerview.findViewById(R.id.mobno);
+        mobno.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         profilename.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

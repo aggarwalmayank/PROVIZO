@@ -25,6 +25,7 @@ public class completed extends AppCompatActivity {
     ImageView home;
     String number, orderid, currentuser, amount, company;
     String numbers;
+    String partnerid="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class completed extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         final HashMap<String, Object> TypeOfService = new HashMap<>();
         TypeOfService.put("ServiceType", getIntent().getStringExtra("type of service"));
         TypeOfService.put("MaterialDescription", getIntent().getStringExtra("Material"));
@@ -77,6 +79,7 @@ public class completed extends AppCompatActivity {
                 mref.child("users").child(currentuser).child("Bookings").child(orderid).child("DropLocation").setValue(getIntent().getStringExtra("drop"));
                 mref.child("users").child(currentuser).child("Bookings").child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
                 mref.child("users").child(currentuser).child("Bookings").child(orderid).child("amount").setValue(getIntent().getStringExtra("amount"));
+                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").setValue(company);
             }
 
             @Override
@@ -84,6 +87,37 @@ public class completed extends AppCompatActivity {
 
             }
         });
+        mref.child("PartnerID").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                partnerid=""+dataSnapshot.child(company).getValue().toString();
+
+                mref.child("partners").child(partnerid).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("Consignee").setValue(Consignee);
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("Consignor").setValue(Consignor);
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("ServiceTruckDetails").setValue(TypeOfService);
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("PickUpLocation").setValue(getIntent().getStringExtra("pickup"));
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("DropLocation").setValue(getIntent().getStringExtra("drop"));
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        //Toast.makeText(this, partnerid+" "+orderid, Toast.LENGTH_SHORT).show();
+
 
         SendMail sm = new SendMail(completed.this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), "Booking Confirmed ",
                 "Dear Sir/Ma'am\n\nYour Booking With " + company + " with Booking ID: " + orderid + " of amount Rs " + amount + " only is confirmed.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");

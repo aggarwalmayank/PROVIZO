@@ -101,6 +101,7 @@ public class completed extends AppCompatActivity {
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("PickUpLocation").setValue(getIntent().getStringExtra("pickup"));
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("DropLocation").setValue(getIntent().getStringExtra("drop"));
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("Status").setValue("Pending");
 
                     }
 

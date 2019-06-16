@@ -8,17 +8,19 @@ public class PartnerOrders implements Serializable {
     private String DropLocation;
     private String PickUpDate;
     private String PickUpLocation;
+    private String Status;
     private HashMap<String, String> Consignee;
     private HashMap<String, String> Consignor;
     private HashMap<String, String> ServiceTruckDetails;
     String key;
 
-    public PartnerOrders(String dropLocation,  String pickUpDate, String pickUpLocation,  HashMap<String, String> consignee, HashMap<String, String> consignor, HashMap<String, String> serviceTruckDetails) {
+    public PartnerOrders(String dropLocation,  String pickUpDate, String pickUpLocation, String status, HashMap<String, String> consignee, HashMap<String, String> consignor, HashMap<String, String> serviceTruckDetails) {
         DropLocation = dropLocation;
         PickUpDate = pickUpDate;
         PickUpLocation = pickUpLocation;
         Consignee = consignee;
         Consignor = consignor;
+        Status=status;
         ServiceTruckDetails = serviceTruckDetails;
     }
 
@@ -29,6 +31,7 @@ public class PartnerOrders implements Serializable {
         PickUpLocation = bookings.getPickUpLocation();
         Consignee = bookings.getConsignee();
         Consignor = bookings.getConsignor();
+        Status=bookings.getStatus();
         ServiceTruckDetails = bookings.getServiceTruckDetails();
         this.key = key;
     }
@@ -58,6 +61,14 @@ public class PartnerOrders implements Serializable {
 
     public String getPickUpLocation() {
         return PickUpLocation;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        this.Status = status;
     }
 
     public void setPickUpLocation(String pickUpLocation) {

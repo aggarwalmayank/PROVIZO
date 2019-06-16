@@ -146,7 +146,7 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
         company = getIntent().getStringExtra("company");
         currentuser = getIntent().getStringExtra("Current User");
         gstconsignee = getIntent().getStringExtra("consignee gst");
-        gstconsignor = getIntent().getStringExtra("consignee gst");
+        gstconsignor = getIntent().getStringExtra("consignor gst");
         rs = Double.parseDouble(price);
         if (gstconsignor.isEmpty() || gstconsignee.isEmpty())
             amount.setText("Rs " + price);

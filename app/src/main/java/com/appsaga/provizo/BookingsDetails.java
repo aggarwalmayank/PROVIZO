@@ -46,7 +46,7 @@ public class BookingsDetails extends AppCompatActivity {
         consignorAddress.setText("Address: " + booking.getConsignor().get("Address"));
         consignorGST.setText("GST: " + booking.getConsignor().get("GST"));
         consignorPhone.setText("Phone Number: " + booking.getConsignor().get("PhoneNumber"));
-        serviceType.setText("Service Type: "+booking.getServiceTruckDetails().get("Service Type"));
+        serviceType.setText("Service Type: "+booking.getServiceTruckDetails().get("ServiceType"));
         description.setText("Description: "+booking.getServiceTruckDetails().get("MaterialDescription"));
         weight.setText("Weight: "+booking.getServiceTruckDetails().get("Weight"));
         truckType.setText("Truck Type: "+booking.getServiceTruckDetails().get("TruckType"));

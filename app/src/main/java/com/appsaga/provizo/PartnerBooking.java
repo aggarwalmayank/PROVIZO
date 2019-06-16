@@ -1,6 +1,9 @@
 package com.appsaga.provizo;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +30,7 @@ public class PartnerBooking extends AppCompatActivity {
     ListView bookingsList;
     String partnerid;
     TextView nobooking;
+    PartnerAdapter bookingsAdapter;
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class PartnerBooking extends AppCompatActivity {
                 .child(partnerid).child("Bookings");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -74,10 +80,11 @@ public class PartnerBooking extends AppCompatActivity {
 
                 } else {
                     nobooking.setVisibility(View.INVISIBLE);
-                    PartnerAdapter bookingsAdapter = new PartnerAdapter(PartnerBooking.this, bookings);
+                     bookingsAdapter = new PartnerAdapter(PartnerBooking.this, bookings);
                     bookingsList.setAdapter(bookingsAdapter);
 
                 }
+
                 bookingsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -89,6 +96,41 @@ public class PartnerBooking extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+               bookingsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                   @Override
+                   public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                       final PartnerOrders booking = bookings.get(position);
+                       AlertDialog.Builder builder = new AlertDialog.Builder(PartnerBooking.this);
+                       builder.setCancelable(true);
+                       builder.setMessage("Do you want to confirm delivery");
+                       builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialogInterface, int i) {
+                               dialogInterface.cancel();
+                           }
+                       });
+                       builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                          databaseReference.child(booking.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                              @Override
+                              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                  databaseReference.child(booking.getKey()).child("Status").setValue("Delivered");
+                              }
+
+                              @Override
+                              public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                              }
+                          });
+                           }
+                       });
+                       builder.show();
+                    //   bookingsAdapter.notifyDataSetChanged();
+                       return true;
+                   }
+               });
+
             }
 
             @Override

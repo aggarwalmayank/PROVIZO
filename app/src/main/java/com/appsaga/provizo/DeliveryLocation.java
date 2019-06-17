@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,11 +31,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,7 +49,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
     ImageButton deliveryNext;
-    EditText pickupdate, droploc, pickuploc;
+    EditText pickupdate, droploc;
+    AutoCompleteTextView pickuploc;
     DatabaseHelperUser db;
     String  orderid;
     ImageView menuicon;
@@ -58,7 +63,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
    // DatabaseReference myref;
     private static final int ERROR_DIALOG_REQUEST = 9001;
     FirebaseUser user;
-
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         droploc = findViewById(R.id.droploc);
         pickupdate = findViewById(R.id.pickupdate);
         deliveryNext = findViewById(R.id.delivery_next);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         final Calendar calendar = Calendar.getInstance();
         year_x = calendar.get(Calendar.YEAR);
@@ -100,7 +106,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         });
         View headerview = nv.getHeaderView(0);
         TextView profilename = (TextView) headerview.findViewById(R.id.profile);
-        TextView mobno = (TextView) headerview.findViewById(R.id.mobno);
+        TextView mobno = (TextView) headerview.findViewById(R.id.mob_no);
         mobno.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         profilename.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +164,32 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         return true;
                 }
                 return true;
+
+            }
+        });
+
+        databaseReference.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ArrayList<String> picklocs = new ArrayList<>();
+
+                for(DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    HashMap<String,ArrayList<String>> hashMap;
+                    hashMap = (HashMap<String,ArrayList<String>>)ds.child("operations").child("locationMap").getValue();
+                    if(hashMap!=null) {
+                        HashMap.Entry<String, ArrayList<String>> entry = hashMap.entrySet().iterator().next();
+                        picklocs.add(entry.getKey());
+                    }
+                }
+
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this,android.R.layout.simple_list_item_1,picklocs);
+                pickuploc.setAdapter(arrayAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });

@@ -79,7 +79,7 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
             }
         });
         View headerview = nv.getHeaderView(0);
-        TextView mobno = (TextView) headerview.findViewById(R.id.mobno);
+        TextView mobno = (TextView) headerview.findViewById(R.id.mob_no);
         mobno.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         TextView profilename = (TextView) headerview.findViewById(R.id.profile);
         profilename.setOnClickListener(new View.OnClickListener() {

@@ -199,7 +199,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     i.putExtra("pickup",getIntent().getStringExtra("pickup"));
                     i.putExtra("drop",getIntent().getStringExtra("drop"));
                     i.putExtra("date",getIntent().getStringExtra("date"));
-                    i.putExtra("weight",weight1+" "+radioWeightButton.getText());
+                    i.putExtra("weight",weight1+" "+"Quintal");
                     i.putExtra("weightnounit",weight1);
                     i.putExtra("Material",material.getText().toString());
                     i.putExtra("truck",trucktype.getSelectedItem().toString());

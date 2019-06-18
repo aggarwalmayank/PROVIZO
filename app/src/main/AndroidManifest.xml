@@ -29,8 +29,10 @@
         <activity android:name=".AddCard" />
         <activity android:name=".AboutUs" />
         <activity android:name=".completed" />
-        <activity android:name=".consignee_details" />
-        <activity android:name=".consignor_details" />
+        <activity android:name=".consignee_details"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".consignor_details"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,11 +41,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUp" />
-        <activity android:name=".SignInUp" />
-        <activity android:name=".SignUpSecond" />
-        <activity android:name=".DeliveryLocation" />
-        <activity android:name=".SelectServiceTruck" />
+        <activity android:name=".SignUp"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".SignInUp"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".SignUpSecond"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".DeliveryLocation"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity android:name=".SelectServiceTruck"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
     </application>
 
 </manifest>

@@ -12,24 +12,25 @@
     android:orientation="vertical"
     tools:context=".DeliveryLocation">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
-
+        android:gravity="center"
+        android:background="#ebeef1">
 
         <ImageView
+            android:id="@+id/first"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/provizo_bg1" />
+            android:src="@drawable/first_new" />
         <ImageView
             android:id="@+id/menuicon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:src="@drawable/menuicon"/>
+            android:src="@drawable/menuicon" />
 
         <TextView
             android:id="@+id/appnamesignupsecond"
@@ -45,10 +46,17 @@
             android:textColor="#000000"
             android:textSize="45sp" />
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/first"
+            android:layout_above="@+id/third"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -103,12 +111,23 @@
                 android:src="@drawable/right_pointer" />
 
         </LinearLayout>
+
+        </ScrollView>
+
         <ImageView
+            android:id="@+id/third"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_width="500dp"
-            android:layout_marginBottom="-150dp"
-            android:layout_height="500dp"
-            android:src="@drawable/location"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/third" />
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:src="@drawable/location"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </LinearLayout>
     <android.support.design.widget.NavigationView
@@ -123,7 +142,5 @@
         android:id="@+id/nv">
 
     </android.support.design.widget.NavigationView>
-
-
 
 </android.support.v4.widget.DrawerLayout>

@@ -11,13 +11,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="#ebeef1">
 
         <ImageView
+            android:id="@+id/first"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:background="@drawable/provizo_bg1" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/first_new" />
 
         <TextView
             android:id="@+id/appnamesigninup"
@@ -33,10 +35,16 @@
             android:textColor="#000000"
             android:textSize="45sp" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_below="@id/first"
+            android:layout_above="@id/third">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -44,7 +52,6 @@
                 android:id="@+id/login_id_text"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="95dp"
                 android:maxLines="1"
                 android:drawableStart="@drawable/loginid"
                 android:drawableLeft="@drawable/loginid"
@@ -125,15 +132,26 @@
 
             </RelativeLayout>
         </LinearLayout>
+
+        </ScrollView>
         <Button
             android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/temp"
             android:background="@drawable/profilepic"/>
+
+        <ImageView
+            android:id="@+id/third"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/third"
+            android:scaleType="centerCrop"/>
         <Button
             android:layout_margin="8dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Partner Login"

@@ -11,20 +11,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:background="#ebeef1">
 
         <ImageView
+            android:id="@+id/first"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/provizo_bg1" />
+            android:src="@drawable/first_new" />
 
         <TextView
             android:id="@+id/appnamesignupsecond"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="90dp"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="20dp"
@@ -37,8 +39,8 @@
             android:id="@+id/appsignupsecond"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/appnamesignupsecond"
+            android:layout_centerHorizontal="true"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="20dp"
@@ -47,107 +49,118 @@
             android:textColor="#000000"
             android:textSize="18sp" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/fullname"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:layout_marginTop="40dp"
-                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                android:drawableLeft="@drawable/loginid"
-                android:gravity="center"
-                android:hint="Full Name"
-                android:inputType="text" />
+            android:layout_below="@id/first"
+            android:layout_above="@+id/third">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/fullname"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:drawableLeft="@drawable/loginid"
+                    android:gravity="center"
+                    android:hint="Full Name"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="19dp"
-                    android:src="@drawable/gendericon"/>
+                    android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/genderspinner"
-                    android:layout_width="220dp"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="19dp"
+                        android:src="@drawable/gendericon" />
+
+                    <Spinner
+                        android:id="@+id/genderspinner"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/spinner_rect"
+                        android:textAlignment="center" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <EditText
+                    android:id="@+id/dob"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/calendaricon"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="Date of Birth"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/mailicon"
+                    android:gravity="center"
+                    android:hint="Email ID"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/passwordicon"
+                    android:gravity="center"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+                <Button
+                    android:id="@+id/signupsecond"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:textAlignment="center"
-                    android:background="@drawable/spinner_rect"/>
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/ripple_effect"
+                    android:text="Sign Up" />
 
-
+                <ProgressBar
+                    android:id="@+id/pbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginTop="1dp"
-                android:background="@android:color/darker_gray"/>
-            <EditText
-                android:id="@+id/dob"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/calendaricon"
-                android:maxLines="1"
-                android:gravity="center"
-                android:focusable="false"
-                android:hint="Date of Birth"
-                android:inputType="text" />
 
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/mailicon"
-                android:gravity="center"
-                android:hint="Email ID"
-                android:maxLines="1"
-                android:inputType="text" />
+        </ScrollView>
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/passwordicon"
-                android:gravity="center"
-                android:hint="Password"
-                android:maxLines="1"
-                android:inputType="textPassword" />
-
-
-            <Button
-                android:id="@+id/signupsecond"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/ripple_effect"
-                android:text="Sign Up" />
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/pbar"
-                android:visibility="gone"/>
-
-
-        </LinearLayout>
         <ImageView
+            android:id="@+id/third"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_width="500dp"
-            android:layout_marginBottom="-180dp"
-            android:layout_height="500dp"
-            android:src="@drawable/truck2"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/third" />
     </RelativeLayout>
 </LinearLayout>

@@ -72,18 +72,20 @@
                 android:hint="Enter Pick-Up Location"
                 android:inputType="text" />
 
-
-            <EditText
-                android:id="@+id/droploc"
-                android:layout_width="250dp"
-                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/mappin"
-                android:gravity="center"
-                android:maxLines="1"
-                android:hint="Enter Drop Location"
-                android:inputType="text" />
+                android:background="@drawable/card_view"
+                android:layout_marginTop="10dp">
+
+                <Spinner
+                    android:id="@+id/droploc"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:inputType="text" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/pickupdate"

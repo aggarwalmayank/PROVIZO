@@ -13,6 +13,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -24,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,7 +52,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
     ImageButton deliveryNext;
-    EditText pickupdate, droploc;
+    EditText pickupdate;
+    Spinner droploc;
     AutoCompleteTextView pickuploc;
     DatabaseHelperUser db;
     String  orderid;
@@ -172,7 +176,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                ArrayList<String> picklocs = new ArrayList<>();
+                final ArrayList<String> picklocs = new ArrayList<>();
 
                 for(DataSnapshot ds: dataSnapshot.getChildren())
                 {
@@ -186,6 +190,60 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this,android.R.layout.simple_list_item_1,picklocs);
                 pickuploc.setAdapter(arrayAdapter);
+
+                pickuploc.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        databaseReference.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                ArrayList<String> droplocs = new ArrayList<>();
+
+                                for(DataSnapshot ds:dataSnapshot.getChildren())
+                                {
+                                    HashMap<String,HashMap<String,Integer>> hashMap;
+                                    hashMap = (HashMap<String,HashMap<String,Integer>>)ds.child("operations").child("locationMap").getValue();
+
+                                    if(hashMap!=null)
+                                    {
+                                        HashMap.Entry<String, HashMap<String,Integer>> entry = hashMap.entrySet().iterator().next();
+
+                                        if(entry.getKey().equalsIgnoreCase(pickuploc.getText().toString()))
+                                        {
+                                            HashMap<String,Integer> hashMap1 = entry.getValue();
+
+                                            for(HashMap.Entry<String,Integer> entry1:hashMap1.entrySet())
+                                            {
+                                                droplocs.add(entry1.getKey());
+                                            }
+                                        }
+                                    }
+                                }
+
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this,android.R.layout.simple_list_item_1,droplocs);
+                                droploc.setAdapter(null);
+                                droploc.setAdapter(arrayAdapter);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
             }
 
             @Override
@@ -194,14 +252,13 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
             }
         });
 
-
         deliveryNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pickuploc.getText().toString().equalsIgnoreCase(""))
                     pickuploc.setError("Invalid Location");
-                else if (droploc.getText().toString().equalsIgnoreCase(""))
-                    droploc.setError("Invalid Location");
+                else if (droploc.getChildCount()==0)
+                    pickuploc.setError("Please Select different pickup location");
                 else if (pickupdate.getText().toString().equalsIgnoreCase(""))
                     pickupdate.setError("Invalid Date");
                 else {
@@ -214,7 +271,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                     tonext.putExtra("Order ID", orderid);
                     tonext.putExtra("pickup",pickuploc.getText().toString().toLowerCase());
-                    tonext.putExtra("drop",droploc.getText().toString().toLowerCase());
+                    tonext.putExtra("drop",droploc.getSelectedItem().toString().toLowerCase());
                     tonext.putExtra("date",pickupdate.getText().toString());
                     //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
                     startActivity(tonext);

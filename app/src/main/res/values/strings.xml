@@ -25,7 +25,9 @@
 
     <string-array name="trucktype">
         <item>Select Truck Type</item>
-        <item>2.5 MT Open</item>
+    </string-array>
+
+    <!-- <item>2.5 MT Open</item>
         <item>2.5 MT Closed</item>
         <item>3.5 MT Closed</item>
         <item>4 MT Open</item>
@@ -42,8 +44,6 @@
         <item>26 MT Closed</item>
         <item>20 MT Trailor 40ft</item>
         <item>26 MT Trailor 40ft</item>
-        <item>ODC Trailor</item>
-        <item>Tempo</item>
-    </string-array>
+        <item>ODC Trailor</item>    -->
 
 </resources>

@@ -1,6 +1,6 @@
 package com.appsaga.provizo;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,7 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,7 +34,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import static android.R.layout.simple_spinner_item;
 
 public class SelectServiceTruck extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
     EditText material, weight;
@@ -43,9 +49,11 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     ImageView menuicon;
-    String orderid, currentuser;
+    String orderid, currentuser, WEIGHT, unit;
     DatabaseReference myref;
     Spinner spinner, trucktype;
+
+    ArrayAdapter adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,23 +79,55 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
 
         spinner = (Spinner) findViewById(R.id.servicetype);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.service, android.R.layout.simple_spinner_item);
+                R.array.service, simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
 
         trucktype = (Spinner) findViewById(R.id.truckspinner);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.trucktype, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        trucktype.setAdapter(adapter2);
+
+        trucktype.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int selectedId = radioWeightGroup.getCheckedRadioButtonId();
+                radioWeightButton = (RadioButton) findViewById(selectedId);
+                if (weight.getText().toString().equalsIgnoreCase("")) {
+                    weight.setError("Enter Weight and unit first");
+                    adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
+                            R.array.trucktype, simple_spinner_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    trucktype.setAdapter(adapter2);
+                    trucktype.setSelection(0);
+                }
+                else if(selectedId==-1&&trucktype.getSelectedItem().toString().equals("Select Truck Type")){
+                    alertbox("Select Unit");
+                    adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
+                            R.array.trucktype, simple_spinner_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    trucktype.setAdapter(adapter2);
+
+                    trucktype.setSelection(0);
+                }else {
+                    WEIGHT = weight.getText().toString();
+                    unit = radioWeightButton.getText().toString();
+                    double wt = 0;
+                    if (unit.equals("Kg")) {
+                        wt = Double.parseDouble(WEIGHT) * 0.001;
+                    } else if (unit.equals("Quintal")) {
+                        wt = Double.parseDouble(WEIGHT) * 0.10;
+                    } else wt = Double.parseDouble(WEIGHT);
+                    setSpinner(wt);
+                }
+                return false;
+            }
+        });
 
         dl = (DrawerLayout) findViewById(R.id.deliverylocation);
         t = new ActionBarDrawerToggle(this, dl, R.string.open, R.string.close);
         dl.addDrawerListener(t);
         t.syncState();
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         nv = (NavigationView) findViewById(R.id.nv);
         menuicon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,38 +211,33 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     material.setError("Invalid Description");
                 else if (weight.getText().toString().equalsIgnoreCase(""))
                     weight.setError("Invalid weight");
-                else if (radioWeightGroup.getCheckedRadioButtonId()==-1)
+                else if (radioWeightGroup.getCheckedRadioButtonId() == -1)
                     alertbox("No Unit Selected");
                 else if (trucktype.getSelectedItem().toString().equals("Select Truck Type"))
                     alertbox("Please Select Truck");
                 else {
                     //AddtoFirebase();
-                    String weight1="0";
+                    String weight1 = "0";
 
-                    if(radioWeightGroup.getCheckedRadioButtonId()==R.id.radiobtn1)
-                    {
-                        weight1 = String.valueOf(Double.parseDouble(weight.getText().toString())*(0.01));
-                    }
-                    else if(radioWeightGroup.getCheckedRadioButtonId()==R.id.radiobtn2)
-                    {
+                    if (radioWeightGroup.getCheckedRadioButtonId() == R.id.radiobtn1) {
+                        weight1 = String.valueOf(Double.parseDouble(weight.getText().toString()) * (0.01));
+                    } else if (radioWeightGroup.getCheckedRadioButtonId() == R.id.radiobtn2) {
                         weight1 = weight.getText().toString();
-                    }
-                    else if(radioWeightGroup.getCheckedRadioButtonId()==R.id.radiobtn3)
-                    {
-                        weight1 = String.valueOf(Double.parseDouble(weight.getText().toString())*(10));
+                    } else if (radioWeightGroup.getCheckedRadioButtonId() == R.id.radiobtn3) {
+                        weight1 = String.valueOf(Double.parseDouble(weight.getText().toString()) * (10));
                     }
 
-                    Intent i=new Intent(SelectServiceTruck.this,AvailableServices.class);
-                    i.putExtra("Order ID",orderid);
-                    i.putExtra("Current User",currentuser);
-                    i.putExtra("type of service",spinner.getSelectedItem().toString());
-                    i.putExtra("pickup",getIntent().getStringExtra("pickup"));
-                    i.putExtra("drop",getIntent().getStringExtra("drop"));
-                    i.putExtra("date",getIntent().getStringExtra("date"));
-                    i.putExtra("weight",weight1+" "+"Quintal");
-                    i.putExtra("weightnounit",weight1);
-                    i.putExtra("Material",material.getText().toString());
-                    i.putExtra("truck",trucktype.getSelectedItem().toString());
+                    Intent i = new Intent(SelectServiceTruck.this, AvailableServices.class);
+                    i.putExtra("Order ID", orderid);
+                    i.putExtra("Current User", currentuser);
+                    i.putExtra("type of service", spinner.getSelectedItem().toString());
+                    i.putExtra("pickup", getIntent().getStringExtra("pickup"));
+                    i.putExtra("drop", getIntent().getStringExtra("drop"));
+                    i.putExtra("date", getIntent().getStringExtra("date"));
+                    i.putExtra("weight", weight1 + " " + "Quintal");
+                    i.putExtra("weightnounit", weight1);
+                    i.putExtra("Material", material.getText().toString());
+                    i.putExtra("truck", trucktype.getSelectedItem().toString());
                     startActivity(i);
                 }
             }
@@ -252,7 +287,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       // myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
+        // myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
         finish();
 
     }
@@ -270,5 +305,87 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         builder.show();
     }
 
-
+    public void setSpinner(double wt) {
+        if (wt <= 2.5) {
+            List<String> list1 = new ArrayList<>();
+            list1.clear();
+            list1.add("Select Truck Type");
+            list1.add("2.5 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list1);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 2.5 && wt <= 3.5) {
+            List<String> list2 = new ArrayList<>();
+            list2.clear();
+            list2.add("Select Truck Type");
+            list2.add("3.5 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list2);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 3.5 && wt <= 4) {
+            List<String> list3 = new ArrayList<>();
+            list3.clear();
+            list3.add("Select Truck Type");
+            list3.add("4 MT Open");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list3);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 4 && wt <= 5) {
+            List<String> list4 = new ArrayList<>();
+            list4.clear();
+            list4.add("Select Truck Type");
+            list4.add("5 MT Open");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list4);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 5 && wt <= 7) {
+            List<String> list5 = new ArrayList<>();
+            list5.clear();
+            list5.add("Select Truck Type");
+            list5.add("7 MT Open");
+            list5.add("7 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list5);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 7 && wt <= 9) {
+            List<String> list6 = new ArrayList<>();
+            list6.clear();
+            list6.add("Select Truck Type");
+            list6.add("9 MT Open");
+            list6.add("9 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list6);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 9 && wt <= 16) {
+            List<String> list7 = new ArrayList<>();
+            list7.clear();
+            list7.add("Select Truck Type");
+            list7.add("16 MT Open");
+            list7.add("16 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list7);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 16 && wt <= 21) {
+            List<String> list8 = new ArrayList<>();
+            list8.clear();
+            list8.add("Select Truck Type");
+            list8.add("21 MT Open");
+            list8.add("21 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list8);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 21 && wt <= 26) {
+            List<String> list9 = new ArrayList<>();
+            list9.clear();
+            list9.add("Select Truck Type");
+            list9.add("26 MT Open");
+            list9.add("26 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list9);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else {
+            alertbox("No Truck Available");
+            trucktype.setSelection(0);
+        }
+    }
 }

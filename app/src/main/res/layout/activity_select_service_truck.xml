@@ -181,7 +181,6 @@
                     android:layout_gravity="center"
                     android:background="@drawable/spinner_rect"
                     android:gravity="center"
-                    android:spinnerMode="dialog"
                     android:textAlignment="center" />
             </LinearLayout>
 

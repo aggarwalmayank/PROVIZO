@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -47,24 +48,24 @@ import java.util.HashMap;
 
 import android.support.design.widget.NavigationView;
 
-public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener{
+public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
     ImageButton deliveryNext;
     EditText pickupdate;
-    Spinner droploc;
+    AutoCompleteTextView droploc;
     AutoCompleteTextView pickuploc;
     DatabaseHelperUser db;
-    String  orderid;
+    String orderid;
     ImageView menuicon;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private static final String TAG = "DeliveryLoc";
-    private  ValueEventListener mQueryListener;
+    private ValueEventListener mQueryListener;
     Intent tonext;
-   // DatabaseReference myref;
+    // DatabaseReference myref;
     private static final int ERROR_DIALOG_REQUEST = 9001;
     FirebaseUser user;
     DatabaseReference databaseReference;
@@ -133,7 +134,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         Toast.makeText(DeliveryLocation.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        startActivity(new Intent(DeliveryLocation.this,MyBookings.class));
+                        startActivity(new Intent(DeliveryLocation.this, MyBookings.class));
                         break;
                     case R.id.newbooking:
                         dl.closeDrawer(Gravity.LEFT);
@@ -161,7 +162,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     case R.id.signout:
                         Toast.makeText(DeliveryLocation.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(DeliveryLocation.this,SignInUp.class));
+                        startActivity(new Intent(DeliveryLocation.this, SignInUp.class));
                         finish();
                         break;
                     default:
@@ -178,58 +179,97 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                 final ArrayList<String> picklocs = new ArrayList<>();
 
-                for(DataSnapshot ds: dataSnapshot.getChildren())
-                {
-                    HashMap<String,ArrayList<String>> hashMap;
-                    hashMap = (HashMap<String,ArrayList<String>>)ds.child("operations").child("locationMap").getValue();
-                    if(hashMap!=null) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    HashMap<String, ArrayList<String>> hashMap;
+                    hashMap = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").getValue();
+                    if (hashMap != null) {
                         HashMap.Entry<String, ArrayList<String>> entry = hashMap.entrySet().iterator().next();
                         picklocs.add(entry.getKey());
                     }
                 }
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this,android.R.layout.simple_list_item_1,picklocs);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this, android.R.layout.simple_list_item_1, picklocs);
                 pickuploc.setAdapter(arrayAdapter);
 
                 pickuploc.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                         databaseReference.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                ArrayList<String> droplocs = new ArrayList<>();
+                                final ArrayList<String> droplocs = new ArrayList<>();
 
-                                for(DataSnapshot ds:dataSnapshot.getChildren())
-                                {
-                                    HashMap<String,HashMap<String,Integer>> hashMap;
-                                    hashMap = (HashMap<String,HashMap<String,Integer>>)ds.child("operations").child("locationMap").getValue();
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    HashMap<String, HashMap<String, Integer>> hashMap;
+                                    hashMap = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").getValue();
 
-                                    if(hashMap!=null)
-                                    {
-                                        HashMap.Entry<String, HashMap<String,Integer>> entry = hashMap.entrySet().iterator().next();
+                                    if (hashMap != null) {
+                                        HashMap.Entry<String, HashMap<String, Integer>> entry = hashMap.entrySet().iterator().next();
 
-                                        if(entry.getKey().equalsIgnoreCase(pickuploc.getText().toString()))
-                                        {
-                                            HashMap<String,Integer> hashMap1 = entry.getValue();
+                                        if (entry.getKey().equalsIgnoreCase(pickuploc.getText().toString())) {
+                                            HashMap<String, Integer> hashMap1 = entry.getValue();
 
-                                            for(HashMap.Entry<String,Integer> entry1:hashMap1.entrySet())
-                                            {
+                                            for (HashMap.Entry<String, Integer> entry1 : hashMap1.entrySet()) {
                                                 droplocs.add(entry1.getKey());
                                             }
                                         }
                                     }
                                 }
 
-                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this,android.R.layout.simple_list_item_1,droplocs);
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this, android.R.layout.simple_list_item_1, droplocs);
                                 droploc.setAdapter(null);
                                 droploc.setAdapter(arrayAdapter);
+
+                                droploc.addTextChangedListener(new TextWatcher() {
+                                    @Override
+                                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                    }
+
+                                    @Override
+                                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                        if (droploc.getAdapter().isEmpty()) {
+                                            droploc.setError("Please select other drop loc");
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void afterTextChanged(Editable s) {
+
+                                    }
+                                });
+
+                                deliveryNext.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (pickuploc.getText().toString().equalsIgnoreCase(""))
+                                            pickuploc.setError("Invalid pick-up location");
+                                        else if (droploc.getText().toString().equalsIgnoreCase("") || !droplocs.contains(droploc.getText().toString()))
+                                            droploc.setError("Invalid drop location");
+                                        else if (pickupdate.getText().toString().equalsIgnoreCase(""))
+                                            pickupdate.setError("Invalid Date");
+                                        else {
+                                            DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
+                                            Date today = Calendar.getInstance().getTime();
+                                            orderid = df.format(today);
+                                            orderid = orderid.substring(0, 12);
+                                            tonext = new Intent(DeliveryLocation.this, SelectServiceTruck.class);
+                                            // AddtoFirebase();
+
+                                            tonext.putExtra("Order ID", orderid);
+                                            tonext.putExtra("pickup", pickuploc.getText().toString().toLowerCase());
+                                            tonext.putExtra("drop", droploc.getText().toString().toLowerCase());
+                                            tonext.putExtra("date", pickupdate.getText().toString());
+                                            //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
+                                            startActivity(tonext);
+                                        }
+
+                                    }
+                                });
                             }
 
                             @Override
@@ -237,6 +277,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                             }
                         });
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
                     }
 
                     @Override
@@ -248,34 +294,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        deliveryNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (pickuploc.getText().toString().equalsIgnoreCase(""))
-                    pickuploc.setError("Invalid Location");
-                else if (droploc.getChildCount()==0)
-                    pickuploc.setError("Please Select different pickup location");
-                else if (pickupdate.getText().toString().equalsIgnoreCase(""))
-                    pickupdate.setError("Invalid Date");
-                else {
-                    DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
-                    Date today = Calendar.getInstance().getTime();
-                    orderid = df.format(today);
-                    orderid=orderid.substring(0,12);
-                    tonext= new Intent(DeliveryLocation.this, SelectServiceTruck.class);
-                   // AddtoFirebase();
-
-                    tonext.putExtra("Order ID", orderid);
-                    tonext.putExtra("pickup",pickuploc.getText().toString().toLowerCase());
-                    tonext.putExtra("drop",droploc.getSelectedItem().toString().toLowerCase());
-                    tonext.putExtra("date",pickupdate.getText().toString());
-                    //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
-                    startActivity(tonext);
-                }
 
             }
         });

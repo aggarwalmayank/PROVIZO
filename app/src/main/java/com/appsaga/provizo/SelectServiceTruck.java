@@ -1,6 +1,7 @@
 package com.appsaga.provizo;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -82,32 +84,33 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                 R.array.service, simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
-
-        trucktype = (Spinner) findViewById(R.id.truckspinner);
-
-        trucktype.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
+        spinner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboardwithoutPopulate(SelectServiceTruck.this);
+                return false;
+            }
+        });
+
+        trucktype = (Spinner) findViewById(R.id.truckspinner);
+        adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
+                R.array.trucktype, simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        trucktype.setAdapter(adapter2);
+
+
+        trucktype.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboardwithoutPopulate(SelectServiceTruck.this);
                 int selectedId = radioWeightGroup.getCheckedRadioButtonId();
                 radioWeightButton = (RadioButton) findViewById(selectedId);
-                if (weight.getText().toString().equalsIgnoreCase("")) {
-                    weight.setError("Enter Weight and unit first");
-                    adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
-                            R.array.trucktype, simple_spinner_item);
-                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    trucktype.setAdapter(adapter2);
-                    trucktype.setSelection(0);
-                } else if (selectedId == -1 && trucktype.getSelectedItem().toString().equals("Select Truck Type")) {
-                    alertbox("Select Unit");
-                    adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
-                            R.array.trucktype, simple_spinner_item);
-                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    trucktype.setAdapter(adapter2);
+                if (weight.getText().toString().equalsIgnoreCase("")||selectedId == -1) {
+                    weight.setError("Invalid Weight and unit ");
+                }
 
-                    trucktype.setSelection(0);
-                } else {
+                else {
                     WEIGHT = weight.getText().toString();
                     unit = radioWeightButton.getText().toString();
                     double wt = 0;
@@ -427,5 +430,13 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         }
+    }
+    public static void hideKeyboardwithoutPopulate(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if(inputMethodManager.isAcceptingText())
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(), 0);
     }
 }

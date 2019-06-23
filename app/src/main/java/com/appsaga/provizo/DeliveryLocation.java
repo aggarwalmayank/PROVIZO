@@ -338,7 +338,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         try {
             java.util.Date mDate = sdf.parse(selectedDate);
             timeInMilliseconds = mDate.getTime();
-            Toast.makeText(this, day_x + "-" + month_x + "-" + year_x+" "+"00:00:00"+"   "+timeInMilliseconds+"    "+timeinmuli, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, day_x + "-" + month_x + "-" + year_x+" "+"00:00:00"+"   "+timeInMilliseconds+"    "+timeinmuli, Toast.LENGTH_SHORT).show();
             if (timeInMilliseconds <timeinmuli)
                 flag = Boolean.FALSE;
         } catch (ParseException e) {

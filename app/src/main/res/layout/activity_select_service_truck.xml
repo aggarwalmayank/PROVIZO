@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-/."
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/deliverpack"
                 android:gravity="center"
                 android:hint="Material Description"
@@ -123,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/weight"
                 android:id="@+id/weight"
+                android:layout_marginTop="8dp"
                 android:maxLines="1"
                 android:inputType="number"
                 android:digits="1234567890."
@@ -156,16 +157,12 @@
 
             </RadioGroup>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginTop="1dp"
-                android:background="@android:color/darker_gray" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <ImageView

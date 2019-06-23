@@ -99,8 +99,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     trucktype.setAdapter(adapter2);
                     trucktype.setSelection(0);
-                }
-                else if(selectedId==-1&&trucktype.getSelectedItem().toString().equals("Select Truck Type")){
+                } else if (selectedId == -1 && trucktype.getSelectedItem().toString().equals("Select Truck Type")) {
                     alertbox("Select Unit");
                     adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
                             R.array.trucktype, simple_spinner_item);
@@ -108,7 +107,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     trucktype.setAdapter(adapter2);
 
                     trucktype.setSelection(0);
-                }else {
+                } else {
                     WEIGHT = weight.getText().toString();
                     unit = radioWeightButton.getText().toString();
                     double wt = 0;
@@ -185,7 +184,10 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     case R.id.signout:
                         Toast.makeText(SelectServiceTruck.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
-                        //startActivity(new Intent(DeliveryLocation.this,SignInUp.class));
+                        Intent intent = new Intent(SelectServiceTruck.this, SignInUp.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
                         finish();
                         break;
                     default:
@@ -287,7 +289,6 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        // myref.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
         finish();
 
     }
@@ -311,6 +312,8 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list1.clear();
             list1.add("Select Truck Type");
             list1.add("2.5 MT Closed");
+            list1.add("2.5 MT Open");
+            list1.add("3.5 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list1);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
@@ -318,7 +321,10 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list2 = new ArrayList<>();
             list2.clear();
             list2.add("Select Truck Type");
+            list2.add("2.5 MT Closed");
+            list2.add("2.5 MT Open");
             list2.add("3.5 MT Closed");
+            list2.add("4 MT Open");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list2);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
@@ -326,6 +332,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list3 = new ArrayList<>();
             list3.clear();
             list3.add("Select Truck Type");
+            list3.add("3.5 MT Closed");
             list3.add("4 MT Open");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list3);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -334,7 +341,10 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list4 = new ArrayList<>();
             list4.clear();
             list4.add("Select Truck Type");
+            list4.add("4 MT Open");
             list4.add("5 MT Open");
+            list4.add("7 MT Open");
+            list4.add("7 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list4);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
@@ -342,8 +352,13 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list5 = new ArrayList<>();
             list5.clear();
             list5.add("Select Truck Type");
+            list5.add("5 MT Open");
             list5.add("7 MT Open");
             list5.add("7 MT Closed");
+            if (wt >= 6) {
+                list5.add("9 MT Open");
+                list5.add("9 MT Closed");
+            }
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list5);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
@@ -360,6 +375,8 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list7 = new ArrayList<>();
             list7.clear();
             list7.add("Select Truck Type");
+            list7.add("9 MT Open");
+            list7.add("9 MT Closed");
             list7.add("16 MT Open");
             list7.add("16 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list7);
@@ -369,6 +386,8 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list8 = new ArrayList<>();
             list8.clear();
             list8.add("Select Truck Type");
+            list8.add("16 MT Open");
+            list8.add("16 MT Closed");
             list8.add("21 MT Open");
             list8.add("21 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list8);
@@ -378,14 +397,35 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list9 = new ArrayList<>();
             list9.clear();
             list9.add("Select Truck Type");
+            list9.add("21 MT Open");
+            list9.add("21 MT Closed");
             list9.add("26 MT Open");
             list9.add("26 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list9);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else {
-            alertbox("No Truck Available");
-            trucktype.setSelection(0);
+            List<String> list10 = new ArrayList<>();
+            list10.clear();
+            list10.add("Select Truck Type");
+            list10.add("2.5 MT Closed");
+            list10.add("2.5 MT Open");
+            list10.add("3.5 MT Closed");
+            list10.add("4 MT Open");
+            list10.add("5 MT Open");
+            list10.add("7 MT Open");
+            list10.add("7 MT Closed");
+            list10.add("9 MT Open");
+            list10.add("9 MT Closed");
+            list10.add("16 MT Open");
+            list10.add("16 MT Closed");
+            list10.add("21 MT Open");
+            list10.add("21 MT Closed");
+            list10.add("26 MT Open");
+            list10.add("26 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list10);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
         }
     }
 }

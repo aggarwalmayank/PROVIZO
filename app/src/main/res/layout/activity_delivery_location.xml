@@ -67,6 +67,7 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp"
+                        android:imeOptions="actionNext"
                         android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:drawableLeft="@drawable/mappin"
                         android:gravity="center"
@@ -77,8 +78,10 @@
                     <AutoCompleteTextView
                         android:id="@+id/droploc"
                         android:layout_width="250dp"
+                        android:imeOptions="actionNext"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/mappin"
+                        android:layout_marginTop="10dp"
                         android:drawableLeft="@drawable/mappin"
                         android:gravity="center"
                         android:hint="Enter Drop Location"

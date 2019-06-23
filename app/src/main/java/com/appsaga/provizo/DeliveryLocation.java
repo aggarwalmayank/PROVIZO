@@ -1,9 +1,11 @@
 package com.appsaga.provizo;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -41,9 +44,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import android.support.design.widget.NavigationView;
@@ -63,9 +68,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private static final String TAG = "DeliveryLoc";
-    private ValueEventListener mQueryListener;
     Intent tonext;
-    // DatabaseReference myref;
     private static final int ERROR_DIALOG_REQUEST = 9001;
     FirebaseUser user;
     DatabaseReference databaseReference;
@@ -130,7 +133,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         break;
                     case R.id.partnerlogin:
                         dl.closeDrawer(Gravity.LEFT);
-                        //openDialog("partner");
                         Toast.makeText(DeliveryLocation.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
@@ -208,7 +210,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                                     if (hashMap != null) {
                                         HashMap.Entry<String, HashMap<String, Integer>> entry = hashMap.entrySet().iterator().next();
 
-                                        if (entry.getKey().equalsIgnoreCase(pickuploc.getText().toString())) {
+                                        if (entry.getKey().equalsIgnoreCase(pickuploc.getText().toString().toLowerCase())) {
                                             HashMap<String, Integer> hashMap1 = entry.getValue();
 
                                             for (HashMap.Entry<String, Integer> entry1 : hashMap1.entrySet()) {
@@ -221,7 +223,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(DeliveryLocation.this, android.R.layout.simple_list_item_1, droplocs);
                                 droploc.setAdapter(null);
                                 droploc.setAdapter(arrayAdapter);
-
                                 droploc.addTextChangedListener(new TextWatcher() {
                                     @Override
                                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -258,13 +259,10 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                                             orderid = df.format(today);
                                             orderid = orderid.substring(0, 12);
                                             tonext = new Intent(DeliveryLocation.this, SelectServiceTruck.class);
-                                            // AddtoFirebase();
-
                                             tonext.putExtra("Order ID", orderid);
                                             tonext.putExtra("pickup", pickuploc.getText().toString().toLowerCase());
                                             tonext.putExtra("drop", droploc.getText().toString().toLowerCase());
                                             tonext.putExtra("date", pickupdate.getText().toString());
-                                            //    Toast.makeText(DeliveryLocation.this, orderid, Toast.LENGTH_SHORT).show();
                                             startActivity(tonext);
                                         }
 
@@ -298,43 +296,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
             }
         });
 
+
     }
 
-   /* public void AddtoFirebase() {
-
-        Log.d("Delivery Location", "i am here");
-        final HashMap<String, Object> insert = new HashMap<>();
-        String pick,drop,date;
-        pick=pickuploc.getText().toString().toLowerCase();
-        drop=droploc.getText().toString().toLowerCase();
-        date=pickupdate.getText().toString();
-        insert.put("PickUpLocation", pick);
-        insert.put("DropLocation", drop);
-        insert.put("PickUpDate", date);
-
-
-        user=FirebaseAuth.getInstance().getCurrentUser();
-        tonext.putExtra("Current User", user.getUid());
-        myref.child("users").child(user.getUid()).child("Bookings").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                myref.child("users").child(user.getUid()).child("Bookings").child(orderid).setValue(insert);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }*/
 
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_ID) {
+            hideKeyboardwithoutPopulate(DeliveryLocation.this);
             return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
         }
         return null;
@@ -353,13 +322,24 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
     public void setpickup() {
         Boolean flag = Boolean.TRUE;
-        long timeInMilliseconds, timeinmuli = Calendar.getInstance().getTimeInMillis();
-        String selectedDate = day_x + "-" + month_x + "-" + year_x;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        long timeInMilliseconds, timeinmuli ;
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        timeinmuli= (c.getTimeInMillis()-86400000/*-System.currentTimeMillis()*/);
+
+
+        String finaldate=day_x + "-" + month_x + "-" + year_x;
+        String selectedDate = day_x + "-" + month_x + "-" + year_x+" "+"00:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         try {
             java.util.Date mDate = sdf.parse(selectedDate);
             timeInMilliseconds = mDate.getTime();
-            if (timeInMilliseconds < timeinmuli)
+            Toast.makeText(this, day_x + "-" + month_x + "-" + year_x+" "+"00:00:00"+"   "+timeInMilliseconds+"    "+timeinmuli, Toast.LENGTH_SHORT).show();
+            if (timeInMilliseconds <timeinmuli)
                 flag = Boolean.FALSE;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -367,7 +347,26 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         if (!flag) {
             alertbox("INVALID DATE");
         } else {
-            pickupdate.setText(selectedDate);
+            pickupdate.setText(finaldate);
+
+            if (pickuploc.getText().toString().equalsIgnoreCase(""))
+                pickuploc.setError("Invalid pick-up location");
+            else if (droploc.getText().toString().equalsIgnoreCase(""))
+                droploc.setError("Invalid drop location");
+            else if (pickupdate.getText().toString().equalsIgnoreCase(""))
+                pickupdate.setError("Invalid Date");
+            else {
+                DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
+                Date today = Calendar.getInstance().getTime();
+                orderid = df.format(today);
+                orderid = orderid.substring(0, 12);
+                tonext = new Intent(DeliveryLocation.this, SelectServiceTruck.class);
+                tonext.putExtra("Order ID", orderid);
+                tonext.putExtra("pickup", pickuploc.getText().toString().toLowerCase());
+                tonext.putExtra("drop", droploc.getText().toString().toLowerCase());
+                tonext.putExtra("date", pickupdate.getText().toString());
+                startActivity(tonext);
+            }
         }
 
     }
@@ -405,4 +404,13 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         //super.onBackPressed();
         finish();
     }
+    public static void hideKeyboardwithoutPopulate(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if(inputMethodManager.isAcceptingText())
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
 }

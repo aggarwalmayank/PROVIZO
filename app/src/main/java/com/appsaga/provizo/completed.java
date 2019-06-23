@@ -117,8 +117,6 @@ public class completed extends AppCompatActivity {
 
             }
         });
-        //Toast.makeText(this, partnerid+" "+orderid, Toast.LENGTH_SHORT).show();
-
 
         SendMail sm = new SendMail(completed.this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), "Booking Confirmed ",
                 "Dear Sir/Ma'am\n\nYour Booking With " + company + " with Booking ID: " + orderid + " of amount Rs " + amount + " only is confirmed.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");

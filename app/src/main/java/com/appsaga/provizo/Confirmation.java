@@ -114,7 +114,10 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
                     case R.id.signout:
                         Toast.makeText(Confirmation.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(Confirmation.this, SignInUp.class));
+                        Intent intent = new Intent(Confirmation.this, SignInUp.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
                         finish();
                         break;
                     default:

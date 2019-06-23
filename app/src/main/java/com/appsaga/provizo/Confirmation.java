@@ -40,6 +40,7 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     ImageView menuicon;
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
                     case R.id.signout:
                         Toast.makeText(Confirmation.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(Confirmation.this,SignInUp.class));
+                        startActivity(new Intent(Confirmation.this, SignInUp.class));
                         finish();
                         break;
                     default:
@@ -148,9 +149,7 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
         gstconsignee = getIntent().getStringExtra("consignee gst");
         gstconsignor = getIntent().getStringExtra("consignor gst");
         rs = Double.parseDouble(price);
-        if (gstconsignor.isEmpty() || gstconsignee.isEmpty())
-            amount.setText("Rs " + price);
-        else {
+        if ((gstconsignor.isEmpty() || gstconsignee.isEmpty())) {
             if (rs > 1500) {
 
                 amount.setText("Rs " + String.valueOf(rs + rs * 0.05));
@@ -160,11 +159,10 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
                     public void onClick(View v) {
                         if (fulldetail.getVisibility() == View.INVISIBLE) {
                             fulldetail.setVisibility(View.VISIBLE);
-                            baseprice.setText("Base Price: "+price);
-                            gstprice.setText("GST(5%): "+String.valueOf(Double.parseDouble(price)*0.05));
-                            totalprice.setText("Total Price: "+String.valueOf(Double.parseDouble(price)+ Double.parseDouble(price)* 0.05));
-                        }
-                        else if(fulldetail.getVisibility()==View.VISIBLE){
+                            baseprice.setText("Base Price: " + price);
+                            gstprice.setText("GST(5%): " + String.valueOf(Double.parseDouble(price) * 0.05));
+                            totalprice.setText("Total Price: " + String.valueOf(Double.parseDouble(price) + Double.parseDouble(price) * 0.05));
+                        } else if (fulldetail.getVisibility() == View.VISIBLE) {
                             fulldetail.setVisibility(View.INVISIBLE);
                         }
                     }
@@ -172,6 +170,9 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
 
             } else
                 amount.setText("Rs " + rs);
+        } else {
+            amount.setText("Rs " + price);
+
         }
 
 
@@ -193,33 +194,34 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Confirmation.this, Payment.class);
-               // addtofirebase();
+                // addtofirebase();
                 i.putExtra("amount", amount.getText().toString().substring(3));
-                i.putExtra("Order ID",orderid);
-                i.putExtra("Current User",currentuser);
-                i.putExtra("type of service",getIntent().getStringExtra("type of service"));
-                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
-                i.putExtra("drop",getIntent().getStringExtra("drop"));
-                i.putExtra("date",getIntent().getStringExtra("date"));
-                i.putExtra("weight",getIntent().getStringExtra("weight"));
-                i.putExtra("Material",getIntent().getStringExtra("Material"));
-                i.putExtra("truck",getIntent().getStringExtra("truck"));
-                i.putExtra("company",getIntent().getStringExtra("company"));
-                i.putExtra("consignorname",getIntent().getStringExtra("consignorname"));
-                i.putExtra("consignoraddress",getIntent().getStringExtra("consignoraddress"));
-                i.putExtra("consignorphone",getIntent().getStringExtra("consignorphone"));
-                i.putExtra("consignor gst",gstconsignor);
-                i.putExtra("drop",getIntent().getStringExtra("drop"));
-                i.putExtra("consignee gst",gstconsignee);
-                i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
-                i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
-                i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
+                i.putExtra("Order ID", orderid);
+                i.putExtra("Current User", currentuser);
+                i.putExtra("type of service", getIntent().getStringExtra("type of service"));
+                i.putExtra("pickup", getIntent().getStringExtra("pickup"));
+                i.putExtra("drop", getIntent().getStringExtra("drop"));
+                i.putExtra("date", getIntent().getStringExtra("date"));
+                i.putExtra("weight", getIntent().getStringExtra("weight"));
+                i.putExtra("Material", getIntent().getStringExtra("Material"));
+                i.putExtra("truck", getIntent().getStringExtra("truck"));
+                i.putExtra("company", getIntent().getStringExtra("company"));
+                i.putExtra("consignorname", getIntent().getStringExtra("consignorname"));
+                i.putExtra("consignoraddress", getIntent().getStringExtra("consignoraddress"));
+                i.putExtra("consignorphone", getIntent().getStringExtra("consignorphone"));
+                i.putExtra("consignor gst", gstconsignor);
+                i.putExtra("drop", getIntent().getStringExtra("drop"));
+                i.putExtra("consignee gst", gstconsignee);
+                i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
+                i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
+                i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));
                 startActivity(i);
             }
         });
 
     }
-    public void addtofirebase(){
+
+    public void addtofirebase() {
         myref.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -236,9 +238,10 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-      //  myref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").removeValue();
+        //  myref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").removeValue();
         finish();
     }
+
     public void openDialog() {
         ProfileDialog exampleDialog = new ProfileDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");

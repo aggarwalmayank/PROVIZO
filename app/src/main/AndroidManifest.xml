@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PartnerBookingDetails"></activity>
+        <activity android:name=".TempooService"></activity>
+        <activity android:name=".DeliveryTempoo" />
+        <activity android:name=".Bookingchoice" />
+        <activity android:name=".CompanyInfo" />
+        <activity android:name=".PartnerBookingDetails" />
         <activity android:name=".PartnerBooking" />
         <activity android:name=".Support" />
         <activity android:name=".BookingsDetails" />
@@ -29,10 +33,12 @@
         <activity android:name=".AddCard" />
         <activity android:name=".AboutUs" />
         <activity android:name=".completed" />
-        <activity android:name=".consignee_details"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".consignor_details"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity
+            android:name=".consignee_details"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+        <activity
+            android:name=".consignor_details"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,16 +47,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".SignInUp"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".SignUpSecond"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".DeliveryLocation"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
-        <activity android:name=".SelectServiceTruck"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+        <activity
+            android:name=".SignUp"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+        <activity
+            android:name=".SignInUp"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+        <activity
+            android:name=".SignUpSecond"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+        <activity
+            android:name=".DeliveryLocation"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
+        <activity
+            android:name=".SelectServiceTruck"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
     </application>
 
 </manifest>

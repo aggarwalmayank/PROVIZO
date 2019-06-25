@@ -139,8 +139,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         startActivity(new Intent(DeliveryLocation.this, MyBookings.class));
                         break;
                     case R.id.newbooking:
-                        dl.closeDrawer(Gravity.LEFT);
-                        Toast.makeText(DeliveryLocation.this, "New Booking", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                       // Toast.makeText(DeliveryLocation.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(DeliveryLocation.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -151,20 +151,23 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(DeliveryLocation.this, AddCard.class));
-                        Toast.makeText(DeliveryLocation.this, "add card", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(DeliveryLocation.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
                         startActivity(new Intent(DeliveryLocation.this, Support.class));
-                        Toast.makeText(DeliveryLocation.this, "Support", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(DeliveryLocation.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(DeliveryLocation.this, AboutUs.class));
-                        Toast.makeText(DeliveryLocation.this, "about us", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(DeliveryLocation.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(DeliveryLocation.this, "SignOut", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(DeliveryLocation.this, SignInUp.class));
+                        Intent intent = new Intent(DeliveryLocation.this, SignInUp.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
                         finish();
                         break;
                     default:
@@ -322,24 +325,24 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
     public void setpickup() {
         Boolean flag = Boolean.TRUE;
-        long timeInMilliseconds, timeinmuli ;
+        long timeInMilliseconds, timeinmuli;
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 1);
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-        timeinmuli= (c.getTimeInMillis()-86400000/*-System.currentTimeMillis()*/);
+        timeinmuli = (c.getTimeInMillis() - 86400000/*-System.currentTimeMillis()*/);
 
 
-        String finaldate=day_x + "-" + month_x + "-" + year_x;
-        String selectedDate = day_x + "-" + month_x + "-" + year_x+" "+"00:00:00";
+        String finaldate = day_x + "-" + month_x + "-" + year_x;
+        String selectedDate = day_x + "-" + month_x + "-" + year_x + " " + "00:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         try {
             java.util.Date mDate = sdf.parse(selectedDate);
             timeInMilliseconds = mDate.getTime();
-           // Toast.makeText(this, day_x + "-" + month_x + "-" + year_x+" "+"00:00:00"+"   "+timeInMilliseconds+"    "+timeinmuli, Toast.LENGTH_SHORT).show();
-            if (timeInMilliseconds <timeinmuli)
+            // Toast.makeText(this, day_x + "-" + month_x + "-" + year_x+" "+"00:00:00"+"   "+timeInMilliseconds+"    "+timeinmuli, Toast.LENGTH_SHORT).show();
+            if (timeInMilliseconds < timeinmuli)
                 flag = Boolean.FALSE;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -404,13 +407,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         //super.onBackPressed();
         finish();
     }
+
     public static void hideKeyboardwithoutPopulate(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
                         Activity.INPUT_METHOD_SERVICE);
-        if(inputMethodManager.isAcceptingText())
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 0);
+        if (inputMethodManager.isAcceptingText())
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(), 0);
     }
 
 }

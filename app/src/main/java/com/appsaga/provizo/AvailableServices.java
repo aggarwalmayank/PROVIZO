@@ -94,16 +94,17 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                         Toast.makeText(AvailableServices.this, "Wallet", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.partnerlogin:
-                        dl.closeDrawer(Gravity.LEFT);
-                        //openDialog("partner");
-                        Toast.makeText(AvailableServices.this, "partenr login", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(AvailableServices.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
                         startActivity(new Intent(AvailableServices.this, MyBookings.class));
                         break;
                     case R.id.newbooking:
-                        dl.closeDrawer(Gravity.LEFT);
-                        Toast.makeText(AvailableServices.this, "New Booking", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(AvailableServices.this, Bookingchoice.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(i);
+                       // Toast.makeText(AvailableServices.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(AvailableServices.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -114,14 +115,14 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(AvailableServices.this, AddCard.class));
-                        Toast.makeText(AvailableServices.this, "add card", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(AvailableServices.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
-                        Toast.makeText(AvailableServices.this, "Support", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(AvailableServices.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(AvailableServices.this, AboutUs.class));
-                        Toast.makeText(AvailableServices.this, "about us", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(AvailableServices.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(AvailableServices.this, "SignOut", Toast.LENGTH_SHORT).show();
@@ -220,18 +221,8 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
 
                 final TextView company = view.findViewById(R.id.comp_name);
                 TextView price = view.findViewById(R.id.price);
-               /* databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").setValue(company.getText());
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
-                Intent i = new Intent(AvailableServices.this, consignor_details.class);
+                Intent i = new Intent(AvailableServices.this, CompanyInfo.class);
                 i.putExtra("Order ID",orderid);
                 i.putExtra("Current User",currentuser);
                 i.putExtra("type of service",getIntent().getStringExtra("type of service"));
@@ -244,7 +235,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                 i.putExtra("company",company.getText());
                 i.putExtra("amount", price.getText().toString());
                 startActivity(i);
-                //Toast.makeText(AvailableServices.this,company.getText().toString(),Toast.LENGTH_LONG).show();
+
             }
         });
     }
@@ -252,7 +243,6 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       //databaseReference.child("users").child(currentuser).child("Bookings").child(orderid).child("Service Truck Details").removeValue();
         finish();
 
     }

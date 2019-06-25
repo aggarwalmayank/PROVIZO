@@ -160,11 +160,15 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                         Toast.makeText(SelectServiceTruck.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        Toast.makeText(SelectServiceTruck.this, "My Booking", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SelectServiceTruck.this, MyBookings.class));
+                        //Toast.makeText(SelectServiceTruck.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
-                        onBackPressed();
-                        Toast.makeText(SelectServiceTruck.this, "New Booking", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(SelectServiceTruck.this, Bookingchoice.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(i);
+                       // Toast.makeText(SelectServiceTruck.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(SelectServiceTruck.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -174,15 +178,15 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(SelectServiceTruck.this, AddCard.class));
-                        Toast.makeText(SelectServiceTruck.this, "add card", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SelectServiceTruck.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
                         startActivity(new Intent(SelectServiceTruck.this, Support.class));
-                        Toast.makeText(SelectServiceTruck.this, "Support", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(SelectServiceTruck.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(SelectServiceTruck.this, AboutUs.class));
-                        Toast.makeText(SelectServiceTruck.this, "about us", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SelectServiceTruck.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(SelectServiceTruck.this, "SignOut", Toast.LENGTH_SHORT).show();

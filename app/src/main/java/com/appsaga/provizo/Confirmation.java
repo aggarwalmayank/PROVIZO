@@ -241,7 +241,6 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //  myref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").removeValue();
         finish();
     }
 

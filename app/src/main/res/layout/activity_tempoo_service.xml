@@ -48,120 +48,133 @@
                 android:textColor="#000000"
                 android:textSize="45sp" />
 
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/first"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_above="@+id/third"
+                android:layout_below="@id/first"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true">
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:textStyle="italic|bold"
-                    android:text="Box Dimensions"
-                    android:gravity="center"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#d2d2d2"
-                    android:elevation="5dp"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Box Dimensions"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="italic|bold" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:background="#d2d2d2"
+                        android:elevation="5dp"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
-                        <EditText
-                            android:id="@+id/length"
-                            android:layout_width="150dp"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/length"
-                            android:gravity="center"
-                            android:digits="1234567890."
-                            android:hint="approx Length"
-                            android:inputType="number" />
+                            android:orientation="vertical">
 
-                        <EditText
-                            android:digits="1234567890."
-                            android:id="@+id/width"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/width"
-                            android:gravity="center"
-                            android:hint="approx Width"
-                            android:inputType="number" />
+                            <EditText
+                                android:id="@+id/length"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:digits="1234567890."
+                                android:drawableLeft="@drawable/length"
+                                android:gravity="center"
+                                android:hint="approx Length"
+                                android:inputType="number" />
 
-                        <EditText
-                            android:digits="1234567890."
-                            android:id="@+id/height"
-                            android:layout_width="150dp"
+                            <EditText
+                                android:id="@+id/width"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:digits="1234567890."
+                                android:drawableLeft="@drawable/width"
+                                android:gravity="center"
+                                android:hint="approx Width"
+                                android:inputType="number" />
+
+                            <EditText
+                                android:id="@+id/height"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:digits="1234567890."
+                                android:drawableLeft="@drawable/height"
+                                android:gravity="center"
+                                android:hint="approx Height"
+                                android:inputType="number" />
+
+                        </LinearLayout>
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/height"
-                            android:gravity="center"
-                            android:hint="approx Height"
-                            android:inputType="number" />
+                            android:layout_gravity="center"
+                            android:popupElevation="12dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Estimate Price: "
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.0 Rs"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="100dp"
-                        android:popupElevation="12dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:textStyle="bold"
+                    <blink
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Estimate Price: "
-                        android:textSize="18sp"
-                        android:textColor="#000000" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*Price may change"
+                            android:textColor="#ff0000"
+                            android:textSize="12dp"
+                            android:textStyle="italic" />
+                    </blink>
+
+                    <Button
+                        android:id="@+id/delivery_next"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="0.0 Rs"
-                        android:textSize="18sp"
-                        android:id="@+id/price"
-                        android:textColor="#000000" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50dp"
+                        android:background="@drawable/ripple_effect_2"
+                        android:padding="16dp"
+                        android:text="Book" />
 
                 </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:textColor="#ff0000"
-                        android:textStyle="italic"
-                        android:text="*Price may change"/>
-                <Button
-                    android:id="@+id/delivery_next"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/ripple_effect_2"
-                    android:padding="16dp"
-                    android:text="Book" />
-
-            </LinearLayout>
+            </ScrollView>
 
             <ImageView
                 android:id="@+id/third"

@@ -68,18 +68,18 @@ public class completed extends AppCompatActivity {
         Consignee.put("ConsigneeName", getIntent().getStringExtra("consigneename"));
         Consignee.put("GST", getIntent().getStringExtra("consignee gst"));
         currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mref.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
+        mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("PaymentStatus").setValue("Successfull");
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignee").setValue(Consignee);
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("Consignor").setValue(Consignor);
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("ServiceTruckDetails").setValue(TypeOfService);
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("PickUpLocation").setValue(getIntent().getStringExtra("pickup"));
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("DropLocation").setValue(getIntent().getStringExtra("drop"));
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("amount").setValue(getIntent().getStringExtra("amount"));
-                mref.child("users").child(currentuser).child("Bookings").child(orderid).child("TruckCompany").setValue(company);
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("PaymentStatus").setValue("Successfull");
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Consignee").setValue(Consignee);
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Consignor").setValue(Consignor);
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("ServiceTruckDetails").setValue(TypeOfService);
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("PickUpLocation").setValue(getIntent().getStringExtra("pickup"));
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("DropLocation").setValue(getIntent().getStringExtra("drop"));
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("amount").setValue(getIntent().getStringExtra("amount"));
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("TruckCompany").setValue(company);
             }
 
             @Override

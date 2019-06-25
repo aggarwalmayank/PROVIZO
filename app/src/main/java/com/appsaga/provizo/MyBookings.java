@@ -51,7 +51,7 @@ public class MyBookings extends AppCompatActivity {
         bookingsList = findViewById(R.id.bookings_list);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings");
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TruckBooking");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {

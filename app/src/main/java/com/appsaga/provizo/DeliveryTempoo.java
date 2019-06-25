@@ -193,7 +193,7 @@ public class DeliveryTempoo extends AppCompatActivity implements com.appsaga.pro
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_ID) {
-            //hideKeyboardwithoutPopulate(DeliveryTempoo.this);
+            hideKeyboardwithoutPopulate(DeliveryTempoo.this);
             return new DatePickerDialog(this, dpickerListener, year_x, month_x, day_x);
         }
         return null;

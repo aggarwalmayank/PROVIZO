@@ -1,5 +1,6 @@
 package com.appsaga.provizo;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ public class TempooService extends AppCompatActivity {
     Spinner s;
     EditText l, b, h;
     TextView price;
+    Button next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,26 @@ public class TempooService extends AppCompatActivity {
         setBoxAnimation();
         setSpinner();
         setTextWatcher();
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (l.getText().toString().equalsIgnoreCase(""))
+                    l.setError("Enter Length");
+                else if (b.getText().toString().equalsIgnoreCase(""))
+                    b.setError("Enter Width");
+                else if (h.getText().toString().equalsIgnoreCase(""))
+                    h.setError("Enter Height");
+                else {
+                    Intent i = new Intent(TempooService.this, CompletedTempoo.class);
+                    i.putExtra("Droploc", getIntent().getStringExtra("Droploc"));
+                    i.putExtra("Pickloc", getIntent().getStringExtra("Pickloc"));
+                    i.putExtra("PickDate", getIntent().getStringExtra("PickDate"));
+                    i.putExtra("Dimension", l.getText().toString() + "-" + b.getText().toString() + "-" + h.getText().toString());
+                    i.putExtra("Price", price.getText());
+                    startActivity(i);
+                }
+            }
+        });
 
 
     }
@@ -50,6 +73,7 @@ public class TempooService extends AppCompatActivity {
         b = findViewById(R.id.width);
         h = findViewById(R.id.height);
         price = findViewById(R.id.price);
+        next = findViewById(R.id.delivery_next);
 
     }
 
@@ -88,12 +112,12 @@ public class TempooService extends AppCompatActivity {
     }
 
     public String amountcalc(double l, double b, double h) {
-        double p=(l*b*h)*5;
-        double a=(double) Math.round(p * 100) / 100;
+        double p = (l * b * h) * 5;
+        double a = (double) Math.round(p * 100) / 100;
         return String.valueOf(a);
     }
 
-    public double convert(String a,String unit) {
+    public double convert(String a, String unit) {
         double mes;
         if (unit.equals("inch")) {
             mes = Double.parseDouble(a) * 0.0833333;
@@ -112,9 +136,9 @@ public class TempooService extends AppCompatActivity {
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String u=s.getItemAtPosition(position).toString();
-                if(!b.getText().toString().isEmpty()&&!h.getText().toString().isEmpty()&&!l.getText().toString().isEmpty())
-                    price.setText(amountcalc(convert(l.getText().toString(),u), convert(b.getText().toString(),u), convert(h.getText().toString(),u))+" Rs");
+                String u = s.getItemAtPosition(position).toString();
+                if (!b.getText().toString().isEmpty() && !h.getText().toString().isEmpty() && !l.getText().toString().isEmpty())
+                    price.setText(amountcalc(convert(l.getText().toString(), u), convert(b.getText().toString(), u), convert(h.getText().toString(), u)) + " Rs");
 
             }
 
@@ -136,8 +160,8 @@ public class TempooService extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable ss) {
-                if(!b.getText().toString().isEmpty()&&!h.getText().toString().isEmpty()&&!l.getText().toString().isEmpty())
-                    price.setText(amountcalc(convert(ss.toString(),s.getSelectedItem().toString()), convert(b.getText().toString(),s.getSelectedItem().toString()), convert(h.getText().toString(),s.getSelectedItem().toString()))+" Rs");
+                if (!b.getText().toString().isEmpty() && !h.getText().toString().isEmpty() && !l.getText().toString().isEmpty())
+                    price.setText(amountcalc(convert(ss.toString(), s.getSelectedItem().toString()), convert(b.getText().toString(), s.getSelectedItem().toString()), convert(h.getText().toString(), s.getSelectedItem().toString())) + " Rs");
             }
         });
         b.addTextChangedListener(new TextWatcher() {
@@ -153,8 +177,8 @@ public class TempooService extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable ss) {
-                if(!b.getText().toString().isEmpty()&&!h.getText().toString().isEmpty()&&!l.getText().toString().isEmpty())
-                    price.setText(amountcalc(convert(l.getText().toString(),s.getSelectedItem().toString()), convert(ss.toString(),s.getSelectedItem().toString()), convert(h.getText().toString(),s.getSelectedItem().toString()))+" Rs");
+                if (!b.getText().toString().isEmpty() && !h.getText().toString().isEmpty() && !l.getText().toString().isEmpty())
+                    price.setText(amountcalc(convert(l.getText().toString(), s.getSelectedItem().toString()), convert(ss.toString(), s.getSelectedItem().toString()), convert(h.getText().toString(), s.getSelectedItem().toString())) + " Rs");
             }
         });
         h.addTextChangedListener(new TextWatcher() {
@@ -170,8 +194,8 @@ public class TempooService extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable ss) {
-                if(!b.getText().toString().isEmpty()&&!h.getText().toString().isEmpty()&&!l.getText().toString().isEmpty())
-                    price.setText(amountcalc(convert(l.getText().toString(),s.getSelectedItem().toString()), convert(h.getText().toString(),s.getSelectedItem().toString()), convert(ss.toString(),s.getSelectedItem().toString()))+" Rs");
+                if (!b.getText().toString().isEmpty() && !h.getText().toString().isEmpty() && !l.getText().toString().isEmpty())
+                    price.setText(amountcalc(convert(l.getText().toString(), s.getSelectedItem().toString()), convert(h.getText().toString(), s.getSelectedItem().toString()), convert(ss.toString(), s.getSelectedItem().toString())) + " Rs");
             }
         });
 

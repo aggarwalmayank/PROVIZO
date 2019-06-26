@@ -53,7 +53,7 @@ import java.util.HashMap;
 
 import android.support.design.widget.NavigationView;
 
-public class DeliveryTempoo extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
+public class DeliveryTempoo extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener{
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
@@ -127,7 +127,8 @@ public class DeliveryTempoo extends AppCompatActivity implements com.appsaga.pro
                         Toast.makeText(DeliveryTempoo.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        startActivity(new Intent(DeliveryTempoo.this, MyBookings.class));
+                       openDialog("Booking");
+                        // startActivity(new Intent(DeliveryTempoo.this, MyBookings.class));
                         break;
                     case R.id.newbooking:
                         Intent i = new Intent(DeliveryTempoo.this, Bookingchoice.class);
@@ -270,6 +271,9 @@ public class DeliveryTempoo extends AppCompatActivity implements com.appsaga.pro
     public void openDialog(String a) {
         if (a.equals("partner")) {
             PartnerDialog dialog = new PartnerDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        }else if(a.equals("Booking")){
+            MyBookingDialog dialog = new MyBookingDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
         } else {
             ProfileDialog exampleDialog = new ProfileDialog();

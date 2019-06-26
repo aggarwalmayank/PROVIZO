@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class AvailableServices extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
+public class AvailableServices extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener {
 
     String serviceType;
     DatabaseReference databaseReference;
@@ -51,7 +51,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_services);
         menuicon = findViewById(R.id.menuicon);
-        nobooking=findViewById(R.id.nobook);
+        nobooking = findViewById(R.id.nobook);
         TextView tv = findViewById(R.id.appnamesigninup);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
@@ -94,17 +94,18 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                         Toast.makeText(AvailableServices.this, "Wallet", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.partnerlogin:
-                       // Toast.makeText(AvailableServices.this, "partenr login", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(AvailableServices.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        startActivity(new Intent(AvailableServices.this, MyBookings.class));
+                        openDialog("Booking");
+                      //  startActivity(new Intent(AvailableServices.this, MyBookings.class));
                         break;
                     case R.id.newbooking:
                         Intent i = new Intent(AvailableServices.this, Bookingchoice.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(i);
-                       // Toast.makeText(AvailableServices.this, "New Booking", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(AvailableServices.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(AvailableServices.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -137,7 +138,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
 
             }
         });
-        final ProgressDialog progressDialog = ProgressDialog.show(AvailableServices.this,"Loading","Please Wait...",true);
+        final ProgressDialog progressDialog = ProgressDialog.show(AvailableServices.this, "Loading", "Please Wait...", true);
         databaseReference.child("typesOfServices").child(serviceType).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -161,41 +162,43 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                                 companyName = dataSnapshot.child(s).child("operations").child("companyName").getValue(String.class);
 
                                 HashMap<String, Long> locationMap = (HashMap<String, Long>) dataSnapshot.
-                                        child(s).child("operations").child("locationMap").child(serviceType.replaceAll("\\s+","")).child(getIntent()
+                                        child(s).child("operations").child("locationMap").child(serviceType.replaceAll("\\s+", "")).child(getIntent()
                                         .getStringExtra("pickup")).getValue();
 
                                 String priceVal = "0";
 
                                 if (locationMap != null) {
                                     for (HashMap.Entry<String, Long> entry : locationMap.entrySet()) {
-                                        if (entry.getKey().equalsIgnoreCase(getIntent().getStringExtra("drop"))) {
-                                            priceVal = entry.getValue() + "";
-                                            break;
-                                        }
+                                            if (entry.getKey().equalsIgnoreCase(getIntent().getStringExtra("drop"))) {
+                                                priceVal = entry.getValue() + "";
+                                                break;
+                                            }
                                     }
                                 }
 
-                                price = "" + Double.parseDouble(getIntent().getStringExtra("weightnounit")) * Double.parseDouble(priceVal);
 
-                                services.add(new Services(companyName, price));
+                                price = "" + Double.parseDouble(getIntent().getStringExtra("weightnounit")) * Double.parseDouble(priceVal);
+                              if(!price.equals("0.0"))
+                              {
+                                  Toast.makeText(AvailableServices.this, price, Toast.LENGTH_SHORT).show();
+                                  services.add(new Services(companyName, price));}
                             }
                             if (!services.isEmpty()) {
                                 nobooking.setVisibility(View.INVISIBLE);
                                 serviceAdapter = new ServiceAdapter(AvailableServices.this, services);
                                 serviceView.setAdapter(serviceAdapter);
-                            }
-                            else{
+                            } else {
                                 nobooking.setVisibility(View.VISIBLE);
                             }
                         }
-                        Handler h=new Handler();
+                        Handler h = new Handler();
                         h.postDelayed(new Runnable() {
                             @Override
                             public void run() {
 
                                 progressDialog.dismiss();
                             }
-                        },1800);
+                        }, 1800);
 
                     }
 
@@ -220,16 +223,16 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                 TextView price = view.findViewById(R.id.price);
 
                 Intent i = new Intent(AvailableServices.this, CompanyInfo.class);
-                i.putExtra("Order ID",orderid);
-                i.putExtra("Current User",currentuser);
-                i.putExtra("type of service",getIntent().getStringExtra("type of service"));
-                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
-                i.putExtra("drop",getIntent().getStringExtra("drop"));
-                i.putExtra("date",getIntent().getStringExtra("date"));
-                i.putExtra("weight",getIntent().getStringExtra("weight"));
-                i.putExtra("Material",getIntent().getStringExtra("Material"));
-                i.putExtra("truck",getIntent().getStringExtra("truck"));
-                i.putExtra("company",company.getText());
+                i.putExtra("Order ID", orderid);
+                i.putExtra("Current User", currentuser);
+                i.putExtra("type of service", getIntent().getStringExtra("type of service"));
+                i.putExtra("pickup", getIntent().getStringExtra("pickup"));
+                i.putExtra("drop", getIntent().getStringExtra("drop"));
+                i.putExtra("date", getIntent().getStringExtra("date"));
+                i.putExtra("weight", getIntent().getStringExtra("weight"));
+                i.putExtra("Material", getIntent().getStringExtra("Material"));
+                i.putExtra("truck", getIntent().getStringExtra("truck"));
+                i.putExtra("company", company.getText());
                 i.putExtra("amount", price.getText().toString());
                 startActivity(i);
 
@@ -247,6 +250,9 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
     public void openDialog(String a) {
         if (a.equals("partner")) {
             PartnerDialog dialog = new PartnerDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        }else if(a.equals("Booking")){
+            MyBookingDialog dialog = new MyBookingDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
         } else {
             ProfileDialog exampleDialog = new ProfileDialog();

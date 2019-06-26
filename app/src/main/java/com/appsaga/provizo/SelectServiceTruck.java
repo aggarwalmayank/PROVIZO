@@ -42,7 +42,7 @@ import java.util.List;
 
 import static android.R.layout.simple_spinner_item;
 
-public class SelectServiceTruck extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
+public class SelectServiceTruck extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener{
     EditText material, weight;
     ImageButton service;
     private RadioGroup radioWeightGroup;
@@ -144,7 +144,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         profilename.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openDialog("profile");
             }
         });
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -160,7 +160,8 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                         Toast.makeText(SelectServiceTruck.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        startActivity(new Intent(SelectServiceTruck.this, MyBookings.class));
+                       openDialog("Booking");
+                        // startActivity(new Intent(SelectServiceTruck.this, MyBookings.class));
                         //Toast.makeText(SelectServiceTruck.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
@@ -283,9 +284,17 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     }
 
 
-    public void openDialog() {
-        ProfileDialog exampleDialog = new ProfileDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    public void openDialog(String a) {
+        if (a.equals("partner")) {
+            PartnerDialog dialog = new PartnerDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        }else if(a.equals("Booking")){
+            MyBookingDialog dialog = new MyBookingDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        } else {
+            ProfileDialog exampleDialog = new ProfileDialog();
+            exampleDialog.show(getSupportFragmentManager(), "example dialog");
+        }
     }
 
     @Override

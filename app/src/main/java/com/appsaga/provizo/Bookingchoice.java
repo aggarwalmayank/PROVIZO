@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Bookingchoice extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
+public class Bookingchoice extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener {
     Button truck, tempoo;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -67,7 +67,7 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
         profilename.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openDialog("profile");
             }
         });
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -83,7 +83,8 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
                         Toast.makeText(Bookingchoice.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        startActivity(new Intent(Bookingchoice.this, MyBookings.class));
+                       openDialog("Booking");
+                        // startActivity(new Intent(Bookingchoice.this, MyBookings.class));
                        // Toast.makeText(Bookingchoice.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
@@ -126,9 +127,14 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
         });
     }
 
-    public void openDialog() {
-        ProfileDialog exampleDialog = new ProfileDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    public void openDialog(String a) {
+        if(a.equals("profile")) {
+            ProfileDialog exampleDialog = new ProfileDialog();
+            exampleDialog.show(getSupportFragmentManager(), "example dialog");
+        }else if(a.equals("Booking")){
+            MyBookingDialog dialog = new MyBookingDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        }
     }
 
     @Override

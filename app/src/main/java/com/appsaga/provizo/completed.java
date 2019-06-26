@@ -118,8 +118,8 @@ public class completed extends AppCompatActivity {
             }
         });
 
-        SendMail sm = new SendMail(completed.this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), "Booking Confirmed ",
-                "Dear Sir/Ma'am\n\nYour Booking With " + company + " with Booking ID: " + orderid + " of amount Rs " + amount + " only is confirmed.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");
+        SendMail sm = new SendMail(completed.this, FirebaseAuth.getInstance().getCurrentUser().getEmail().trim(), "Booking Confirmed ",
+                "Dear Sir/Ma'am\n\nYour Booking With " + company + " with Booking ID: " + orderid + " of amount " + amount + " only is confirmed.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");
         sm.execute();
 
         TextView tv = findViewById(R.id.appname);

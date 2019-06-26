@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 
-public class consignor_details extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
+public class consignor_details extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener{
 
     ImageButton consignor;
     EditText name, number, gst, address;
@@ -165,7 +165,7 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         profilename.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openDialog("profile");
             }
         });
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -181,14 +181,14 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                         Toast.makeText(consignor_details.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        Toast.makeText(consignor_details.this, "My Booking", Toast.LENGTH_SHORT).show();
+                        openDialog("Booking");
+                        //Toast.makeText(consignor_details.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
-                        Intent gotoScreenVar = new Intent(consignor_details.this, DeliveryLocation.class);
+                        Intent gotoScreenVar = new Intent(consignor_details.this, Bookingchoice.class);
                         gotoScreenVar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        mRef.child("users").child(currentuser).child("Bookings").child(orderid).removeValue();
                         startActivity(gotoScreenVar);
-                        Toast.makeText(consignor_details.this, "New Booking", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(consignor_details.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(consignor_details.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -198,16 +198,15 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(consignor_details.this, AddCard.class));
-                        Toast.makeText(consignor_details.this, "add card", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(consignor_details.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
-
                         startActivity(new Intent(consignor_details.this, Support.class));
-                        Toast.makeText(consignor_details.this, "Support", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(consignor_details.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(consignor_details.this, AboutUs.class));
-                        Toast.makeText(consignor_details.this, "about us", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(consignor_details.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(consignor_details.this, "SignOut", Toast.LENGTH_SHORT).show();
@@ -248,9 +247,17 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         });
     }
 
-    public void openDialog() {
-        ProfileDialog exampleDialog = new ProfileDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    public void openDialog(String a) {
+        if (a.equals("partner")) {
+            PartnerDialog dialog = new PartnerDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        }else if(a.equals("Booking")){
+            MyBookingDialog dialog = new MyBookingDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        } else {
+            ProfileDialog exampleDialog = new ProfileDialog();
+            exampleDialog.show(getSupportFragmentManager(), "example dialog");
+        }
     }
 
     @Override

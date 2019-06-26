@@ -53,14 +53,14 @@ import java.util.HashMap;
 
 import android.support.design.widget.NavigationView;
 
-public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener {
+public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener ,MyBookingDialog.DialogListener {
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
     ImageButton deliveryNext;
     EditText pickupdate;
     AutoCompleteTextView droploc;
-    AutoCompleteTextView pickuploc;
+    AutoCompleteTextView    pickuploc;
     DatabaseHelperUser db;
     String orderid;
     ImageView menuicon;
@@ -136,7 +136,8 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         Toast.makeText(DeliveryLocation.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        startActivity(new Intent(DeliveryLocation.this, MyBookings.class));
+                        //startActivity(new Intent(DeliveryLocation.this, MyBookings.class));
+                        openDialog("Booking");
                         break;
                     case R.id.newbooking:
                         onBackPressed();
@@ -194,6 +195,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     if (hashMap != null) {
 
                         HashMap.Entry<String, ArrayList<String>> entry = hashMap.entrySet().iterator().next();
+
                         picklocs.add(entry.getKey());
                     }
                     if (hashMap1 != null) {
@@ -423,7 +425,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         if (a.equals("partner")) {
             PartnerDialog dialog = new PartnerDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
-        } else {
+        }
+        else if(a.equals("Booking")){
+            MyBookingDialog dialog = new MyBookingDialog();
+            dialog.show(getSupportFragmentManager(), "example dialog");
+        }
+        else {
             ProfileDialog exampleDialog = new ProfileDialog();
             exampleDialog.show(getSupportFragmentManager(), "example dialog");
         }

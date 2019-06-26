@@ -186,10 +186,24 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     HashMap<String, ArrayList<String>> hashMap;
-                    hashMap = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").getValue();
+                    HashMap<String, ArrayList<String>> hashMap1;
+                    hashMap = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("FullTruckLoad").getValue();
+
+                    hashMap1 = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("PartLoad").getValue();
+
                     if (hashMap != null) {
+
                         HashMap.Entry<String, ArrayList<String>> entry = hashMap.entrySet().iterator().next();
                         picklocs.add(entry.getKey());
+                    }
+                    if (hashMap1 != null) {
+
+                        HashMap.Entry<String, ArrayList<String>> entry = hashMap1.entrySet().iterator().next();
+
+                        if(!picklocs.contains(entry.getKey()))
+                        {
+                            picklocs.add(entry.getKey());
+                        }
                     }
                 }
 
@@ -208,16 +222,34 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     HashMap<String, HashMap<String, Integer>> hashMap;
-                                    hashMap = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").getValue();
+                                    HashMap<String, HashMap<String, Integer>> hashMap1;
+                                    hashMap = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("FullTruckLoad").getValue();
+                                    hashMap1 = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("PartLoad").getValue();
 
                                     if (hashMap != null) {
                                         HashMap.Entry<String, HashMap<String, Integer>> entry = hashMap.entrySet().iterator().next();
 
                                         if (entry.getKey().equalsIgnoreCase(pickuploc.getText().toString().toLowerCase())) {
-                                            HashMap<String, Integer> hashMap1 = entry.getValue();
+                                            HashMap<String, Integer> hashMap2 = entry.getValue();
 
-                                            for (HashMap.Entry<String, Integer> entry1 : hashMap1.entrySet()) {
+                                            for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
                                                 droplocs.add(entry1.getKey());
+                                            }
+                                        }
+                                    }
+
+                                    if (hashMap1 != null) {
+                                        HashMap.Entry<String, HashMap<String, Integer>> entry = hashMap1.entrySet().iterator().next();
+
+                                        if (entry.getKey().equalsIgnoreCase(pickuploc.getText().toString().toLowerCase())) {
+                                            HashMap<String, Integer> hashMap2 = entry.getValue();
+
+                                            for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
+
+                                                if(!droplocs.contains(entry1.getKey()))
+                                                {
+                                                    droplocs.add(entry1.getKey());
+                                                }
                                             }
                                         }
                                     }

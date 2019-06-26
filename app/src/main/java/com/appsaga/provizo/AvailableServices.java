@@ -115,14 +115,11 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(AvailableServices.this, AddCard.class));
-                      //  Toast.makeText(AvailableServices.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
-                      //  Toast.makeText(AvailableServices.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(AvailableServices.this, AboutUs.class));
-                       // Toast.makeText(AvailableServices.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(AvailableServices.this, "SignOut", Toast.LENGTH_SHORT).show();
@@ -164,7 +161,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                                 companyName = dataSnapshot.child(s).child("operations").child("companyName").getValue(String.class);
 
                                 HashMap<String, Long> locationMap = (HashMap<String, Long>) dataSnapshot.
-                                        child(s).child("operations").child("locationMap").child(getIntent()
+                                        child(s).child("operations").child("locationMap").child(serviceType.replaceAll("\\s+","")).child(getIntent()
                                         .getStringExtra("pickup")).getValue();
 
                                 String priceVal = "0";

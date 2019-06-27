@@ -194,17 +194,22 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                     if (hashMap != null) {
 
-                        HashMap.Entry<String, ArrayList<String>> entry = hashMap.entrySet().iterator().next();
-
-                        picklocs.add(entry.getKey());
+                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap.entrySet())
+                        {
+                            if(!picklocs.contains(entry.getKey()))
+                            {
+                                picklocs.add(entry.getKey());
+                            }
+                        }
                     }
                     if (hashMap1 != null) {
 
-                        HashMap.Entry<String, ArrayList<String>> entry = hashMap1.entrySet().iterator().next();
-
-                        if(!picklocs.contains(entry.getKey()))
+                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap1.entrySet())
                         {
-                            picklocs.add(entry.getKey());
+                            if(!picklocs.contains(entry.getKey()))
+                            {
+                                picklocs.add(entry.getKey());
+                            }
                         }
                     }
                 }
@@ -225,32 +230,41 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     HashMap<String, HashMap<String, Integer>> hashMap;
                                     HashMap<String, HashMap<String, Integer>> hashMap1;
+
                                     hashMap = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("FullTruckLoad").getValue();
                                     hashMap1 = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("PartLoad").getValue();
 
                                     if (hashMap != null) {
-                                        HashMap.Entry<String, HashMap<String, Integer>> entry = hashMap.entrySet().iterator().next();
 
-                                        if (entry.getKey().equalsIgnoreCase(pickuploc.getText().toString().toLowerCase())) {
-                                            HashMap<String, Integer> hashMap2 = entry.getValue();
+                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap.entrySet())
+                                        {
+                                            if(picklocs.contains(entry.getKey()))
+                                            {
+                                                HashMap<String, Integer> hashMap2 = entry.getValue();
+                                                for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
-                                            for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
-                                                droplocs.add(entry1.getKey());
+                                                    if(!droplocs.contains(entry1.getKey()))
+                                                    {
+                                                        droplocs.add(entry1.getKey());
+                                                    }
+                                                }
                                             }
                                         }
                                     }
 
                                     if (hashMap1 != null) {
-                                        HashMap.Entry<String, HashMap<String, Integer>> entry = hashMap1.entrySet().iterator().next();
 
-                                        if (entry.getKey().equalsIgnoreCase(pickuploc.getText().toString().toLowerCase())) {
-                                            HashMap<String, Integer> hashMap2 = entry.getValue();
+                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap1.entrySet())
+                                        {
+                                            if(picklocs.contains(entry.getKey()))
+                                            {
+                                                HashMap<String, Integer> hashMap2 = entry.getValue();
+                                                for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
-                                            for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
-
-                                                if(!droplocs.contains(entry1.getKey()))
-                                                {
-                                                    droplocs.add(entry1.getKey());
+                                                    if(!droplocs.contains(entry1.getKey()))
+                                                    {
+                                                        droplocs.add(entry1.getKey());
+                                                    }
                                                 }
                                             }
                                         }

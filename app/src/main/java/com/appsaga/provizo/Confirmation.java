@@ -86,13 +86,11 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
                         break;
                     case R.id.mybooking:
                         openDialog("Booking");
-                        //Toast.makeText(Confirmation.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
-                        Intent gotoScreenVar = new Intent(Confirmation.this, DeliveryLocation.class);
+                        Intent gotoScreenVar = new Intent(Confirmation.this, Bookingchoice.class);
                         gotoScreenVar.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(gotoScreenVar);
-                       // Toast.makeText(Confirmation.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(Confirmation.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -102,15 +100,12 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(Confirmation.this, AddCard.class));
-                       // Toast.makeText(Confirmation.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
                         startActivity(new Intent(Confirmation.this, Support.class));
-                       // Toast.makeText(Confirmation.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(Confirmation.this, AboutUs.class));
-                       // Toast.makeText(Confirmation.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(Confirmation.this, "SignOut", Toast.LENGTH_SHORT).show();
@@ -153,20 +148,25 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
         gstconsignee = getIntent().getStringExtra("consignee gst");
         gstconsignor = getIntent().getStringExtra("consignor gst");
         rs = Double.parseDouble(price);
-        if ((gstconsignor.isEmpty() || gstconsignee.isEmpty())) {
-            if (rs > 1500) {
+        if ((gstconsignor.isEmpty() || gstconsignee.isEmpty()))
+        {
+            if (rs > 1500)
+            {
 
                 amount.setText("Rs " + String.valueOf(rs + rs * 0.05));
                 amount.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ratechart, 0, R.drawable.arrowdown, 0);
                 amount.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (fulldetail.getVisibility() == View.INVISIBLE) {
+                        if (fulldetail.getVisibility() == View.INVISIBLE)
+                        {
                             fulldetail.setVisibility(View.VISIBLE);
                             baseprice.setText("Base Price: " + price);
                             gstprice.setText("GST(5%): " + String.valueOf(Double.parseDouble(price) * 0.05));
                             totalprice.setText("Total Price: " + String.valueOf(Double.parseDouble(price) + Double.parseDouble(price) * 0.05));
-                        } else if (fulldetail.getVisibility() == View.VISIBLE) {
+                        }
+                        else if (fulldetail.getVisibility() == View.VISIBLE)
+                        {
                             fulldetail.setVisibility(View.INVISIBLE);
                         }
                     }
@@ -174,7 +174,8 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
 
             } else
                 amount.setText("Rs " + rs);
-        } else {
+        }
+        else {
             amount.setText("Rs " + price);
 
         }

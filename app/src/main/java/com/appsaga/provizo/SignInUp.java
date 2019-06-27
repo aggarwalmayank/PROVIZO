@@ -1,5 +1,6 @@
 package com.appsaga.provizo;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -85,6 +87,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboardwithoutPopulate(SignInUp.this);
                 pbar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email.getText().toString().trim(),pass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -93,7 +96,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
                         if(task.isSuccessful())
                         {
                             if(mAuth.getCurrentUser().isEmailVerified()){
-                                startActivity(new Intent(SignInUp.this,DeliveryLocation.class));
+                                startActivity(new Intent(SignInUp.this,Bookingchoice.class));
                                 finish();
                             }
                             else
@@ -225,15 +228,13 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         });
         builder.show();
     }
-
-
-
-
-
-
-
-
-
-
+    public static void hideKeyboardwithoutPopulate(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isAcceptingText())
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(), 0);
+    }
 
 }

@@ -161,15 +161,12 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                         break;
                     case R.id.mybooking:
                        openDialog("Booking");
-                        // startActivity(new Intent(SelectServiceTruck.this, MyBookings.class));
-                        //Toast.makeText(SelectServiceTruck.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
                         Intent i = new Intent(SelectServiceTruck.this, Bookingchoice.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(i);
-                       // Toast.makeText(SelectServiceTruck.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(SelectServiceTruck.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -179,15 +176,12 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(SelectServiceTruck.this, AddCard.class));
-                        //Toast.makeText(SelectServiceTruck.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
                         startActivity(new Intent(SelectServiceTruck.this, Support.class));
-                       // Toast.makeText(SelectServiceTruck.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(SelectServiceTruck.this, AboutUs.class));
-                        //Toast.makeText(SelectServiceTruck.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(SelectServiceTruck.this, "SignOut", Toast.LENGTH_SHORT).show();
@@ -226,7 +220,6 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                 else if (trucktype.getSelectedItem().toString().equals("Select Truck Type"))
                     alertbox("Please Select Truck");
                 else {
-                    //AddtoFirebase();
                     String weight1 = "0";
 
                     if (radioWeightGroup.getCheckedRadioButtonId() == R.id.radiobtn1) {
@@ -252,35 +245,6 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                 }
             }
         });
-    }
-
-    public void AddtoFirebase() {
-        int selectedId = radioWeightGroup.getCheckedRadioButtonId();
-        radioWeightButton = (RadioButton) findViewById(selectedId);
-        Log.d("DeliveryLocation", "i am here");
-        final HashMap<String, Object> insert = new HashMap<>();
-        insert.put("ServiceType", spinner.getSelectedItem().toString());
-        insert.put("MaterialDescription", material.getText().toString());
-        insert.put("Weight", weight.getText().toString() + " " + radioWeightButton.getText());
-        insert.put("TruckType", trucktype.getSelectedItem().toString());
-
-        myref.child("users").child(currentuser).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Log.d("Delivery Location", "heyy");
-
-
-                myref.child("users").child(currentuser).child("Bookings").child(orderid).child("ServiceTruckDetails").setValue(insert);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
 

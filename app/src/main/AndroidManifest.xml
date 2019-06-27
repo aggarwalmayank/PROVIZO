@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MyTempooBookings"></activity>
         <activity
             android:name=".TempooService"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
@@ -20,7 +21,9 @@
             android:name=".DeliveryTempoo"
             android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity android:name=".Bookingchoice" />
-        <activity android:name=".CompanyInfo" />
+        <activity
+            android:name=".CompanyInfo"
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan" />
         <activity android:name=".PartnerBookingDetails" />
         <activity android:name=".PartnerBooking" />
         <activity android:name=".Support" />

@@ -29,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class AvailableServices extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener {
@@ -94,18 +93,15 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                         Toast.makeText(AvailableServices.this, "Wallet", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.partnerlogin:
-                        // Toast.makeText(AvailableServices.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
                         openDialog("Booking");
-                      //  startActivity(new Intent(AvailableServices.this, MyBookings.class));
                         break;
                     case R.id.newbooking:
                         Intent i = new Intent(AvailableServices.this, Bookingchoice.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(i);
-                        // Toast.makeText(AvailableServices.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(AvailableServices.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -180,7 +176,6 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                                 price = "" + Double.parseDouble(getIntent().getStringExtra("weightnounit")) * Double.parseDouble(priceVal);
                               if(!price.equals("0.0"))
                               {
-                                  Toast.makeText(AvailableServices.this, price, Toast.LENGTH_SHORT).show();
                                   services.add(new Services(companyName, price));}
                             }
                             if (!services.isEmpty()) {

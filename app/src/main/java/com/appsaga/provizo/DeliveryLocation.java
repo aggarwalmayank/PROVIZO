@@ -22,6 +22,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -122,6 +123,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                 openDialog("profile");
             }
         });
+
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -136,12 +138,10 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         Toast.makeText(DeliveryLocation.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                        //startActivity(new Intent(DeliveryLocation.this, MyBookings.class));
                         openDialog("Booking");
                         break;
                     case R.id.newbooking:
                         onBackPressed();
-                       // Toast.makeText(DeliveryLocation.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(DeliveryLocation.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -152,15 +152,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(DeliveryLocation.this, AddCard.class));
-                      //  Toast.makeText(DeliveryLocation.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
                         startActivity(new Intent(DeliveryLocation.this, Support.class));
-                       // Toast.makeText(DeliveryLocation.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(DeliveryLocation.this, AboutUs.class));
-                       // Toast.makeText(DeliveryLocation.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(DeliveryLocation.this, "SignOut", Toast.LENGTH_SHORT).show();

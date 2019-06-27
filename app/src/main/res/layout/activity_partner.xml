@@ -34,13 +34,16 @@
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
+
         <Button
             android:layout_width="match_parent"
             android:background="@drawable/ripple_effect"
             android:text="View Bookings"
             android:layout_marginBottom="10dp"
             android:id="@+id/viewbooking"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,7 +85,9 @@
             android:background="@drawable/ripple_effect"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Update Availability">
+            android:text="Update Availability"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp">
 
         </Button>
 
@@ -124,6 +129,35 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/ripple_effect"
             android:text="Update" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Full Truck Load"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:checked="true"/>
+
+            <CheckBox
+                android:id="@+id/checkbox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Part Load"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -204,10 +238,11 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/ripple_effect"
             android:gravity="center"
-            android:padding="5dp"
             android:text="Change Rate"
             android:textColor="#000000"
-            android:textSize="15sp">
+            android:textSize="15sp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp">
 
         </Button>
 

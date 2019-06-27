@@ -7,9 +7,9 @@ import java.util.HashMap;
 public class PartnerValue implements Serializable {
 
     String companyName,truckStatus;
-    HashMap<String,HashMap<String,Long>> locationMap;
+    HashMap<String,HashMap<String,HashMap<String,Long>>> locationMap;
 
-    public PartnerValue(String companyName, HashMap<String, HashMap<String, Long>> locationMap,String truckStatus) {
+    public PartnerValue(String companyName, HashMap<String,HashMap<String,HashMap<String,Long>>> locationMap,String truckStatus) {
         this.companyName = companyName;
         this.locationMap = locationMap;
         this.truckStatus=truckStatus;
@@ -27,11 +27,11 @@ public class PartnerValue implements Serializable {
         this.companyName = companyName;
     }
 
-    public HashMap<String, HashMap<String, Long>> getLocationMap() {
+    public HashMap<String,HashMap<String,HashMap<String,Long>>> getLocationMap() {
         return locationMap;
     }
 
-    public void setLocationMap(HashMap<String, HashMap<String, Long>> locationMap) {
+    public void setLocationMap(HashMap<String,HashMap<String,HashMap<String,Long>>> locationMap) {
         this.locationMap = locationMap;
     }
 

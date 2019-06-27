@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,6 +38,9 @@ public class Partner extends AppCompatActivity {
     DatabaseReference databaseReference;
     private RadioGroup rgavail, rgunit;
     private RadioButton rbavail, rbunit;
+    CheckBox checkBox1;
+    CheckBox checkBox2;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,10 @@ public class Partner extends AppCompatActivity {
         selectunit.setVisibility(View.INVISIBLE);
         newrate.setVisibility(View.INVISIBLE);
 
-        final String username = getIntent().getStringExtra("partner id");
+        checkBox1 =findViewById(R.id.checkbox1);
+        checkBox2=findViewById(R.id.checkbox2);
+
+        username = getIntent().getStringExtra("partner id");
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         android.support.v7.widget.Toolbar toolbar = (
@@ -79,11 +87,42 @@ public class Partner extends AppCompatActivity {
         spinner2 = findViewById(R.id.spinner2);
         currentRate = findViewById(R.id.current_rate);
 
+        checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(checkBox1.isChecked())
+                {
+                    checkBox2.setChecked(Boolean.FALSE);
+                }
+                else
+                {
+                    checkBox2.setChecked(Boolean.TRUE);
+                }
+                performChange();
+            }
+        });
+
+        checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(checkBox2.isChecked())
+                {
+                    checkBox1.setChecked(Boolean.FALSE);
+                }
+                else
+                {
+                    checkBox1.setChecked(Boolean.TRUE);
+                }
+                performChange();
+            }
+        });
+
         databaseReference.child("partners").child(username).child("operations").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("Run.....", "Yes");
                 final PartnerValue partnerValue = dataSnapshot.getValue(PartnerValue.class);
 
                 companyname.setText(partnerValue.getCompanyName());
@@ -93,41 +132,116 @@ public class Partner extends AppCompatActivity {
                 else
                     availability.setTextColor(Color.parseColor("#ff0000"));
 
-                ArrayList<String> source = new ArrayList<>();
+                final ArrayList<String> source = new ArrayList<>();
 
-                for (HashMap.Entry<String, HashMap<String, Long>> entry : partnerValue.getLocationMap().entrySet()) {
-                    source.add(entry.getKey());
+                if(checkBox1.isChecked())
+                {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+
+                        Log.d("Testing...",entry.getKey());
+                        if(entry.getKey().equalsIgnoreCase("FullTruckLoad"))
+                        {
+                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            {
+                                if(!source.contains(entry1.getKey()))
+                                {
+                                    source.add(entry1.getKey());
+                                }
+                            }
+                        }
+                    }
+                }
+                else if(checkBox2.isChecked())
+                {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+
+                        if(entry.getKey().equalsIgnoreCase("PartLoad"))
+                        {
+                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            {
+                                if(!source.contains(entry1.getKey()))
+                                {
+                                    source.add(entry1.getKey());
+                                }
+                            }
+                        }
+                    }
                 }
 
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Partner.this,
                         android.R.layout.simple_spinner_item, source);
 
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner1.setAdapter(null);
                 spinner1.setAdapter(arrayAdapter);
 
                 spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
 
-                        final HashMap<String, Long> source_dest = partnerValue.getLocationMap().get(parent.getItemAtPosition(position).toString());
+                        final ArrayList<String> dest = new ArrayList<>();
+                        final HashMap<String, HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
 
-                        ArrayList<String> dest = new ArrayList<>();
+                        if(checkBox1.isChecked()) {
+                            source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad");
 
-                        for (HashMap.Entry<String, Long> entry : source_dest.entrySet()) {
-                            dest.add(entry.getKey());
+                            for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
+
+                                if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
+                                {
+                                    HashMap<String,Long> hashMap = entry.getValue();
+
+                                    for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
+                                    {
+                                        if(!dest.contains(entry1.getKey()))
+                                        {
+                                            dest.add(entry1.getKey());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if(checkBox2.isChecked()) {
+                            source_dest[0] = partnerValue.getLocationMap().get("PartLoad");
+                            dest.clear();
+
+                            for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
+
+                                if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
+                                {
+                                    HashMap<String,Long> hashMap = entry.getValue();
+
+                                    for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
+                                    {
+                                        if(!dest.contains(entry1.getKey()))
+                                        {
+                                            dest.add(entry1.getKey());
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Partner.this,
                                 android.R.layout.simple_spinner_item, dest);
 
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner2.setAdapter(null);
                         spinner2.setAdapter(arrayAdapter);
 
+                        final HashMap<String, HashMap<String, Long>> finalSource_dest = source_dest[0];
                         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                                currentRate.setText(source_dest.get(parent.getItemAtPosition(position).toString()) + " per Quintal");
+                                if(checkBox1.isChecked())
+                                {
+                                    currentRate.setText(finalSource_dest.get(spinner1.getSelectedItem().toString()).get(parent.getItemAtPosition(position).toString()) + " per Quintal");
+                                }
+                                else if(checkBox2.isChecked())
+                                {
+                                    currentRate.setText(finalSource_dest.get(spinner1.getSelectedItem().toString()).get(parent.getItemAtPosition(position).toString()) + " per Quintal");
+                                }
                             }
 
                             @Override
@@ -181,23 +295,33 @@ public class Partner extends AppCompatActivity {
                 else {
 
                     Log.d("Run....", "Yes2");
-                    final DatabaseReference myRef;
-                    myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").
-                            child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                    DatabaseReference myRef = null;
 
+                    if(checkBox1.isChecked())
+                    {
+                        myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                    }
+                    else if(checkBox2.isChecked())
+                    {
+                        myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
+                                child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                    }
+
+                    final DatabaseReference finalMyRef = myRef;
                     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             if (rbunit.getText().toString().equals("Kg")) {
-                                myRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.01);
-                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 0.01+" Quintal");
+                                finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.01);
+                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 0.01+" per Quintal");
                             } else if (rbunit.getText().toString().equals("Tonne")) {
-                                myRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
-                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 10+" Quintal");
+                                finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
+                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 10+" per Quintal");
                             } else {
-                                myRef.setValue(Long.parseLong(newrate.getText().toString()));
-                                currentRate.setText(Long.parseLong(newrate.getText().toString())+" Quintal");
+                                finalMyRef.setValue(Long.parseLong(newrate.getText().toString()));
+                                currentRate.setText(Long.parseLong(newrate.getText().toString())+" per Quintal");
                             }
                         }
 
@@ -277,6 +401,153 @@ public class Partner extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+    }
 
+    public void performChange()
+    {
+        databaseReference.child("partners").child(username).child("operations").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                final PartnerValue partnerValue = dataSnapshot.getValue(PartnerValue.class);
+
+                companyname.setText(partnerValue.getCompanyName());
+                availability.setText(partnerValue.getTruckStatus());
+                if (availability.getText().equals("Available"))
+                    availability.setTextColor(Color.parseColor("#008000"));
+                else
+                    availability.setTextColor(Color.parseColor("#ff0000"));
+
+                final ArrayList<String> source = new ArrayList<>();
+
+                if(checkBox1.isChecked())
+                {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+
+                        Log.d("Testing...",entry.getKey());
+                        if(entry.getKey().equalsIgnoreCase("FullTruckLoad"))
+                        {
+                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            {
+                                if(!source.contains(entry1.getKey()))
+                                {
+                                    source.add(entry1.getKey());
+                                }
+                            }
+                        }
+                    }
+                }
+                else if(checkBox2.isChecked())
+                {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+
+                        if(entry.getKey().equalsIgnoreCase("PartLoad"))
+                        {
+                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            {
+                                if(!source.contains(entry1.getKey()))
+                                {
+                                    source.add(entry1.getKey());
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Partner.this,
+                        android.R.layout.simple_spinner_item, source);
+
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner1.setAdapter(null);
+                spinner1.setAdapter(arrayAdapter);
+
+                spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
+
+                        final ArrayList<String> dest = new ArrayList<>();
+                        final HashMap<String, HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
+
+                        if(checkBox1.isChecked()) {
+                            source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad");
+
+                            for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
+
+                                if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
+                                {
+                                    HashMap<String,Long> hashMap = entry.getValue();
+
+                                    for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
+                                    {
+                                        if(!dest.contains(entry1.getKey()))
+                                        {
+                                            dest.add(entry1.getKey());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if(checkBox2.isChecked()) {
+                            source_dest[0] = partnerValue.getLocationMap().get("PartLoad");
+                            dest.clear();
+
+                            for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
+
+                                if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
+                                {
+                                    HashMap<String,Long> hashMap = entry.getValue();
+
+                                    for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
+                                    {
+                                        if(!dest.contains(entry1.getKey()))
+                                        {
+                                            dest.add(entry1.getKey());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Partner.this,
+                                android.R.layout.simple_spinner_item, dest);
+
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner2.setAdapter(null);
+                        spinner2.setAdapter(arrayAdapter);
+
+                        final HashMap<String, HashMap<String, Long>> finalSource_dest = source_dest[0];
+                        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                if(checkBox1.isChecked())
+                                {
+                                    currentRate.setText(finalSource_dest.get(spinner1.getSelectedItem().toString()).get(parent.getItemAtPosition(position).toString()) + " per Quintal");
+                                }
+                                else if(checkBox2.isChecked())
+                                {
+                                    currentRate.setText(finalSource_dest.get(spinner1.getSelectedItem().toString()).get(parent.getItemAtPosition(position).toString()) + " per Quintal");
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

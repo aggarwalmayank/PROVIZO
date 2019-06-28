@@ -5,14 +5,13 @@
     android:id="@+id/deliverylocation"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".DeliveryLocation">
+    tools:context=".DeliveryLocation"
+    android:background="#EBEEF1">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,14 +19,12 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/first"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/provizo_bg1" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/first_new"
+            android:scaleType="centerCrop"/>
+
         <ImageView
             android:id="@+id/menuicon"
             android:layout_width="wrap_content"
@@ -50,12 +47,19 @@
             android:textColor="#000000"
             android:textSize="45sp" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/first"
+            android:layout_above="@id/third">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -138,8 +142,6 @@
 
             </RadioGroup>
 
-
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,6 +184,16 @@
                 android:src="@drawable/right_pointer" />
 
         </LinearLayout>
+
+        </ScrollView>
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/third"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/third"
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:layout_width="290dp"

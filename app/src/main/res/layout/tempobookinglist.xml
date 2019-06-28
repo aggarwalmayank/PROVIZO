@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:background="@drawable/ripple_effect_2"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/orderid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Booking ID"
+        android:textColor="#000000"
+        android:textSize="19sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/pick_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pickup Location"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/orderid"
+        android:gravity="start"/>
+
+    <TextView
+        android:id="@+id/drop_loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Drop Location"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/orderid"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="start"/>
+
+    <TextView
+        android:id="@+id/pick_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pickup Date"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/pick_loc"
+        android:layout_marginBottom="5dp"
+        android:gravity="start"/>
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/drop_loc"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="start"/>
+    <TextView
+        android:id="@+id/Dimension"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dimension"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/amount"
+        android:layout_marginBottom="5dp"
+        android:gravity="start"/>
+
+</RelativeLayout>

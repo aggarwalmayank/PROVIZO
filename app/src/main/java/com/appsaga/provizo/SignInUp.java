@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
     Button signUp,signIn,partner;
     Typeface typeface;
     ProgressBar pbar;
+    boolean doubleBackToExitPressedOnce = false;
     EditText email,pass;
     FirebaseAuth mAuth;
     TextView forgot;
@@ -153,7 +155,6 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
 
             }
         });
-      // mAuth.getCurrentUser().sendEmailVerification();
         partner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,8 +177,7 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
     @Override
     public void loginid(final String username) {
         final Boolean[] flag = {false};
-
-        final ProgressDialog dialog = ProgressDialog.show(SignInUp.this, "Confirming Id", "Please wait...", true);
+        final ProgressDialog dialog = ProgressDialog.show(SignInUp.this, "Confirming ID", "Please wait...", true);
 
         mQueryListener=new ValueEventListener() {
             @Override
@@ -235,6 +235,24 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         if (inputMethodManager.isAcceptingText())
             inputMethodManager.hideSoftInputFromWindow(
                     activity.getCurrentFocus().getWindowToken(), 0);
+    }
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
 }

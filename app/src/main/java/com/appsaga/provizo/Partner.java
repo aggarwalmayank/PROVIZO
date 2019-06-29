@@ -29,9 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Partner extends AppCompatActivity {
+public class Partner extends AppCompatActivity implements CityDialog.DialogListener{
 
-    Button updaterate, updateavail, changerate, changeavail;
+    Button updaterate, updateavail, changerate, changeavail,addcity;
     TextView companyname, availability, currentRate, selectunit;
     Spinner spinner1, spinner2;
     EditText newrate;
@@ -57,6 +57,7 @@ public class Partner extends AppCompatActivity {
         availability = findViewById(R.id.currentstatus);
         rgavail = findViewById(R.id.radiogrp2);
         rgunit = findViewById(R.id.radiogrp1);
+        addcity=findViewById(R.id.addcity);
         updaterate.setVisibility(View.INVISIBLE);
         updateavail.setVisibility(View.INVISIBLE);
         rgunit.setVisibility(View.INVISIBLE);
@@ -69,6 +70,12 @@ public class Partner extends AppCompatActivity {
 
         username = getIntent().getStringExtra("partner id");
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        addcity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
         android.support.v7.widget.Toolbar toolbar = (
                 android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -549,5 +556,16 @@ public class Partner extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void openDialog() {
+            CityDialog exampleDialog = new CityDialog();
+            exampleDialog.show(getSupportFragmentManager(), "example dialog");
+        }
+
+    @Override
+    public void addcitytoDB(String origin, String dest, String price,String type) {
+        databaseReference.child("partners").child(username).child("operations").child("locationMap")
+                .child(type).child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
     }
 }

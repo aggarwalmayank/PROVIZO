@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 public class PartnerValue implements Serializable {
 
-    String companyName,truckStatus;
-    HashMap<String,HashMap<String,HashMap<String,Long>>> locationMap;
+    private String companyName,truckStatus;
+    private HashMap<String,HashMap<String,HashMap<String,Long>>> locationMap;
 
     public PartnerValue(String companyName, HashMap<String,HashMap<String,HashMap<String,Long>>> locationMap,String truckStatus) {
         this.companyName = companyName;

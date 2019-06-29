@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.appsaga.provizo"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         multiDexEnabled true
@@ -37,6 +37,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.github.ArmanSar:SwipeLayout:1.0.10'
     implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
     implementation files('libs\\activation.jar')
     implementation files('libs\\additionnal.jar')

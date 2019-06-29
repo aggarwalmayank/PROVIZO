@@ -2,6 +2,7 @@ package com.appsaga.provizo;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +24,8 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
+
+    boolean doubleBackToExitPressedOnce = false;
     ImageView menuicon;
 
     @Override
@@ -140,5 +143,23 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
     @Override
     public void applyTexts() {
 
+    }
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

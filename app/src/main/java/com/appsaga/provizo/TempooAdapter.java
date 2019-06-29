@@ -14,8 +14,7 @@ import java.util.ArrayList;
 public class TempooAdapter extends RecyclerView.Adapter<TempooAdapter.SearchViewHolder> {
 
     Context context;
-    DatabaseCard helper;
-    ArrayList<Tempoo> list;
+    private ArrayList<Tempoo> list;
 
     public TempooAdapter(ArrayList<Tempoo> list, Context context) {
         this.list = list;
@@ -53,20 +52,19 @@ public class TempooAdapter extends RecyclerView.Adapter<TempooAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull TempooAdapter.SearchViewHolder searchViewHolder, int i) {
-        final int p = i;
         searchViewHolder.id.setText("Booking ID: "+list.get(i).getKey());
-        searchViewHolder.drop.setText("Drop Location: "+list.get(i).getDropLocation());
-        searchViewHolder.pick.setText("Pick Up Location: "+list.get(i).getPickUpLocation());
-        searchViewHolder.date.setText("Pick Up Date: "+(list.get(i).getPickUpDate()));
-        searchViewHolder.amount.setText("Estimate Amount: RS"+ (list.get(i).getEstimateAmount()));
-        searchViewHolder.dim.setText("Dimendion(L-B-H): "+(list.get(i).getDimension()));
+        searchViewHolder.drop.setText("Drop Location:\n"+list.get(i).getDropLocation());
+        searchViewHolder.pick.setText("Pick Up Location:\n"+list.get(i).getPickUpLocation());
+        searchViewHolder.date.setText("Pick Up Date:\n"+(list.get(i).getPickUpDate()));
+        searchViewHolder.amount.setText("Estimate Amount:\n"+ (list.get(i).getEstimateAmount()));
+        searchViewHolder.dim.setText("Dimension(L-B-H): "+(list.get(i).getDimension()));
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
 
     }
 }

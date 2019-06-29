@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="My Bookings"
+        app:title="Tempoo Bookings"
         app:titleTextAppearance="@style/mystyle"
         app:titleTextColor="#000000" />
 
@@ -32,7 +32,7 @@
         android:layout_below="@+id/toolbar"
         android:divider="@android:color/transparent"
         android:padding="8dp"
-        android:dividerHeight="8dp">
+        android:dividerHeight="10dp">
 
 
     </android.support.v7.widget.RecyclerView>

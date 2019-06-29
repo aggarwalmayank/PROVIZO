@@ -79,7 +79,6 @@ public class MyTempooBookings extends AppCompatActivity {
                     nobooking.setVisibility(View.INVISIBLE);
                     bookingsList.setHasFixedSize(true);
                     bookingsList.setLayoutManager(new LinearLayoutManager(MyTempooBookings.this));
-                    bookingsList.addItemDecoration(new DividerItemDecoration(MyTempooBookings.this, LinearLayoutManager.VERTICAL));
                     TempooAdapter adapter = new TempooAdapter(tempo,MyTempooBookings.this);
                     bookingsList.setAdapter(adapter);
                 }

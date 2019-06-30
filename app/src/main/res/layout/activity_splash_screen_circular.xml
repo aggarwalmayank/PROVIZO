@@ -14,8 +14,10 @@
         android:layout_height="wrap_content"
         android:text="PROVIZO"
         android:layout_centerInParent="true"
-        android:textColor="#000000"
-        android:textSize="40sp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#FFFFFF"
+        android:background="#000000"
+        android:textSize="35sp"
         android:textStyle="bold"/>
 
 </RelativeLayout>

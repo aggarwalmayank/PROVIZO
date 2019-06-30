@@ -8,7 +8,7 @@
     android:background="#000000"
     android:id="@+id/splash_relative">
 
-    <Button
+    <TextView
         android:id="@+id/pro_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,6 +17,7 @@
         android:fontFamily="sans-serif-light"
         android:textColor="#FFFFFF"
         android:background="#000000"
-        android:textSize="35sp"/>
+        android:textSize="35sp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

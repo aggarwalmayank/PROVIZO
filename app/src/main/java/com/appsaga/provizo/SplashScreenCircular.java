@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 public class SplashScreenCircular extends AppCompatActivity {
 
-    Button proText;
+    //Button proText;
     RelativeLayout splashRelative;
 
     @Override
@@ -36,19 +36,19 @@ public class SplashScreenCircular extends AppCompatActivity {
 
     public void performAnimation()
     {
-        proText = findViewById(R.id.pro_text);
+        //splashRelative = findViewById(R.id.pro_text);
 
-        final int cx = proText.getWidth() / 2;
-        final int cy = proText.getHeight() / 2;
+        final int cx = splashRelative.getWidth() / 2;
+        final int cy = splashRelative.getHeight() / 2;
 
         float finalRadius = (float) Math.hypot(cx, cy);
 
         Animator anim ;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            anim = ViewAnimationUtils.createCircularReveal(proText, cx, cy, 0, finalRadius);
+            anim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy, 0, finalRadius);
 
-            proText.setVisibility(View.VISIBLE);
+            splashRelative.setVisibility(View.VISIBLE);
             anim.start();
             anim.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -62,14 +62,14 @@ public class SplashScreenCircular extends AppCompatActivity {
 
                             float initialRadius = (float) Math.hypot(cx, cy);
 
-                            Animator finalAnim = ViewAnimationUtils.createCircularReveal(proText, cx, cy, initialRadius,0) ;
+                            Animator finalAnim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy, initialRadius,0) ;
                             finalAnim.start();
 
                             finalAnim.addListener(new AnimatorListenerAdapter() {
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
                                     super.onAnimationEnd(animation);
-                                    proText.setVisibility(View.INVISIBLE);
+                                    splashRelative.setVisibility(View.INVISIBLE);
 
                                     startActivity(new Intent(SplashScreenCircular.this, com.appsaga.provizo.SignInUp.class));
                                     finish();

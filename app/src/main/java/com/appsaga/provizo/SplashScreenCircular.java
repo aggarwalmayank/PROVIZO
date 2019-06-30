@@ -48,7 +48,7 @@ public class SplashScreenCircular extends AppCompatActivity {
         Animator anim;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            anim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy,  finalRadius,0);
+            anim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy,0  ,finalRadius);
 
             splashRelative.setVisibility(View.VISIBLE);
             anim.start();
@@ -64,7 +64,7 @@ public class SplashScreenCircular extends AppCompatActivity {
 
                             float initialRadius = (float) Math.hypot(cx, cy);
 
-                            Animator finalAnim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy, 0, initialRadius);
+                            Animator finalAnim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy, initialRadius,0 );
                             finalAnim.start();
 
                             finalAnim.addListener(new AnimatorListenerAdapter() {

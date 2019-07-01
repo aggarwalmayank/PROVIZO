@@ -1,5 +1,6 @@
 package com.appsaga.provizo;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -12,8 +13,10 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
 
     boolean doubleBackToExitPressedOnce = false;
     ImageView menuicon;
+    RelativeLayout splashRelative;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,16 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Bookingchoice.this, DeliveryTempoo.class));
+            }
+        });
+
+        splashRelative = findViewById(R.id.splash_relative);
+
+        splashRelative.post(new Runnable() {
+            @Override
+            public void run() {
+
+                performAnimation();
             }
         });
 
@@ -161,5 +175,23 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+
+    public void performAnimation() {
+        //splashRelative = findViewById(R.id.pro_text);
+
+        final int cx = splashRelative.getWidth() / 2;
+        final int cy = splashRelative.getHeight() / 2;
+
+        float finalRadius = (float) Math.hypot(cx, cy);
+
+        Animator anim;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            anim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy,0  ,finalRadius);
+
+            splashRelative.setVisibility(View.VISIBLE);
+            anim.start();
+        }
     }
 }

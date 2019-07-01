@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".SignInUp">
+    tools:context=".SignInUp"
+    android:id="@+id/splash_relative"
+    android:background="#ebeef1">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="#ebeef1">
 
         <ImageView
             android:id="@+id/first"
@@ -158,6 +155,5 @@
             android:id="@+id/partnerlogin"
             android:layout_alignParentBottom="true"
             android:background="@drawable/ripple_effect"/>
-    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

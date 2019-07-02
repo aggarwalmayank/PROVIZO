@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -294,7 +295,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
             public void onClick(View v) {
 
                 int selectedId = rgunit.getCheckedRadioButtonId();
-                rbunit = (RadioButton) findViewById(selectedId);
+                rbunit = findViewById(selectedId);
                 if (rgunit.getCheckedRadioButtonId() == -1)
                     alertbox("Invalid Unit");
                 else if (newrate.getText().toString().equalsIgnoreCase(""))
@@ -316,20 +317,87 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                     }
 
                     final DatabaseReference finalMyRef = myRef;
-                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    final DatabaseReference finalMyRef1 = myRef;
+                    databaseReference.child("basePrice").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            if (rbunit.getText().toString().equals("Kg")) {
-                                finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.01);
-                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 0.01+" per Quintal");
-                            } else if (rbunit.getText().toString().equals("Tonne")) {
-                                finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
-                                currentRate.setText(Long.parseLong(newrate.getText().toString()) * 10+" per Quintal");
-                            } else {
-                                finalMyRef.setValue(Long.parseLong(newrate.getText().toString()));
-                                currentRate.setText(Long.parseLong(newrate.getText().toString())+" per Quintal");
+                            final int baserate;
+
+                            if(checkBox1.isChecked())
+                            {
+                                baserate = dataSnapshot.child("FullTruckLoad").getValue(Integer.class);
                             }
+                            else
+                            {
+                                baserate = dataSnapshot.child("PartLoad").getValue(Integer.class);
+                            }
+
+                            Log.d("bareRate",baserate+"");
+
+                            finalMyRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    if (rbunit.getText().toString().equals("Kg")) {
+
+                                        if(Long.parseLong(newrate.getText().toString()) * 0.01 >= (long)baserate) {
+                                            finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.01);
+                                            currentRate.setText(Long.parseLong(newrate.getText().toString()) * 0.01 + " per Quintal");
+
+                                            rgunit.setVisibility(View.INVISIBLE);
+                                            selectunit.setVisibility(View.INVISIBLE);
+                                            updaterate.setVisibility(View.INVISIBLE);
+                                            newrate.setVisibility(View.INVISIBLE);
+
+                                            Toast.makeText(Partner.this,"Rate Changed Successfully",Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(Partner.this,"The new rate is less than the base rate 100 Rs. per Quintal",Toast.LENGTH_LONG).show();
+                                        }
+                                    } else if (rbunit.getText().toString().equals("Tonne")) {
+
+                                        if(Long.parseLong(newrate.getText().toString()) * 10 >= (long)baserate) {
+                                            finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
+                                            currentRate.setText(Long.parseLong(newrate.getText().toString()) * 10 + " per Quintal");
+
+                                            rgunit.setVisibility(View.INVISIBLE);
+                                            selectunit.setVisibility(View.INVISIBLE);
+                                            updaterate.setVisibility(View.INVISIBLE);
+                                            newrate.setVisibility(View.INVISIBLE);
+
+                                            Toast.makeText(Partner.this,"Rate Changed Successfully",Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(Partner.this,"The new rate is less than the base rate 100 Rs. per Quintal",Toast.LENGTH_LONG).show();
+                                        }
+                                    } else {
+                                        if(Long.parseLong(newrate.getText().toString()) >=(long)baserate) {
+                                            finalMyRef.setValue(Long.parseLong(newrate.getText().toString()));
+                                            currentRate.setText(Long.parseLong(newrate.getText().toString()) + " per Quintal");
+
+                                            rgunit.setVisibility(View.INVISIBLE);
+                                            selectunit.setVisibility(View.INVISIBLE);
+                                            updaterate.setVisibility(View.INVISIBLE);
+                                            newrate.setVisibility(View.INVISIBLE);
+
+                                            Toast.makeText(Partner.this,"Rate Changed Successfully",Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(Partner.this,"The new rate is less than the base rate 100 Rs. per Quintal",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                         }
 
                         @Override
@@ -337,11 +405,6 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                         }
                     });
-
-                    rgunit.setVisibility(View.INVISIBLE);
-                    selectunit.setVisibility(View.INVISIBLE);
-                    updaterate.setVisibility(View.INVISIBLE);
-                    newrate.setVisibility(View.INVISIBLE);
                 }
             }
         });

@@ -48,25 +48,27 @@
                 android:textColor="#000000"
                 android:textSize="45sp" />
 
-            <ScrollView
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/third"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/third"
-                android:layout_below="@id/first"
-                android:layout_centerInParent="true">
+                android:layout_alignParentBottom="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/third" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_below="@id/first"
+                    android:layout_centerInParent="true">
 
                     <EditText
                         android:id="@+id/consignorname"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
                         android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:drawableLeft="@drawable/loginid"
                         android:gravity="center"
@@ -160,15 +162,7 @@
                         android:src="@drawable/right_pointer" />
 
                 </LinearLayout>
-            </ScrollView>
 
-            <ImageView
-                android:id="@+id/third"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/third" />
 
             <ImageView
                 android:layout_width="290dp"

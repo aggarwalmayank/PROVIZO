@@ -41,16 +41,14 @@
                 android:layout_margin="20dp"
                 android:src="@drawable/menuicon"/>
 
-
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
                 android:layout_below="@+id/first"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="12dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -73,7 +71,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/ripple_effect"
-                        android:padding="16dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
                         android:text="Intercity Truck" />
 
                 </LinearLayout>
@@ -97,8 +96,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/ripple_effect"
-                        android:padding="16dp"
-                        android:text="Intracity Temmpo" />
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:text="Intracity Tempo" />
 
                 </LinearLayout>
 

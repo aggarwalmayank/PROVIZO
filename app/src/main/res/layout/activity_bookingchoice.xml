@@ -7,114 +7,110 @@
     android:layout_height="match_parent"
     tools:context=".SignInUp">
 
-        <RelativeLayout
+    <RelativeLayout
+        android:id="@+id/splash_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ebeef1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/first"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ebeef1"
-            android:gravity="center"
-            android:id="@+id/splash_relative">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/first_new" />
 
-            <ImageView
-                android:id="@+id/first"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/first_new" />
+        <TextView
+            android:id="@+id/appnamesigninup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/app_name"
+            android:textColor="#000000"
+            android:textSize="45sp" />
 
-            <TextView
-                android:id="@+id/appnamesigninup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="90dp"
-                android:paddingStart="20dp"
-                android:paddingLeft="20dp"
-                android:paddingEnd="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/app_name"
-                android:textColor="#000000"
-                android:textSize="45sp" />
-            <ImageView
-                android:id="@+id/menuicon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:src="@drawable/menuicon"/>
+        <ImageView
+            android:id="@+id/menuicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:src="@drawable/menuicon" />
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/first"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:layout_below="@+id/first"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-                <LinearLayout
-                    android:id="@+id/truckservice"
-                    android:layout_gravity="center"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/truck5" />
-
-                    <Button
-                        android:id="@+id/truck"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ripple_effect"
-                        android:paddingEnd="20dp"
-                        android:paddingStart="20dp"
-                        android:text="Intercity Truck" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tempooservice"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/truck"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ripple_effect_2"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Intercity Truck" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/truck6" />
 
-                    <Button
-                        android:id="@+id/tempoo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ripple_effect"
-                        android:paddingEnd="20dp"
-                        android:paddingStart="20dp"
-                        android:text="Intracity Tempo" />
-
-                </LinearLayout>
-
+                <Button
+                    android:id="@+id/tempoo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_effect_2"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Intracity Tempo" />
 
             </LinearLayout>
 
-
-            <ImageView
-                android:id="@+id/third"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:background="@drawable/ripple_effect_2"
+                android:layout_height="wrap_content">
+            <fragment
+                android:id="@+id/googlemap"
+                android:layout_margin="10dp"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/third"
-                android:scaleType="centerCrop" />
+                tools:context="example.com.mapexample.MapsActivity" />
+            </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/third"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/third"
+            android:scaleType="centerCrop" />
+
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nv"

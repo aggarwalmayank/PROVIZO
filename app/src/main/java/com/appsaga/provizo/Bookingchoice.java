@@ -1,11 +1,19 @@
 package com.appsaga.provizo;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +28,31 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Bookingchoice extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener {
+@SuppressWarnings("deprecation")
+public class Bookingchoice extends FragmentActivity implements com.appsaga.provizo.ProfileDialog.DialogListener, OnMapReadyCallback,
+        MyBookingDialog.DialogListener {
+
+    Location currentlocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int REQUEST_CODE = 101;
     Button truck, tempoo;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -36,7 +66,11 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookingchoice);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
         TextView tv = findViewById(R.id.appnamesigninup);
+
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
         tv.setTypeface(typeface);
         truck = findViewById(R.id.truck);
@@ -100,13 +134,13 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
                         Toast.makeText(Bookingchoice.this, "partenr login", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.mybooking:
-                       openDialog("Booking");
+                        openDialog("Booking");
                         // startActivity(new Intent(Bookingchoice.this, MyBookings.class));
-                       // Toast.makeText(Bookingchoice.this, "My Booking", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(Bookingchoice.this, "My Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.newbooking:
                         dl.closeDrawer(Gravity.LEFT);
-                       // Toast.makeText(Bookingchoice.this, "New Booking", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(Bookingchoice.this, "New Booking", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ratechart:
                         Toast.makeText(Bookingchoice.this, "Rate Chart", Toast.LENGTH_SHORT).show();
@@ -116,15 +150,15 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
                         break;
                     case R.id.addcard:
                         startActivity(new Intent(Bookingchoice.this, AddCard.class));
-                      //  Toast.makeText(Bookingchoice.this, "add card", Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(Bookingchoice.this, "add card", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.support:
                         startActivity(new Intent(Bookingchoice.this, Support.class));
-                       // Toast.makeText(Bookingchoice.this, "Support", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(Bookingchoice.this, "Support", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.about:
                         startActivity(new Intent(Bookingchoice.this, AboutUs.class));
-                     //   Toast.makeText(Bookingchoice.this, "about us", Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(Bookingchoice.this, "about us", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.signout:
                         Toast.makeText(Bookingchoice.this, "SignOut", Toast.LENGTH_SHORT).show();
@@ -144,11 +178,12 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
         });
     }
 
+
     public void openDialog(String a) {
-        if(a.equals("profile")) {
+        if (a.equals("profile")) {
             ProfileDialog exampleDialog = new ProfileDialog();
             exampleDialog.show(getSupportFragmentManager(), "example dialog");
-        }else if(a.equals("Booking")){
+        } else if (a.equals("Booking")) {
             MyBookingDialog dialog = new MyBookingDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
         }
@@ -158,6 +193,7 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
     public void applyTexts() {
 
     }
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -172,7 +208,7 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
@@ -188,10 +224,51 @@ public class Bookingchoice extends AppCompatActivity implements com.appsaga.prov
         Animator anim;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            anim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy,0  ,finalRadius);
+            anim = ViewAnimationUtils.createCircularReveal(splashRelative, cx, cy, 0, finalRadius);
 
             splashRelative.setVisibility(View.VISIBLE);
             anim.start();
+        }
+    }
+
+    private void fetchLastLocation() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+            return;
+        }
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location!=null){
+                    currentlocation=location;
+                    SupportMapFragment supportMapFragment=(SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.googlemap);
+                    supportMapFragment.getMapAsync(Bookingchoice.this);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        LatLng latLng=new LatLng(currentlocation.getLatitude(),currentlocation.getLongitude());
+        MarkerOptions markerOptions=new MarkerOptions().position(latLng)
+                .title("Your Location");
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,18));
+        googleMap.addMarker(markerOptions);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUEST_CODE:
+                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    fetchLastLocation();
+                }break;
         }
     }
 }

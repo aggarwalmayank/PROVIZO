@@ -19,7 +19,7 @@ public class CompanyInfo extends AppCompatActivity {
     TextView owner, company, address, experience, amount, trucks;
     Button next;
     DatabaseReference mref;
-    String cname,weight;
+    String cname,weight,trucktype;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,12 @@ public class CompanyInfo extends AppCompatActivity {
 
         cname=getIntent().getStringExtra("company");
         company.setText(cname);
+        trucktype= getIntent().getStringExtra("exacttruckwt");
+        double wt=Double.parseDouble(getIntent().getStringExtra("weightnounit"));
+        wt=wt*0.1;
+        double twt=Double.parseDouble(trucktype);
+        trucks.setText("Number Of Trucks Required: "+String.valueOf((int) Math.floor((wt/twt))));
+        amount.setText("Amount: "+getIntent().getStringExtra("amount")+" Rs");
 
         cname=cname.replaceAll("\\s+","");
         mref.child("Company").child(cname).addListenerForSingleValueEvent(new ValueEventListener() {

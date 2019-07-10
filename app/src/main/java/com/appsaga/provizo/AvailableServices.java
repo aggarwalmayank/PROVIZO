@@ -227,7 +227,9 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                 i.putExtra("weight", getIntent().getStringExtra("weight"));
                 i.putExtra("Material", getIntent().getStringExtra("Material"));
                 i.putExtra("truck", getIntent().getStringExtra("truck"));
+                i.putExtra("weightnounit", getIntent().getStringExtra("weightnounit"));
                 i.putExtra("company", company.getText());
+                i.putExtra("exacttruckwt",getIntent().getStringExtra("exacttruckwt"));
                 i.putExtra("amount", price.getText().toString());
                 startActivity(i);
 

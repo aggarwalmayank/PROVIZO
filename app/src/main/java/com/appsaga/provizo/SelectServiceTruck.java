@@ -241,13 +241,36 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                     i.putExtra("weightnounit", weight1);
                     i.putExtra("Material", material.getText().toString());
                     i.putExtra("truck", trucktype.getSelectedItem().toString());
+                    i.putExtra("exacttruckwt",getweight(trucktype.getSelectedItem().toString()));
                     startActivity(i);
                 }
             }
         });
     }
 
+    public String getweight(String a){
+        String b = "";
+        if(a.equals("2.5 MT Closed")||a.equals("2.5 MT Open"))
+            b="2.5";
+        else if (a.equals("3.5 MT Closed")||a.equals("3.5 MT Open"))
+            b="3.5";
+        else if (a.equals("4 MT Closed")||a.equals("4 MT Open"))
+            b="4";
+        else if (a.equals("5 MT Closed")||a.equals("5 MT Open"))
+            b="5";
+        else if (a.equals("7 MT Closed")||a.equals("7 MT Open"))
+            b="7";
+        else if (a.equals("9 MT Closed")||a.equals("9 MT Open"))
+            b="9";
+        else if (a.equals("16 MT Closed")||a.equals("16 MT Open"))
+            b="16";
+        else if (a.equals("26 MT Closed")||a.equals("26 MT Open"))
+            b="26";
+        else if (a.equals("21 MT Closed")||a.equals("21 MT Open"))
+            b="21";
 
+        return b;
+    }
     public void openDialog(String a) {
         if (a.equals("partner")) {
             PartnerDialog dialog = new PartnerDialog();

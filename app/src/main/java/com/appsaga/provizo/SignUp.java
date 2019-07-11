@@ -1,9 +1,7 @@
 package com.appsaga.provizo;
 
-import android.arch.core.executor.TaskExecutor;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -24,7 +21,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-
 import java.util.concurrent.TimeUnit;
 
 
@@ -64,7 +60,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 if (phone_num.getText().toString().equalsIgnoreCase("") && phone_num.getText().toString().length() < 10) {
                     phone_num.setError("Invalid Number");
-                    //finish();
+
                 } else {
                     phonenumber = "+91" + phone_num.getText().toString().trim();
                     sendVerificationCode(phonenumber);
@@ -107,7 +103,6 @@ public class SignUp extends AppCompatActivity {
                 mCallBack
         );
 
-        Log.d("Test....","sendVerificationCode");
     }
 
     private void resendVerificationCode(String phoneNumber,
@@ -120,7 +115,6 @@ public class SignUp extends AppCompatActivity {
                 mCallBack,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
 
-        Log.d("Test....","resendVerificationCode");
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -128,11 +122,10 @@ public class SignUp extends AppCompatActivity {
 
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-           // super.onCodeSent(s, forceResendingToken);
+
             verificationId = s;
             token = forceResendingToken;
 
-            Log.d("Test....","onCodeSent");
         }
 
         @Override
@@ -149,7 +142,6 @@ public class SignUp extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-            Log.d("Test....","onVerificationCompleted");
         }
 
         @Override
@@ -162,7 +154,6 @@ public class SignUp extends AppCompatActivity {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);
 
-        Log.d("Test....","verifyCode");
     }
 
     private void signInWithCredential(PhoneAuthCredential credential) {
@@ -174,15 +165,13 @@ public class SignUp extends AppCompatActivity {
                             Log.d("Test.....","no");
                             Intent i = new Intent(SignUp.this, SignUpSecond.class);
                             i.putExtra("phnumber",phonenumber);
-                            //   i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(i);
                             finish();
-                        } //else
-                          //  Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
 
-        Log.d("Test....","signInWithCredential");
     }
 
     @Override

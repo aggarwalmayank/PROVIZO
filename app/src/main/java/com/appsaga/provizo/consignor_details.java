@@ -76,6 +76,26 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
         weight = getIntent().getStringExtra("weight");
 
         setvisibilityofdoordelivery(weight);
+        c1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(c3.isChecked())
+                {
+                    c1.setChecked(true);
+                    c3.setChecked(false);
+                }
+            }
+        });
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(c1.isChecked())
+                {
+                    c3.setChecked(true);
+                    c1.setChecked(false);
+                }
+            }
+        });
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

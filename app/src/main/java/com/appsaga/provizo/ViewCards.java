@@ -72,7 +72,6 @@ public class ViewCards extends AppCompatActivity {
         setAdapter();
 
         title=this.getClass().getSimpleName();
-        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
     }
 
 

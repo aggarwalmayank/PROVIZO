@@ -61,7 +61,6 @@
                         android:id="@+id/nooftruck"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Trucks Required: 5 Trucks of 2.5 MT each"
                         android:textColor="#000000"
                         android:textSize="15sp" />
 
@@ -70,7 +69,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Amount: Rs 2500 per truck"
                         android:textColor="#000000"
                         android:textSize="15sp" />
 
@@ -128,7 +126,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentLeft="true"
-                android:text="Grover Road Lines"
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="15sp" />
@@ -141,7 +138,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:text="Owner: Harvinde "
                 android:textColor="#000000"
                 android:textSize="15sp" />
             <TextView
@@ -152,7 +148,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:text="Address: A 31 Transport Nagar Jaipur"
                 android:textColor="#000000"
                 android:textSize="15sp" />
 
@@ -165,7 +160,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="5dp"
-                android:text="Experience: 25 years (UP King)"
                 android:textColor="#000000"
                 android:textSize="15sp" />
 

@@ -109,14 +109,12 @@ public class SignUpSecond extends AppCompatActivity {
                 dateofbirth=dob.getText().toString().trim();
                 fullname=name.getText().toString().trim();
 
-                Log.d("Test.....","yes");
                 firebaseAuth.createUserWithEmailAndPassword(emailid,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         pbar.setVisibility(View.GONE);
                         if(task.isSuccessful())
                         {
-                            Log.d("Test.....","yes2");
                             firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -125,11 +123,9 @@ public class SignUpSecond extends AppCompatActivity {
                                         MobileNo=bundle.getString("phnumber");
                                         addToLocalDatabase();
                                         addToFirebaseDatabase(firebaseAuth.getCurrentUser());
-                                        Log.d("Test.....","yes3");
                                         Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(SignUpSecond.this,SignInUp.class);
 
-                                     //   addToFirebaseDatabase(emailid,fullname,bundle.getString("phnumber"),sex,dateofbirth);
                                         startActivity(i);
                                         finish();
                                     }
@@ -176,8 +172,6 @@ public class SignUpSecond extends AppCompatActivity {
         insert.put("Email Verification","Not Verified");
         insert.put("Bookings","");
 
-       // databaseReference.child("users").child("emails").child(name.getText().toString()+dob.getText().toString()+(int)(100*Math.random())).setValue(insert);
-        //databaseReference.child("users").setValue(5);
         databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

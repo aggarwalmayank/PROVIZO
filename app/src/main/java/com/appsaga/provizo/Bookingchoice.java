@@ -358,28 +358,7 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
                 }
                 break;
 
-            case REQUEST_LOCATION:
-                switch (resultCode)
-                {
-                    case Activity.RESULT_OK:
-                    {
-                        // All required changes were successfully made
-                        Toast.makeText(MainActivity.this, "Location enabled by user!", Toast.LENGTH_LONG).show();
-                        break;
-                    }
-                    case Activity.RESULT_CANCELED:
-                    {
-                        // The user was asked to change settings, but chose not to
-                        Toast.makeText(MainActivity.this, "Location not enabled, user cancelled.", Toast.LENGTH_LONG).show();
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
-                }
-                break;
-                break;
+            
         }
     }
 

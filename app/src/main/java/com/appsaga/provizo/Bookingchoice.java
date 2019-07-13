@@ -92,10 +92,10 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
-        TextView tv = findViewById(R.id.appnamesigninup);
+       // TextView tv = findViewById(R.id.appnamesigninup);
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
+        //Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
+       // tv.setTypeface(typeface);
         truck = findViewById(R.id.truck);
         menuicon = findViewById(R.id.menuicon);
         tempoo = findViewById(R.id.tempoo);

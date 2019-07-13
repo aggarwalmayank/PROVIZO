@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -366,5 +367,22 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Handler handler = new Handler();
+        final ProgressDialog progressDialog = ProgressDialog.show(Bookingchoice.this,"Loading","Please Wait");
+        progressDialog.show();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                progressDialog.dismiss();
+            }
+        },1500);
+        fetchLastLocation();
     }
 }

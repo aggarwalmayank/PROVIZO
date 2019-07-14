@@ -78,6 +78,8 @@ public class Payment extends AppCompatActivity {
                 i.putExtra("consignorphone",getIntent().getStringExtra("consignorphone"));
                 i.putExtra("consignor gst",getIntent().getStringExtra("consignor gst"));
                 i.putExtra("amount",amount);
+                i.putExtra("ownerrisk",getIntent().getStringExtra("ownerrisk"));
+                i.putExtra("doordelivery",getIntent().getStringExtra("doordelivery"));
                 i.putExtra("drop",getIntent().getStringExtra("drop"));
                 i.putExtra("consignee gst",getIntent().getStringExtra("consignee gst"));
                 i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
@@ -187,6 +189,8 @@ public class Payment extends AppCompatActivity {
                 i.putExtra("drop",getIntent().getStringExtra("drop"));
                 i.putExtra("consignee gst",getIntent().getStringExtra("consignee gst"));
                 i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
+                i.putExtra("ownerrrisk",getIntent().getStringExtra("ownerrisk"));
+                i.putExtra("doordelivery",getIntent().getStringExtra("doordelivery"));
                 i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
                 i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
                 i.putExtra("amount",amount);

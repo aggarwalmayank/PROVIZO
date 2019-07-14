@@ -10,13 +10,16 @@ public class Bookings implements Serializable {
     private String PickUpDate;
     private String PickUpLocation;
     private String TruckCompany;
+    private String goodsRisk;
+    private String DeliveryMode;
     private String amount;
     private HashMap<String, String> Consignee;
     private HashMap<String, String> Consignor;
     private HashMap<String, String> ServiceTruckDetails;
     String key;
 
-    public Bookings(String dropLocation, String paymentStatus, String pickUpDate, String pickUpLocation, String truckCompany, String amount, HashMap<String, String> consignee, HashMap<String, String> consignor, HashMap<String, String> serviceTruckDetails) {
+    public Bookings(String dropLocation, String paymentStatus, String pickUpDate, String pickUpLocation, String truckCompany, String amount, HashMap<String, String> consignee,
+                    HashMap<String, String> consignor, HashMap<String, String> serviceTruckDetails,String goodsrisk,String deliverymode) {
         DropLocation = dropLocation;
         PaymentStatus = paymentStatus;
         PickUpDate = pickUpDate;
@@ -25,8 +28,12 @@ public class Bookings implements Serializable {
         this.amount = amount;
         Consignee = consignee;
         Consignor = consignor;
+        DeliveryMode=deliverymode;
+        goodsRisk=goodsrisk;
         ServiceTruckDetails = serviceTruckDetails;
     }
+
+
 
     public Bookings(Bookings bookings, String key) {
         DropLocation = bookings.getDropLocation();
@@ -36,6 +43,8 @@ public class Bookings implements Serializable {
         TruckCompany = bookings.getTruckCompany();
         this.amount = bookings.getAmount();
         Consignee = bookings.getConsignee();
+        DeliveryMode=bookings.getDeliveryMode();
+        goodsRisk=bookings.getGoodsRisk();
         Consignor = bookings.getConsignor();
         ServiceTruckDetails = bookings.getServiceTruckDetails();
         this.key = key;
@@ -44,7 +53,21 @@ public class Bookings implements Serializable {
     public Bookings() {
 
     }
+    public String getGoodsRisk() {
+        return goodsRisk;
+    }
 
+    public void setGoodsRisk(String goodsRisk) {
+        this.goodsRisk = goodsRisk;
+    }
+
+    public String getDeliveryMode() {
+        return DeliveryMode;
+    }
+
+    public void setDeliveryMode(String deliveryMode) {
+        DeliveryMode = deliveryMode;
+    }
     public String getDropLocation() {
         return DropLocation;
     }

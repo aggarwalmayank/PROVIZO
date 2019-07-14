@@ -71,6 +71,17 @@ public class completed extends AppCompatActivity {
         mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String mode;
+                if(getIntent().getStringExtra("doordelivery").equals("no"))
+                    mode="Godown Delivery";
+                else
+                    mode="Door Delivery";
+                String risk;
+                if(getIntent().getStringExtra("ownerrisk").equals("yes"))
+                    risk="Owner's Risk";
+                else
+                    risk="Insured Goods";
+
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("PaymentStatus").setValue("Successfull");
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Consignee").setValue(Consignee);
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Consignor").setValue(Consignor);
@@ -80,6 +91,8 @@ public class completed extends AppCompatActivity {
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("amount").setValue(getIntent().getStringExtra("amount"));
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("TruckCompany").setValue(company);
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("DeliveryMode").setValue(mode);
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("goodsRisk").setValue(risk);
             }
 
             @Override
@@ -95,6 +108,16 @@ public class completed extends AppCompatActivity {
                 mref.child("partners").child(partnerid).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String mode;
+                        if(getIntent().getStringExtra("doordelivery").equals("no"))
+                            mode="Godown Delivery";
+                        else
+                            mode="Door Delivery";
+                        String risk;
+                        if(getIntent().getStringExtra("ownerrisk").equals("yes"))
+                            risk="Owner's Risk";
+                        else
+                            risk="Insured Goods";
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("Consignee").setValue(Consignee);
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("Consignor").setValue(Consignor);
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("ServiceTruckDetails").setValue(TypeOfService);
@@ -102,6 +125,8 @@ public class completed extends AppCompatActivity {
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("DropLocation").setValue(getIntent().getStringExtra("drop"));
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
                         mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("Status").setValue("Pending");
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("DeliveryMode").setValue(mode);
+                        mref.child("partners").child(partnerid).child("Bookings").child(orderid).child("goodsRisk").setValue(risk);
 
                     }
 

@@ -217,6 +217,8 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
                 i.putExtra("consignor gst", gstconsignor);
                 i.putExtra("drop", getIntent().getStringExtra("drop"));
                 i.putExtra("consignee gst", gstconsignee);
+                i.putExtra("ownerrisk",getIntent().getStringExtra("ownerrisk"));
+                i.putExtra("doordelivery",getIntent().getStringExtra("doordelivery"));
                 i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
                 i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
                 i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));

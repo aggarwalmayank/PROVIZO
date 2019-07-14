@@ -44,11 +44,12 @@ public class CompanyInfo extends AppCompatActivity {
         double wt = Double.parseDouble(getIntent().getStringExtra("weightnounit"));
         wt = wt * 0.1;
         double twt = Double.parseDouble(trucktype);
+
         if ((int) Math.floor((wt / twt)) == 0)
             trucks.setText("Number Of Trucks Required: " + String.valueOf(1));
         else
             trucks.setText("Number Of Trucks Required: " + String.valueOf((int) Math.floor((wt / twt))));
-        amount.setText("Amount: " + getIntent().getStringExtra("amount") + " Rs");
+        amount.setText("Amount: " + getIntent().getStringExtra("amount") + " Rs per truck");
 
         cname = cname.replaceAll("\\s+", "");
         mref.child("Company").child(cname).addListenerForSingleValueEvent(new ValueEventListener() {

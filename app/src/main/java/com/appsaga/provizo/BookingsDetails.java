@@ -14,6 +14,8 @@ public class BookingsDetails extends AppCompatActivity {
         Bookings booking = (Bookings) getIntent().getSerializableExtra("booking");
 
         TextView id = findViewById(R.id.order_id);
+        TextView mode=findViewById(R.id.mode);
+        TextView risk=findViewById(R.id.risk);
         TextView comp = findViewById(R.id.truck_comp);
         TextView pickup = findViewById(R.id.pick_loc);
         TextView drop = findViewById(R.id.drop_loc);
@@ -50,5 +52,7 @@ public class BookingsDetails extends AppCompatActivity {
         description.setText("Description: "+booking.getServiceTruckDetails().get("MaterialDescription"));
         weight.setText("Weight: "+booking.getServiceTruckDetails().get("Weight"));
         truckType.setText("Truck Type: "+booking.getServiceTruckDetails().get("TruckType"));
+        mode.setText("Delivery Mode: "+booking.getDeliveryMode());
+        risk.setText("Goods Risk: "+booking.getGoodsRisk());
     }
 }

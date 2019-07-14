@@ -15,6 +15,8 @@ public class PartnerBookingDetails extends AppCompatActivity {
         PartnerOrders booking = (PartnerOrders) getIntent().getSerializableExtra("booking");
 
         TextView id = findViewById(R.id.order_id);
+        TextView mode=findViewById(R.id.mode);
+        TextView risk=findViewById(R.id.risk);
         TextView pickup = findViewById(R.id.pick_loc);
         TextView drop = findViewById(R.id.drop_loc);
         TextView pickDate = findViewById(R.id.pick_date);
@@ -47,6 +49,8 @@ public class PartnerBookingDetails extends AppCompatActivity {
         description.setText("Description: "+booking.getServiceTruckDetails().get("MaterialDescription"));
         weight.setText("Weight: "+booking.getServiceTruckDetails().get("Weight"));
         truckType.setText("Truck Type: "+booking.getServiceTruckDetails().get("TruckType"));
+        mode.setText("Delivery Mode: "+booking.getDeliveryMode());
+        risk.setText("Goods Risk: "+booking.getGoodsRisk());
 
     }
 }

@@ -183,7 +183,8 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
                         i.putExtra("consigneename",name.getText().toString());
                         i.putExtra("consigneeaddress",address.getText().toString());
                         i.putExtra("consigneephone",number.getText().toString());
-
+                        i.putExtra("ownerrisk",getIntent().getStringExtra("ownerrisk"));
+                        i.putExtra("doordelivery",getIntent().getStringExtra("doordelivery"));
                         startActivity(i);
                     }
                 } else if (number.getText().toString().equalsIgnoreCase(""))
@@ -195,6 +196,8 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
                     Intent i = new Intent(consignee_details.this, Confirmation.class);
                     i.putExtra("Order ID",orderid);
                     i.putExtra("Current User",currentuser);
+                    i.putExtra("ownerrisk",getIntent().getStringExtra("ownerrisk"));
+                    i.putExtra("doordelivery",getIntent().getStringExtra("doordelivery"));
                     i.putExtra("type of service",getIntent().getStringExtra("type of service"));
                     i.putExtra("pickup",getIntent().getStringExtra("pickup"));
                     i.putExtra("drop",getIntent().getStringExtra("drop"));

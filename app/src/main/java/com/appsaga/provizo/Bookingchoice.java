@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,6 +29,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +64,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 @SuppressWarnings("deprecation")
 public class Bookingchoice extends FragmentActivity implements com.appsaga.provizo.ProfileDialog.DialogListener, OnMapReadyCallback,
         MyBookingDialog.DialogListener , GoogleApiClient.ConnectionCallbacks,
@@ -85,6 +92,7 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
     boolean doubleBackToExitPressedOnce = false;
     ImageView menuicon;
     RelativeLayout splashRelative;
+    TextView locationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +101,7 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
+        locationName=findViewById(R.id.location_name);
        // TextView tv = findViewById(R.id.appnamesigninup);
 
         //Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
@@ -276,13 +285,32 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
                         currentlocation = location;
                         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googlemap);
                         supportMapFragment.getMapAsync(Bookingchoice.this);
+                        getAddress(location.getLatitude(),location.getLongitude());
+
                     }
                 }
             });
+    }
 
+    public void getAddress(double lat, double lng) {
+        Geocoder geocoder = new Geocoder(Bookingchoice.this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            Address obj = addresses.get(0);
+            String add = obj.getAddressLine(0);
 
+            Log.v("IGA", "Address" + add);
+            locationName.setText(null);
+            locationName.setText(add);
+            // Toast.makeText(this, "Address=>" + add,
+            // Toast.LENGTH_SHORT).show();
 
-
+            // TennisAppActivity.showDialog(add);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

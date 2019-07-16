@@ -5,9 +5,11 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,8 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class CompanyInfo extends AppCompatActivity {
-    TextView owner, company, address, experience, amount, trucks;
+    TextView owner, company, address, experience, amount, trucks, rating;
     Button next;
     DatabaseReference mref;
     String cname, weight, trucktype;
@@ -35,6 +39,7 @@ public class CompanyInfo extends AppCompatActivity {
         amount = findViewById(R.id.amount);
         trucks = findViewById(R.id.nooftruck);
         next = findViewById(R.id.next);
+        rating = findViewById(R.id.rating);
         mref = FirebaseDatabase.getInstance().getReference();
         weight = getIntent().getStringExtra("weight");
 
@@ -66,6 +71,36 @@ public class CompanyInfo extends AppCompatActivity {
             }
         });
 
+
+        mref.child("Ratings").child(cname.replaceAll(" ", "")).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    final ArrayList<String> arrayList = new ArrayList<>();
+                    arrayList.clear();
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        //Log.d("mayank", String.valueOf(ds.getValue()));
+                        arrayList.add(String.valueOf(ds.getValue()));
+                    }
+                if (!arrayList.isEmpty()) {
+                    double sum = 0, average = 0, count = arrayList.size();
+                    for (int i = 0; i < arrayList.size(); i++) {
+
+                        //Log.d("mayanksum",String.valueOf(sum));
+                        sum = sum + Double.parseDouble(arrayList.get(i));
+                    }
+                    average = sum / count;
+                    //Toast.makeText(this, String.valueOf(average), Toast.LENGTH_SHORT).show();
+                    rating.setText("Rating: " + String.valueOf(average));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        // Toast.makeText(this, arrayList.size(), Toast.LENGTH_SHORT).show();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -81,7 +81,7 @@ public class completed extends AppCompatActivity {
                     risk="Owner's Risk";
                 else
                     risk="Insured Goods";
-
+                float rating=  3;
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("PaymentStatus").setValue("Successfull");
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Consignee").setValue(Consignee);
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Consignor").setValue(Consignor);
@@ -93,6 +93,7 @@ public class completed extends AppCompatActivity {
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("TruckCompany").setValue(company);
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("DeliveryMode").setValue(mode);
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("goodsRisk").setValue(risk);
+                mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Rating").setValue(rating);
             }
 
             @Override

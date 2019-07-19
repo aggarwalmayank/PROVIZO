@@ -1,17 +1,61 @@
 package com.appsaga.provizo;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class BookingsDetails extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+public class BookingsDetails extends AppCompatActivity {
+    Bookings booking;
+    RatingBar ratingbar;
+    Button submit;
+    DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookings_details);
 
-        Bookings booking = (Bookings) getIntent().getSerializableExtra("booking");
+        ratingbar=findViewById(R.id.ratingBar);
+        submit=findViewById(R.id.submit);
+         booking = (Bookings) getIntent().getSerializableExtra("booking");
+         ratingbar.setRating(booking.getRating());
+
+         submit.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TruckNooking").child(booking.getKey())
+                         .addListenerForSingleValueEvent(new ValueEventListener() {
+                             @Override
+                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                 mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings")
+                                         .child("TruckBooking").child(booking.getKey()).child("Rating").setValue(ratingbar.getRating());
+                                 addtoRatings(ratingbar.getRating());
+
+                             }
+
+                             @Override
+                             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                             }
+                         });
+
+             }
+         });
+
+
+
+
 
         TextView id = findViewById(R.id.order_id);
         TextView mode=findViewById(R.id.mode);
@@ -54,5 +98,21 @@ public class BookingsDetails extends AppCompatActivity {
         truckType.setText("Truck Type: "+booking.getServiceTruckDetails().get("TruckType"));
         mode.setText("Delivery Mode: "+booking.getDeliveryMode());
         risk.setText("Goods Risk: "+booking.getGoodsRisk());
+    }
+    public void addtoRatings(final float a)
+    {
+        mref.child("Ratings").child(booking.getTruckCompany().replaceAll(" ","")).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        mref.child("Ratings").child(booking.getTruckCompany().replaceAll(" ","")).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(a);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 }

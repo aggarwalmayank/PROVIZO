@@ -11,6 +11,7 @@ public class Bookings implements Serializable {
     private String PickUpLocation;
     private String TruckCompany;
     private String goodsRisk;
+    private float Rating;
     private String DeliveryMode;
     private String amount;
     private HashMap<String, String> Consignee;
@@ -18,11 +19,12 @@ public class Bookings implements Serializable {
     private HashMap<String, String> ServiceTruckDetails;
     String key;
 
-    public Bookings(String dropLocation, String paymentStatus, String pickUpDate, String pickUpLocation, String truckCompany, String amount, HashMap<String, String> consignee,
+    public Bookings(float Rating, String dropLocation, String paymentStatus, String pickUpDate, String pickUpLocation, String truckCompany, String amount, HashMap<String, String> consignee,
                     HashMap<String, String> consignor, HashMap<String, String> serviceTruckDetails,String goodsrisk,String deliverymode) {
         DropLocation = dropLocation;
         PaymentStatus = paymentStatus;
         PickUpDate = pickUpDate;
+        this.Rating=Rating;
         PickUpLocation = pickUpLocation;
         TruckCompany = truckCompany;
         this.amount = amount;
@@ -42,6 +44,7 @@ public class Bookings implements Serializable {
         PickUpLocation = bookings.getPickUpLocation();
         TruckCompany = bookings.getTruckCompany();
         this.amount = bookings.getAmount();
+        this.Rating=bookings.getRating();
         Consignee = bookings.getConsignee();
         DeliveryMode=bookings.getDeliveryMode();
         goodsRisk=bookings.getGoodsRisk();
@@ -53,6 +56,15 @@ public class Bookings implements Serializable {
     public Bookings() {
 
     }
+
+    public float getRating() {
+        return Rating;
+    }
+
+    public void setRating(float rating) {
+        Rating = rating;
+    }
+
     public String getGoodsRisk() {
         return goodsRisk;
     }

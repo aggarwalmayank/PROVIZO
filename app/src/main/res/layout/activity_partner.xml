@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#F5F5F5"
         android:orientation="vertical">
 
@@ -36,23 +36,44 @@
             android:textStyle="bold" />
 
         <Button
-            android:layout_width="match_parent"
-            android:background="@drawable/ripple_effect"
-            android:text="View Bookings"
-            android:layout_marginBottom="10dp"
             android:id="@+id/viewbooking"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp" />
-        <Button
             android:layout_width="match_parent"
-            android:background="@drawable/ripple_effect"
-            android:text="Add a City"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/addcity"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp" />
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/ripple_effect"
+            android:text="View Bookings" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/addcity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_effect"
+                android:text="Add a City" />
+
+            <Button
+                android:id="@+id/delete_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_effect_4"
+                android:text="Delete a City"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,9 +115,9 @@
             android:background="@drawable/ripple_effect"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Update Availability"
+            android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:paddingStart="15dp">
+            android:text="Update Availability">
 
         </Button>
 
@@ -151,20 +172,20 @@
                 android:id="@+id/checkbox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Full Truck Load"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
-                android:checked="true"/>
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Full Truck Load" />
 
             <CheckBox
                 android:id="@+id/checkbox2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Part Load"
                 android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"/>
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="Part Load" />
 
         </LinearLayout>
 
@@ -247,11 +268,11 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/ripple_effect"
             android:gravity="center"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text="Change Rate"
             android:textColor="#000000"
-            android:textSize="15sp"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp">
+            android:textSize="15sp">
 
         </Button>
 
@@ -264,8 +285,8 @@
             android:gravity="center"
             android:hint="Enter new Rate "
             android:inputType="number"
-            android:textSize="15sp"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:textSize="15sp">
 
         </EditText>
 

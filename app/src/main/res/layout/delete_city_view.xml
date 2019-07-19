@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/source"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="source"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/to"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="to"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/dest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="destination"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="price"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp"/>
+
+    <CheckBox
+        android:id="@+id/delete_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"/>
+</LinearLayout>

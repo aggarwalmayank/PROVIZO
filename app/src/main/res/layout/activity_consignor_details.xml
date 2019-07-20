@@ -54,121 +54,124 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/third" />
+                android:src="@drawable/third"
+                android:layout_below="@id/main_layout"/>
 
-                <LinearLayout
+            <LinearLayout
+                android:id="@+id/main_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/first"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/consignorname"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:drawableLeft="@drawable/loginid"
+                    android:gravity="center"
+                    android:hint="Consignor's Name"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/consignoradd"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/calendaricon"
+                    android:gravity="center"
+                    android:hint="Consignor's Address"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/consignorphone"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/phone"
+                    android:gravity="center"
+                    android:hint="Consignor's Mobile Number"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:id="@+id/consignorgst"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:digits="1234657890abcdefghijklmnopqrstvuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:drawableLeft="@drawable/gst"
+                    android:gravity="center"
+                    android:hint="Consignor's GST Number"
+                    android:maxLength="15"
+                    android:maxLines="1" />
+
+                <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_below="@id/first"
-                    android:layout_centerInParent="true">
+                    android:layout_marginTop="3dp"
+                    android:columnCount="2"
+                    android:columnOrderPreserved="true"
+                    android:rowCount="2"
+                    android:rowOrderPreserved="true">
 
-                    <EditText
-                        android:id="@+id/consignorname"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                        android:drawableLeft="@drawable/loginid"
-                        android:gravity="center"
-                        android:hint="Consignor's Name"
-                        android:inputType="text"
-                        android:maxLines="1" />
-
-                    <EditText
-                        android:id="@+id/consignoradd"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/calendaricon"
-                        android:gravity="center"
-                        android:hint="Consignor's Address"
-                        android:inputType="text"
-                        android:maxLines="1" />
-
-                    <EditText
-                        android:id="@+id/consignorphone"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/phone"
-                        android:gravity="center"
-                        android:hint="Consignor's Mobile Number"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:maxLines="1" />
-
-                    <EditText
-                        android:id="@+id/consignorgst"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:digits="1234657890abcdefghijklmnopqrstvuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                        android:drawableLeft="@drawable/gst"
-                        android:gravity="center"
-                        android:hint="Consignor's GST Number"
-                        android:maxLength="15"
-                        android:maxLines="1" />
-
-                    <GridLayout
+                    <CheckBox
+                        android:id="@+id/chkbox1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:columnCount="2"
-                        android:columnOrderPreserved="true"
-                        android:rowCount="2"
-                        android:rowOrderPreserved="true">
+                        android:layout_marginRight="50dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Owner's \nRisk*" />
 
-                        <CheckBox
-                            android:id="@+id/chkbox1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="50dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="Owner's \nRisk*" />
+                    <CheckBox
+                        android:id="@+id/chkbox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Godown \nDelivery*" />
 
-                        <CheckBox
-                            android:id="@+id/chkbox2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Godown \nDelivery*" />
+                    <CheckBox
+                        android:id="@+id/chkbox3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Insured \nGoods*" />
 
-                        <CheckBox
-                            android:id="@+id/chkbox3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Insured \nGoods*" />
+                    <CheckBox
+                        android:id="@+id/chkbox4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Door \nDelivery*" />
 
-                        <CheckBox
-                            android:id="@+id/chkbox4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Door \nDelivery*" />
+                </GridLayout>
 
-                    </GridLayout>
+                <ImageButton
+                    android:id="@+id/consignorr"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/ripple_effect_2"
+                    android:clickable="false"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/right_pointer" />
 
-                    <ImageButton
-                        android:id="@+id/consignorr"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="50dp"
-                        android:background="@drawable/ripple_effect_2"
-                        android:clickable="false"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/right_pointer" />
-
-                </LinearLayout>
+            </LinearLayout>
 
 
             <ImageView
                 android:layout_width="290dp"
                 android:layout_height="290dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="180dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginStart="200dp"
                 android:layout_marginBottom="-80dp"
                 android:src="@drawable/truck1" />
         </RelativeLayout>

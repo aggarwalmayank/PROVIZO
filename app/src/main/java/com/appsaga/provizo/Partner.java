@@ -48,6 +48,9 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
     String username;
     Button done;
     Button delete;
+    CheckBox deleteFullTruck , deletePartLoad;
+    Dialog customDialog;
+    ListView deleteListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +88,17 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
             }
         });
 
-        final android.app.Dialog customDialog = new Dialog(Partner.this);
+        customDialog = new Dialog(Partner.this);
         customDialog.setContentView(R.layout.delete_city_dialog_box);
         done = customDialog.findViewById(R.id.done);
         delete = customDialog.findViewById(R.id.delete);
 
-        final ListView deleteListView = customDialog.findViewById(R.id.delete_city_list);
+        deleteFullTruck = customDialog.findViewById(R.id.delete_full_truck);
+        deletePartLoad=customDialog.findViewById(R.id.delete_part_load);
+
+        deleteFullTruck.setChecked(true);
+
+        deleteListView = customDialog.findViewById(R.id.delete_city_list);
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,117 +112,39 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
             @Override
             public void onClick(View v) {
 
-                if(checkBox1.isChecked())
+                getCitiesToDelete();
+            }
+        });
+
+        deleteFullTruck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
                 {
-                    databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-
-                            final ArrayList<locMap> locMapArrayList = new ArrayList<>();
-                            HashMap<String,Long> hashMap;
-
-                            for(DataSnapshot ds : dataSnapshot.getChildren())
-                            {
-                                hashMap = (HashMap<String, Long>) ds.getValue();
-                                for(HashMap.Entry<String,Long> entry:hashMap.entrySet())
-                                {
-                                    locMapArrayList.add(new locMap(ds.getKey(),entry.getKey(),entry.getValue()));
-                                }
-                            }
-
-                            final DeleteCityAdapter deleteCityAdapter = new DeleteCityAdapter(Partner.this,locMapArrayList);
-                            deleteListView.setAdapter(deleteCityAdapter);
-                            customDialog.show();
-
-                            delete.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    ProgressDialog progressDialog = ProgressDialog.show(Partner.this,"Deleting...","Please Wait");
-                                    int size = deleteListView.getChildCount();
-
-                                    if(checkBox1.isChecked())
-                                    {
-                                        for(int i=0;i<size;i++)
-                                        {
-                                            View view = deleteListView.getChildAt(i);
-                                            CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
-                                            TextView dest = view.findViewById(R.id.dest);
-                                            TextView source = view.findViewById(R.id.source);
-
-                                            if(checkBox.isChecked())
-                                            {
-                                                databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
-                                                        child(source.getText().toString()).child(dest.getText().toString()).removeValue();
-                                            }
-                                        }
-
-                                        customDialog.dismiss();
-
-                                        progressDialog.dismiss();
-                                        Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
-                                    }
-                                    else if(checkBox2.isChecked())
-                                    {
-                                        for(int i=0;i<size;i++)
-                                        {
-                                            View view = deleteListView.getChildAt(i);
-                                            CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
-                                            TextView dest = view.findViewById(R.id.dest);
-                                            TextView source = view.findViewById(R.id.source);
-
-                                            if(checkBox.isChecked())
-                                            {
-                                                databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
-                                                        child(source.getText().toString()).child(dest.getText().toString()).removeValue();
-                                            }
-                                        }
-
-                                        customDialog.dismiss();
-
-                                        progressDialog.dismiss();
-                                        Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    deletePartLoad.setChecked(false);
                 }
-                else if(checkBox2.isChecked())
+                else
                 {
-                    databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                            ArrayList<locMap> locMapArrayList = new ArrayList<>();
-                            HashMap<String,Long> hashMap;
-
-                            for(DataSnapshot ds : dataSnapshot.getChildren())
-                            {
-                                hashMap = (HashMap<String, Long>) ds.getValue();
-                                for(HashMap.Entry<String,Long> entry:hashMap.entrySet())
-                                {
-                                    locMapArrayList.add(new locMap(ds.getKey(),entry.getKey(),entry.getValue()));
-                                }
-                            }
-
-                            DeleteCityAdapter deleteCityAdapter = new DeleteCityAdapter(Partner.this,locMapArrayList);
-                            deleteListView.setAdapter(deleteCityAdapter);
-                            customDialog.show();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    deletePartLoad.setChecked(true);
                 }
+                getCitiesToDelete();
+            }
+        });
+
+        deletePartLoad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    deleteFullTruck.setChecked(false);
+                }
+                else
+                {
+                    deleteFullTruck.setChecked(true);
+                }
+                getCitiesToDelete();
             }
         });
 
@@ -770,5 +700,120 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
     public void addcitytoDB(String origin, String dest, String price,String type) {
         databaseReference.child("partners").child(username).child("operations").child("locationMap")
                 .child(type).child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
+    }
+
+    void getCitiesToDelete()
+    {
+        if(deleteFullTruck.isChecked())
+        {
+            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+
+                    final ArrayList<locMap> locMapArrayList = new ArrayList<>();
+                    HashMap<String,Long> hashMap;
+
+                    for(DataSnapshot ds : dataSnapshot.getChildren())
+                    {
+                        hashMap = (HashMap<String, Long>) ds.getValue();
+                        for(HashMap.Entry<String,Long> entry:hashMap.entrySet())
+                        {
+                            locMapArrayList.add(new locMap(ds.getKey(),entry.getKey(),entry.getValue()));
+                        }
+                    }
+
+                    final DeleteCityAdapter deleteCityAdapter = new DeleteCityAdapter(Partner.this,locMapArrayList);
+                    deleteListView.setAdapter(deleteCityAdapter);
+                    customDialog.show();
+
+                    delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            ProgressDialog progressDialog = ProgressDialog.show(Partner.this,"Deleting...","Please Wait");
+                            int size = deleteListView.getChildCount();
+
+                            if(checkBox1.isChecked())
+                            {
+                                for(int i=0;i<size;i++)
+                                {
+                                    View view = deleteListView.getChildAt(i);
+                                    CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
+                                    TextView dest = view.findViewById(R.id.dest);
+                                    TextView source = view.findViewById(R.id.source);
+
+                                    if(checkBox.isChecked())
+                                    {
+                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                                child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                    }
+                                }
+
+                                customDialog.dismiss();
+
+                                progressDialog.dismiss();
+                                Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
+                            }
+                            else if(checkBox2.isChecked())
+                            {
+                                for(int i=0;i<size;i++)
+                                {
+                                    View view = deleteListView.getChildAt(i);
+                                    CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
+                                    TextView dest = view.findViewById(R.id.dest);
+                                    TextView source = view.findViewById(R.id.source);
+
+                                    if(checkBox.isChecked())
+                                    {
+                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
+                                                child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                    }
+                                }
+
+                                customDialog.dismiss();
+
+                                progressDialog.dismiss();
+                                Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else if(deletePartLoad.isChecked())
+        {
+            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    ArrayList<locMap> locMapArrayList = new ArrayList<>();
+                    HashMap<String,Long> hashMap;
+
+                    for(DataSnapshot ds : dataSnapshot.getChildren())
+                    {
+                        hashMap = (HashMap<String, Long>) ds.getValue();
+                        for(HashMap.Entry<String,Long> entry:hashMap.entrySet())
+                        {
+                            locMapArrayList.add(new locMap(ds.getKey(),entry.getKey(),entry.getValue()));
+                        }
+                    }
+
+                    DeleteCityAdapter deleteCityAdapter = new DeleteCityAdapter(Partner.this,locMapArrayList);
+                    deleteListView.setAdapter(deleteCityAdapter);
+                    customDialog.show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }

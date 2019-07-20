@@ -49,12 +49,18 @@
             android:textColor="#000000"
             android:textSize="18sp" />
 
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/third"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/third"
+            android:scaleType="centerCrop"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:layout_below="@id/first"
             android:layout_above="@id/third">
@@ -64,6 +70,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/loginid"
+                android:drawableStart="@drawable/loginid"
                 android:inputType="number"
                 android:maxLines="1"
                 android:maxLength="110"
@@ -92,14 +99,13 @@
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:id="@+id/pbar"/>
 
             <EditText
                 android:id="@+id/enter_otp"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:maxLines="1"
                 android:drawableLeft="@drawable/otpicon"
                 android:gravity="center"
@@ -119,14 +125,6 @@
                 android:clickable="false"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/third"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/third"
-            android:scaleType="centerCrop"/>
 
     </RelativeLayout>
 </LinearLayout>

@@ -32,7 +32,6 @@
             android:layout_margin="20dp"
             android:src="@drawable/menuicon"/>
 
-
         <TextView
             android:id="@+id/appnamesignupsecond"
             android:layout_width="wrap_content"
@@ -46,6 +45,14 @@
             android:text="@string/app_name"
             android:textColor="#000000"
             android:textSize="45sp" />
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/third"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/third"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -171,7 +178,7 @@
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/ripple_effect_2"
                 android:clickable="false"
                 android:paddingTop="5dp"
@@ -180,14 +187,6 @@
                 android:src="@drawable/right_pointer" />
 
         </LinearLayout>
-
-        <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/third"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/third"
-            android:scaleType="centerCrop"/>
 
         <ImageView
             android:layout_width="290dp"

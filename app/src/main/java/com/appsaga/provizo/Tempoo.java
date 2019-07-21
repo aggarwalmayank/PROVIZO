@@ -4,12 +4,13 @@ import java.io.Serializable;
 
 public class Tempoo implements Serializable {
 
-    private String Dimension, DropLocation, EstimateAmount, PickUpDate, PickUpLocation;
+    private String Dimension, DropLocation, EstimateAmount, PickUpDate, PickUpLocation,Status;
     String key;
 
-    public Tempoo(String dimension, String dropLocation, String estimateAmount, String pickUpDate, String pickUpLocation) {
+    public Tempoo(String dimension, String dropLocation,String Status, String estimateAmount, String pickUpDate, String pickUpLocation) {
         Dimension = dimension;
         DropLocation = dropLocation;
+        this.Status=Status;
         EstimateAmount = estimateAmount;
         PickUpDate = pickUpDate;
         PickUpLocation = pickUpLocation;
@@ -18,12 +19,21 @@ public class Tempoo implements Serializable {
     public Tempoo(Tempoo value, String key) {
         Dimension = value.getDimension();
         DropLocation = value.getDropLocation();
+        Status=value.getStatus();
         EstimateAmount = value.getEstimateAmount();
         PickUpDate = value.getPickUpDate();
         PickUpLocation = value.getPickUpLocation();
         this.key=key;
     }
     public Tempoo(){}
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
 
     public String getDimension() {
         return Dimension;

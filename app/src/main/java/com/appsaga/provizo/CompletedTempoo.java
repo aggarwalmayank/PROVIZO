@@ -25,8 +25,8 @@ import java.util.Date;
 public class CompletedTempoo extends AppCompatActivity {
 
     ImageView home;
-    String drop, pick, pickdate, amount, dim,orderid;
-    DatabaseReference mref;
+    String drop, pick, pickdate, amount, dim, orderid;
+    DatabaseReference mref, ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,12 @@ public class CompletedTempoo extends AppCompatActivity {
             }
         });
         getIntentData();
+        DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
+        Date today = Calendar.getInstance().getTime();
+        orderid = df.format(today);
+        orderid = orderid.substring(0, 12);
         addtoDB();
+        addtoadmindb();
         sendmail();
 
     }
@@ -64,27 +69,19 @@ public class CompletedTempoo extends AppCompatActivity {
         amount = getIntent().getStringExtra("Price");
         dim = getIntent().getStringExtra("Dimension");
     }
-    public void addtoDB(){
-        DateFormat df = new SimpleDateFormat("yyMMddHHmmssZ", java.util.Locale.getDefault());
-        Date today = Calendar.getInstance().getTime();
-        orderid = df.format(today);
-        orderid = orderid.substring(0, 12);
-        mref= FirebaseDatabase.getInstance().getReference();
-        Toast.makeText(this, orderid+"  "+FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
-        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
-                .child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
+
+    public void addtoadmindb() {
+        ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("AdminTempoo").child(pickdate).child(orderid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
-                                .child(orderid).child("DropLocation").setValue(drop);
-                        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
-                                .child(orderid).child("PickUpLocation").setValue(pick);
-                        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
-                                .child(orderid).child("Dimension").setValue(dim);
-                        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
-                                .child(orderid).child("EstimateAmount").setValue(amount);
-                        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
-                                .child(orderid).child("PickUpDate").setValue(pickdate);
+                        ref.child("AdminTempoo").child(pickdate).child(orderid).child("DropLocation").setValue(drop);
+                        ref.child("AdminTempoo").child(pickdate).child(orderid).child("PickUpLocation").setValue(pick);
+                        ref.child("AdminTempoo").child(pickdate).child(orderid).child("Dimension").setValue(dim);
+                        ref.child("AdminTempoo").child(pickdate).child(orderid).child("EstimateAmount").setValue(amount);
+                        ref.child("AdminTempoo").child(pickdate).child(orderid).child("Status").setValue("pending");
+                        ref.child("AdminTempoo").child(pickdate).child(orderid).child("User").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     }
 
                     @Override
@@ -93,11 +90,41 @@ public class CompletedTempoo extends AppCompatActivity {
                     }
                 });
     }
-    public void sendmail(){
+
+    public void addtoDB() {
+
+        mref = FirebaseDatabase.getInstance().getReference();
+        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+                .child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+                        .child(orderid).child("DropLocation").setValue(drop);
+                mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+                        .child(orderid).child("PickUpLocation").setValue(pick);
+                mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+                        .child(orderid).child("Dimension").setValue(dim);
+                mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+                        .child(orderid).child("EstimateAmount").setValue(amount);
+                mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+                        .child(orderid).child("PickUpDate").setValue(pickdate);
+                mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+                        .child(orderid).child("Status").setValue("pending");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void sendmail() {
         SendMail sm = new SendMail(CompletedTempoo.this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), "Tempoo Booking Confirmed ",
                 "Dear Sir/Ma'am\n\nYour Booking of Tempoo with Booking ID: " + orderid + " of estimated amount Rs " + amount + " only is confirmed.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");
         sm.execute();
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f5f5"
+    android:layout_height="match_parent"
+    tools:context=".AdminProvizo">
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/bookings"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect_2"
+        android:layout_margin="16dp"
+        android:text="Manage Tempoo Bookings"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Partner"
+        android:id="@+id/partner"
+        android:layout_margin="16dp"
+        android:background="@drawable/ripple_effect_2"/>
+
+</LinearLayout>

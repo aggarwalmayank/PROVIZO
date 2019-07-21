@@ -48,7 +48,8 @@ public class MyBookingDialog extends DialogFragment {
         tempoo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), MyTempooBookings.class));
+                Intent i=new Intent(getContext(), MyTempooBookings.class);
+                startActivity(i);
             }
         });
 

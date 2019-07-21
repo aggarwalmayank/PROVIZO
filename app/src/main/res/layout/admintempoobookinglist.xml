@@ -6,27 +6,28 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/orderid"
+        android:id="@+id/userid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Booking ID"
+        android:text="UserID"
         android:textColor="#000000"
-        android:textSize="19sp"
+        android:textSize="15sp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:textStyle="bold"/>
+
     <TextView
         android:id="@+id/pick_loc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pickup Location"
         android:textColor="#000000"
-        android:textSize="17sp"
+        android:textSize="13sp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_below="@id/orderid"
+        android:layout_below="@id/userid"
         android:gravity="start"/>
 
     <TextView
@@ -35,22 +36,22 @@
         android:layout_height="wrap_content"
         android:text="Drop Location"
         android:textColor="#000000"
-        android:textSize="17sp"
+        android:textSize="13sp"
         android:layout_marginTop="5dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/orderid"
+        android:layout_below="@id/userid"
         android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="start"/>
 
     <TextView
-        android:id="@+id/pick_date"
+        android:id="@+id/orderid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pickup Date"
+        android:text="Orderid"
         android:textColor="#000000"
-        android:textSize="17sp"
+        android:textSize="13sp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -64,7 +65,7 @@
         android:layout_height="wrap_content"
         android:text="Amount"
         android:textColor="#000000"
-        android:textSize="17sp"
+        android:textSize="13sp"
         android:layout_marginTop="5dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -79,26 +80,38 @@
         android:layout_height="wrap_content"
         android:text="Dimension"
         android:textColor="#000000"
-        android:textSize="17sp"
+        android:textSize="13sp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_below="@id/amount"
-        android:layout_marginBottom="5dp"
-        android:gravity="start"/>
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="status"
-        android:textColor="#000000"
-        android:textSize="17sp"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/amount"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_below="@id/orderid"
         android:layout_marginBottom="5dp"
         android:gravity="start"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/amount"
+        android:layout_marginEnd="8dp"
+        android:gravity="start">
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="status"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            android:gravity="start"/>
+        <CheckBox
+            android:id="@+id/chkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:textColor="#000000"
+            android:textSize="13sp"/>
+
+    </LinearLayout>
 </RelativeLayout>

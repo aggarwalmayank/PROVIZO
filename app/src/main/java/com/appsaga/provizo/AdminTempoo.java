@@ -1,17 +1,17 @@
 package com.appsaga.provizo;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,47 +23,38 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MyTempooBookings extends AppCompatActivity {
-
+public class AdminTempoo extends AppCompatActivity {
     RecyclerView bookingsList;
     ProgressDialog progressDialog;
     TextView nobooking;
+    static String date;
+    android.support.v7.widget.Toolbar toolbar;
     DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_tempoo_bookings);
-        progressDialog = ProgressDialog.show(MyTempooBookings.this, "Loading", "Please Wait...", true);
-
-        android.support.v7.widget.Toolbar toolbar = (
-                android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_admin_tempoo);
+        toolbar=findViewById(R.id.toolbar);
+        date=getIntent().getStringExtra("date");
+        progressDialog = ProgressDialog.show(AdminTempoo.this, "Loading", "Please Wait...", true);
         nobooking = findViewById(R.id.nobook);
-        toolbar.setNavigationIcon(R.drawable.backicon);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         nobooking.setVisibility(View.VISIBLE);
         bookingsList = findViewById(R.id.bookings_list);
-
-            reterivefromDB();
+        reterivefromDB();
 
     }
-
     public void reterivefromDB() {
-        mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TempooBooking")
+        mref.child("AdminTempoo").child(getIntent().getStringExtra("date"))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        ArrayList<Tempoo> tempo = new ArrayList<>();
+                        ArrayList<AdminTempooHelper> array = new ArrayList<>();
+
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            Tempoo t = new Tempoo(ds.getValue(Tempoo.class), ds.getKey());
-                            tempo.add(t);
+                            AdminTempooHelper t = new AdminTempooHelper(ds.getValue(AdminTempooHelper.class), ds.getKey());
+                            array.add(t);
+
                         }
                         Handler h = new Handler();
                         h.postDelayed(new Runnable() {
@@ -73,15 +64,16 @@ public class MyTempooBookings extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
                         }, 1800);
-                        if (tempo.isEmpty()) {
+                        if (array.isEmpty()) {
                             nobooking.setVisibility(View.VISIBLE);
 
                         } else {
                             nobooking.setVisibility(View.INVISIBLE);
                             bookingsList.setHasFixedSize(true);
-                            bookingsList.setLayoutManager(new LinearLayoutManager(MyTempooBookings.this));
-                            TempooAdapter adapter = new TempooAdapter(tempo, MyTempooBookings.this);
+                            bookingsList.setLayoutManager(new LinearLayoutManager(AdminTempoo.this));
+                            AdminTempooAdapter adapter = new AdminTempooAdapter(array, AdminTempoo.this);
                             bookingsList.setAdapter(adapter);
+                            toolbar.setTitle(getIntent().getStringExtra("date")+" #bookings: "+adapter.getItemCount());
                         }
 
                     }
@@ -92,5 +84,4 @@ public class MyTempooBookings extends AppCompatActivity {
                     }
                 });
     }
-
 }

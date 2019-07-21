@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
-                android:text="Congratulations!"
+                android:text="Confirmation Pending..."
                 android:textColor="#000000"
                 android:textSize="30sp" />
 
@@ -69,9 +69,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="6dp"
-                android:text="Your booking has been done"
+                android:text="you can close this window"
                 android:textColor="#000000"
-                android:textSize="25sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
         <ImageView

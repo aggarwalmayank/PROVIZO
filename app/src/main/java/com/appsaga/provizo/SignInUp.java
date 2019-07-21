@@ -176,6 +176,10 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
     }
     @Override
     public void loginid(final String username) {
+        if(username.equals("admin@provizo"))
+        {
+            startActivity(new Intent(SignInUp.this,AdminProvizo.class));
+        }
         final Boolean[] flag = {false};
         final ProgressDialog dialog = ProgressDialog.show(SignInUp.this, "Confirming ID", "Please wait...", true);
 

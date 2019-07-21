@@ -2,6 +2,7 @@ package com.appsaga.provizo;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class TempooAdapter extends RecyclerView.Adapter<TempooAdapter.SearchView
 
     public class SearchViewHolder extends RecyclerView.ViewHolder {
 
-        TextView drop, amount, date, dim, pick, id;
+        TextView drop, amount, date, dim, pick, id,status;
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -37,7 +38,7 @@ public class TempooAdapter extends RecyclerView.Adapter<TempooAdapter.SearchView
             dim = (TextView) itemView.findViewById(R.id.Dimension);
             pick = (TextView) itemView.findViewById(R.id.pick_loc);
             date = (TextView) itemView.findViewById(R.id.pick_date);
-
+            status=(TextView)itemView.findViewById(R.id.status);
         }
     }
 
@@ -58,6 +59,11 @@ public class TempooAdapter extends RecyclerView.Adapter<TempooAdapter.SearchView
         searchViewHolder.date.setText("Pick Up Date:\n"+(list.get(i).getPickUpDate()));
         searchViewHolder.amount.setText("Estimate Amount:\n"+ (list.get(i).getEstimateAmount()));
         searchViewHolder.dim.setText("Dimension(L-B-H): "+(list.get(i).getDimension()));
+        if(list.get(i).getStatus().equals("pending"))
+            searchViewHolder.status.setTextColor(Color.parseColor("#FF0000"));
+        else
+            searchViewHolder.status.setTextColor(Color.parseColor("#008000"));
+        searchViewHolder.status.setText((list.get(i).getStatus()));
 
 
     }

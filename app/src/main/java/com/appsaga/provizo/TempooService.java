@@ -287,7 +287,7 @@ public class TempooService extends AppCompatActivity implements com.appsaga.prov
             @Override
             public void afterTextChanged(Editable ss) {
                 if (!b.getText().toString().isEmpty() && !h.getText().toString().isEmpty() && !l.getText().toString().isEmpty())
-                    price.setText(amountcalc(convert(l.getText().toString(), s.getSelectedItem().toString()), convert(h.getText().toString(), s.getSelectedItem().toString()), convert(ss.toString(), s.getSelectedItem().toString())) + " Rs");
+                    price.setText(amountcalc(convert(l.getText().toString(), s.getSelectedItem().toString()), convert(b.getText().toString(), s.getSelectedItem().toString()), convert(ss.toString(), s.getSelectedItem().toString())) + " Rs");
             }
         });
 

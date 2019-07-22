@@ -31,7 +31,7 @@ public class CompletedTempoo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_completed);
+        setContentView(R.layout.activity_completedtempoo);
         setFont();
         initl();
         home.setOnClickListener(new View.OnClickListener() {

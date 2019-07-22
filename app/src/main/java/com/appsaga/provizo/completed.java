@@ -104,7 +104,7 @@ public class completed extends AppCompatActivity {
         mref.child("PartnerID").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                partnerid=""+dataSnapshot.child(company).getValue().toString();
+                partnerid=dataSnapshot.child(company).getValue(String.class);
 
                 mref.child("partners").child(partnerid).child("Bookings").child(orderid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

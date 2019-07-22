@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".SignUp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/provizo_bg1"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/home"
+            android:padding="16dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/home"/>
+
+        <TextView
+            android:id="@+id/appname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/app_name"
+            android:textColor="#000000"
+            android:textSize="45sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tick"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/congratulations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Confirmation Pending..."
+                android:textColor="#000000"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/bookingdone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:text="you can close this window"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:layout_width="290dp"
+            android:layout_marginLeft="180dp"
+            android:layout_marginBottom="-80dp"
+            android:layout_height="290dp"
+            android:src="@drawable/truck1"/>
+    </RelativeLayout>
+</LinearLayout>

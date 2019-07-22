@@ -57,74 +57,79 @@
             android:src="@drawable/third"
             android:scaleType="centerCrop"/>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_centerInParent="true"
             android:layout_below="@id/first"
             android:layout_above="@id/third">
 
-            <EditText
-                android:id="@+id/mobile_num"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/loginid"
-                android:drawableStart="@drawable/loginid"
-                android:inputType="number"
-                android:maxLines="1"
-                android:maxLength="110"
-                android:gravity="center"
-                android:hint="Mobile Number" />
-
-            <Button
-                android:id="@+id/getotp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ripple_effect_2"
-                android:text="Get OTP" />
-
-            <Button
-                android:id="@+id/resendotp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ripple_effect_2"
-                android:text="Resend OTP" />
-
-            <ProgressBar
-                android:visibility="gone"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/pbar"/>
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/enter_otp"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:maxLines="1"
-                android:drawableLeft="@drawable/otpicon"
-                android:gravity="center"
-                android:hint="Enter OTP" />
+                <EditText
+                    android:id="@+id/mobile_num"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/loginid"
+                    android:drawableStart="@drawable/loginid"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:maxLength="110"
+                    android:gravity="center"
+                    android:hint="Mobile Number" />
 
-            <ImageButton
-                android:id="@+id/nextsignup"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ripple_effect_2"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/right_pointer"
-                android:clickable="false"/>
+                <Button
+                    android:id="@+id/getotp"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/ripple_effect_2"
+                    android:text="Get OTP" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/resendotp"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/ripple_effect_2"
+                    android:text="Resend OTP" />
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pbar"/>
+
+                <EditText
+                    android:id="@+id/enter_otp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:drawableLeft="@drawable/otpicon"
+                    android:gravity="center"
+                    android:hint="Enter OTP" />
+
+                <ImageButton
+                    android:id="@+id/nextsignup"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/ripple_effect_2"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/right_pointer"
+                    android:clickable="false"/>
+
+            </LinearLayout>
+        </ScrollView>
 
     </RelativeLayout>
 </LinearLayout>

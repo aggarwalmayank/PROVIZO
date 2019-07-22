@@ -48,15 +48,20 @@
             android:textColor="#000000"
             android:textSize="45sp" />
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/first"
+            android:layout_above="@id/third">
+
         <LinearLayout
             android:id="@+id/main_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_gravity="center_horizontal"
-            android:layout_below="@id/first"
-            android:layout_centerInParent="true">
+            android:layout_gravity="center_horizontal">
 
             <EditText
                 android:id="@+id/consigneename"
@@ -118,6 +123,7 @@
                 android:src="@drawable/right_pointer" />
 
         </LinearLayout>
+        </ScrollView>
 
         <ImageView
             android:id="@+id/third"
@@ -125,8 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/third"
-            android:layout_below="@id/main_layout"/>
+            android:src="@drawable/third"/>
 
         <ImageView
             android:layout_alignParentBottom="true"

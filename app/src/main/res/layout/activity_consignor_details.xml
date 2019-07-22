@@ -54,15 +54,19 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/third"
-                android:layout_below="@id/main_layout"/>
+                android:src="@drawable/third"/>
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/first"
+                android:layout_above="@id/third">
 
             <LinearLayout
                 android:id="@+id/main_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/first"
-                android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -164,7 +168,7 @@
                     android:src="@drawable/right_pointer" />
 
             </LinearLayout>
-
+            </ScrollView>
 
             <ImageView
                 android:layout_width="290dp"

@@ -64,13 +64,16 @@
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/cartoon" />
 
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/first"
+                android:layout_above="@id/third">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@id/first"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -185,6 +188,7 @@
                     android:text="Book" />
 
             </LinearLayout>
+            </ScrollView>
 
         </RelativeLayout>
     </LinearLayout>

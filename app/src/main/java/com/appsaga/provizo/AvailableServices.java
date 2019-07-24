@@ -51,9 +51,6 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
         setContentView(R.layout.activity_available_services);
         menuicon = findViewById(R.id.menuicon);
         nobooking = findViewById(R.id.nobook);
-        TextView tv = findViewById(R.id.appnamesigninup);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
         menuicon = findViewById(R.id.menuicon);
         serviceType = getIntent().getStringExtra("type of service");
         serviceView = findViewById(R.id.service_list);

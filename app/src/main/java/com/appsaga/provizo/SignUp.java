@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -27,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class SignUp extends AppCompatActivity {
 
     Typeface typeface;
-    ImageButton signup;
+    Button signup;
     Button getOTP;
     Button resendOTP;
     EditText phone_num, enterOTP;
@@ -42,16 +44,28 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        TextView tv = findViewById(R.id.appname);
-        typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
-
         signup = findViewById(R.id.nextsignup);
         getOTP = findViewById(R.id.getotp);
         enterOTP = findViewById(R.id.enter_otp);
         phone_num = findViewById(R.id.mobile_num);
         pbar = findViewById(R.id.pbar);
         resendOTP = findViewById(R.id.resendotp);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.go_back);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onBackPressed();
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         signup.setEnabled(Boolean.FALSE);

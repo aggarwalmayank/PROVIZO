@@ -6,80 +6,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".SignInUp"
-        android:background="#EBEEF1">
+        android:background="@drawable/black_gradient_background">
 
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#EBEEF1">
-
-            <ImageView
-                android:id="@+id/first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/first_new"
-                android:scaleType="centerCrop"
-                android:layout_alignParentTop="true"/>
-
-            <ImageView
-                android:id="@+id/menuicon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:src="@drawable/menuicon"/>
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/appnamesigninup"
+                android:id="@+id/appsignup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="90dp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
                 android:paddingStart="20dp"
                 android:paddingLeft="20dp"
                 android:paddingEnd="20dp"
                 android:paddingRight="20dp"
-                android:text="@string/app_name"
-                android:textColor="#000000"
-                android:textSize="45sp" />
-
-            <TextView
-                android:id="@+id/nobook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="Opps!! No Available Service"
-                android:textSize="15sp"
+                android:text="Provizo"
+                android:textColor="#FFF"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
-                <ListView
-                    android:id="@+id/service_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/first"
-                    android:layout_above="@id/third"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="10dp">
-                </ListView>
+        </android.support.v7.widget.Toolbar>
 
-            <ImageView
-                android:id="@+id/third"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/third"
-                android:scaleType="centerCrop"
-                android:layout_alignParentBottom="true"
-                />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/menuicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/nine_circles_white"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"/>
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/toolbar"
+            android:background="#FFF" />
+
+        <TextView
+            android:id="@+id/available_choices_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/available_truck_text"
+            android:layout_centerHorizontal="true"
+            android:textSize="25sp"
+            android:textColor="#FFF"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@id/toolbar"/>
+
+        <TextView
+            android:id="@+id/nobook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Opps!! No Available Service"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFF"/>
+
+        <ListView
+            android:id="@+id/service_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/available_choices_text"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:layout_marginTop="30dp">
+
+        </ListView>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nv"

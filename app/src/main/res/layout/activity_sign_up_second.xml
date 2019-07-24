@@ -1,164 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".SignUpSecond">
+    tools:context=".SignUpSecond"
+    android:background="@drawable/main_background">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ebeef1">
-
-        <ImageView
-            android:id="@+id/first"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/first_new" />
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/appnamesignupsecond"
+            android:id="@+id/appsignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/app_name"
-            android:textColor="#000000"
-            android:textSize="45sp" />
-
-        <TextView
-            android:id="@+id/appsignupsecond"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/appnamesignupsecond"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="20dp"
             android:paddingRight="20dp"
             android:text="Sign up"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/first"
-            android:layout_above="@id/third">
+    </android.support.v7.widget.Toolbar>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_fullname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:textColorHint="#FFF"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="40dp">
 
-                <EditText
-                    android:id="@+id/fullname"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    android:drawableLeft="@drawable/loginid"
-                    android:gravity="center"
-                    android:hint="Full Name"
-                    android:inputType="text"
-                    android:maxLines="1" />
+    <EditText
+        android:id="@+id/fullname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:hint="Full Name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="#FFF"
+        android:backgroundTint="#FFF"
+        android:textCursorDrawable="@drawable/cursor_color"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+    </android.support.design.widget.TextInputLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="19dp"
-                        android:src="@drawable/gendericon" />
+    <LinearLayout
+        android:id="@+id/gender_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/text_input_fullname"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
-                    <Spinner
-                        android:id="@+id/genderspinner"
-                        android:layout_width="220dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/spinner_rect"
-                        android:textAlignment="center" />
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1.5dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@android:color/darker_gray" />
-
-                <EditText
-                    android:id="@+id/dob"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/calendaricon"
-                    android:focusable="false"
-                    android:gravity="center"
-                    android:hint="Date of Birth"
-                    android:inputType="text"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/mailicon"
-                    android:gravity="center"
-                    android:hint="Email ID"
-                    android:inputType="text"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/passwordicon"
-                    android:gravity="center"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:maxLines="1" />
-
-                <Button
-                    android:id="@+id/signupsecond"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/ripple_effect"
-                    android:text="Sign Up" />
-
-                <ProgressBar
-                    android:id="@+id/pbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-        </ScrollView>
-        <ImageView
-            android:id="@+id/third"
+        <Spinner
+            android:id="@+id/genderspinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/third" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_marginTop="8dp"
+            android:background="@drawable/spinner_rect"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="1dp"
+        android:background="#FFF"
+        android:layout_below="@id/gender_layout"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gender_layout"
+        android:textColorHint="#FFF"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+    <EditText
+        android:id="@+id/dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        android:hint="Date of Birth"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="#FFF"
+        android:backgroundTint="#FFF"
+        android:textCursorDrawable="@drawable/cursor_color"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_input_dob"
+        android:textColorHint="#FFF"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Email ID"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="#FFF"
+        android:backgroundTint="#FFF"
+        android:textCursorDrawable="@drawable/cursor_color"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_input_email"
+        android:textColorHint="#FFF"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:textColor="#FFF"
+        android:backgroundTint="#FFF"
+        android:textCursorDrawable="@drawable/cursor_color"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/signupsecond"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/ripple_effect"
+        android:text="Sign Up"
+        android:layout_below="@id/text_input_password"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <ProgressBar
+        android:id="@+id/pbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="#FFF"/>
+</RelativeLayout>

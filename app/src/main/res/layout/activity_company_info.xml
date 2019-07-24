@@ -1,192 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/black_gradient_background"
     android:orientation="vertical"
     tools:context=".SignInUp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ebeef1"
-        android:gravity="center">
+    <TextView
+        android:id="@+id/nooftruck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:textSize="15sp"
+        android:text="number"
+        android:layout_centerHorizontal="true"/>
 
-        <ImageView
-            android:id="@+id/first"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/first_new" />
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFF"
+        android:textSize="15sp"
+        android:layout_below="@id/nooftruck"
+        android:text="amount"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/details_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Company Details"
+        android:textColor="#FFF"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:layout_below="@id/amount"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:id="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/details_text_view"
+        android:layout_margin="16dp"
+        android:background="#DCDCDC"
+        android:elevation="4dp"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true">
+
 
         <TextView
-            android:id="@+id/appnamesignupsecond"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/app_name"
             android:textColor="#000000"
-            android:textSize="45sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/first"
-            android:layout_above="@id/third"
-            android:layout_centerInParent="true">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/proceed_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/nooftruck"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#000000"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#000000"
-                        android:textSize="15sp" />
-
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/ripple_effect"
-                    android:padding="20dp"
-                    android:text="Proceed" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/details_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Company Details"
-                android:textColor="#000000"
-                android:textSize="19sp"
-                android:textStyle="bold"
-                android:layout_below="@id/proceed_layout"/>
-
-                <RelativeLayout
-                    android:id="@+id/details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="#DCDCDC"
-                    android:elevation="4dp"
-                    android:padding="10dp"
-                    android:layout_below="@id/details_text_view">
-
-
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/owner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/name"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#000000"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/owner"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#000000"
-                        android:textSize="15sp" />
-
-
-                    <TextView
-                        android:id="@+id/experience"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/address"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#000000"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/experience"
-                        android:textColor="#000000"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="5dp"
-                        android:textSize="15sp" />
-
-                </RelativeLayout>
-            </RelativeLayout>
-
-        </ScrollView>
-
-        <ImageView
-            android:id="@+id/third"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/third"
-            android:scaleType="centerCrop" />
-
-        <ImageView
+        <TextView
+            android:id="@+id/owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/truckindia" />
+            android:layout_below="@+id/name"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/owner"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/experience"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/ripple_effect"
+        android:padding="20dp"
+        android:text="Proceed"
+        android:layout_below="@id/details"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

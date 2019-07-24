@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,7 +61,6 @@ public class SignUpSecond extends AppCompatActivity {
     //FirebaseDatabase mDatabase;
     DatabaseReference databaseReference;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,9 +79,21 @@ public class SignUpSecond extends AppCompatActivity {
         pbar=findViewById(R.id.pbar);
         firebaseAuth=FirebaseAuth.getInstance();
 
-        TextView tv=findViewById(R.id.appnamesignupsecond);
-        Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.go_back);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onBackPressed();
+            }
+        });
 
         final Calendar calendar=Calendar.getInstance();
         year_x=calendar.get(Calendar.YEAR);
@@ -102,50 +115,66 @@ public class SignUpSecond extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pbar.setVisibility(View.VISIBLE);
-                emailid=email.getText().toString().trim();
-                pass=password.getText().toString().trim();
-                sex=spinner.getSelectedItem().toString().trim();
-                dateofbirth=dob.getText().toString().trim();
-                fullname=name.getText().toString().trim();
 
-                firebaseAuth.createUserWithEmailAndPassword(emailid,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        pbar.setVisibility(View.GONE);
-                        if(task.isSuccessful())
-                        {
-                            firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if ((task.isSuccessful())){
-                                        Bundle bundle = getIntent().getExtras();
-                                        MobileNo=bundle.getString("phnumber");
-                                        addToLocalDatabase();
-                                        addToFirebaseDatabase(firebaseAuth.getCurrentUser());
-                                        Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
-                                        Intent i=new Intent(SignUpSecond.this,SignInUp.class);
+                if(name.getText().toString().equalsIgnoreCase(""))
+                {
+                    name.setError("Enter name");
+                }
+                else if(spinner.getSelectedItem().toString().equalsIgnoreCase("gender"))
+                {
+                    Toast.makeText(SignUpSecond.this,"Please select a gender",Toast.LENGTH_SHORT).show();
+                }
+                else if(dob.getText().toString().equalsIgnoreCase(""))
+                {
+                    dob.setText("Enter Date of Birth");
+                }
+                else if(email.getText().toString().equalsIgnoreCase(""))
+                {
+                    email.setError("Enter Id");
+                }
+                else if(password.getText().toString().equalsIgnoreCase(""))
+                {
+                    password.setError("Enter Password");
+                }
+                else {
+                    pbar.setVisibility(View.VISIBLE);
+                    emailid = email.getText().toString().trim();
+                    pass = password.getText().toString().trim();
+                    sex = spinner.getSelectedItem().toString().trim();
+                    dateofbirth = dob.getText().toString().trim();
+                    fullname = name.getText().toString().trim();
 
-                                        startActivity(i);
-                                        finish();
+                    firebaseAuth.createUserWithEmailAndPassword(emailid, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            pbar.setVisibility(View.GONE);
+                            if (task.isSuccessful()) {
+                                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if ((task.isSuccessful())) {
+                                            Bundle bundle = getIntent().getExtras();
+                                            MobileNo = bundle.getString("phnumber");
+                                            addToLocalDatabase();
+                                            addToFirebaseDatabase(firebaseAuth.getCurrentUser());
+                                            Toast.makeText(SignUpSecond.this, "Registered Successfully. Please Verify Your Email...", Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(SignUpSecond.this, SignInUp.class);
+
+                                            startActivity(i);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(SignUpSecond.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else
-                                    {
-                                        Toast.makeText(SignUpSecond.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                                });
+                            } else {
+                                Toast.makeText(SignUpSecond.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else
-                        {
-                            Toast.makeText(SignUpSecond.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
-
-
     }
     public void addToLocalDatabase() {
 

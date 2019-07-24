@@ -1,135 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/main_background"
     android:orientation="vertical"
     tools:context=".SignUp">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="#EBEEF1">
-
-        <ImageView
-            android:id="@+id/first"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/first_new"
-            android:scaleType="centerCrop"/>
-
-        <TextView
-            android:id="@+id/appname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/app_name"
-            android:textColor="#000000"
-            android:textSize="45sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"/>
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/appsignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/appname"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingEnd="20dp"
             android:paddingRight="20dp"
             android:text="Sign up"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-light"/>
 
-        <ImageView
-            android:layout_height="wrap_content"
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:textColorHint="#FFF"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/mobile_num"
             android:layout_width="match_parent"
-            android:id="@+id/third"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/third"
-            android:scaleType="centerCrop"/>
-
-        <ScrollView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/first"
-            android:layout_above="@id/third">
+            android:hint="Mobile Number"
+            android:inputType="number"
+            android:maxLength="110"
+            android:maxLines="1"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="10dp"
+            android:textColor="#FFF"
+            android:backgroundTint="#FFF"
+            android:textCursorDrawable="@drawable/cursor_color"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    </android.support.design.widget.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/mobile_num"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/loginid"
-                    android:drawableStart="@drawable/loginid"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:maxLength="110"
-                    android:gravity="center"
-                    android:hint="Mobile Number" />
+        <Button
+            android:id="@+id/getotp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ripple_effect"
+            android:text="Get OTP"
+            android:layout_below="@id/text_input_mobile"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
 
-                <Button
-                    android:id="@+id/getotp"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/ripple_effect_2"
-                    android:text="Get OTP" />
+        <Button
+            android:id="@+id/resendotp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ripple_effect"
+            android:text="Resend OTP"
+            android:layout_below="@id/getotp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
 
-                <Button
-                    android:id="@+id/resendotp"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/ripple_effect_2"
-                    android:text="Resend OTP" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resendotp"
+        android:textColorHint="#FFF"
+        android:layout_marginTop="70dp">
 
-                <ProgressBar
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pbar"/>
+        <EditText
+            android:id="@+id/enter_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Enter OTP"
+            android:maxLines="1"
+            android:layout_below="@id/resendotp"
+            android:layout_marginStart="10dp"
+            android:textColor="#FFF"
+            android:backgroundTint="#FFF"
+            android:textCursorDrawable="@drawable/cursor_color"/>
 
-                <EditText
-                    android:id="@+id/enter_otp"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:maxLines="1"
-                    android:drawableLeft="@drawable/otpicon"
-                    android:gravity="center"
-                    android:hint="Enter OTP" />
+    </android.support.design.widget.TextInputLayout>
 
-                <ImageButton
-                    android:id="@+id/nextsignup"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/ripple_effect_2"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/right_pointer"
-                    android:clickable="false"/>
+        <Button
+            android:id="@+id/nextsignup"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ripple_effect_2"
+            android:clickable="false"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:scaleType="centerInside"
+            android:text="Continue"
+            android:textSize="19sp"
+            android:layout_below="@id/text_input_otp"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="#FFF"/>
 
-            </LinearLayout>
-        </ScrollView>
-
-    </RelativeLayout>
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/pbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:background="#FFF"/>
+</RelativeLayout>

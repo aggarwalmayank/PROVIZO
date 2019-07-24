@@ -54,9 +54,9 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         mAuth=FirebaseAuth.getInstance();
         pbar=findViewById(R.id.pbar);
         forgot=findViewById(R.id.forgot);
-        TextView tv=findViewById(R.id.appnamesigninup);
-        typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
+        //TextView tv=findViewById(R.id.appnamesigninup);
+        //typeface=Typeface.createFromAsset(getAssets(),"fonts/copperplatebold.ttf");
+        //tv.setTypeface(typeface);
         Button b=findViewById(R.id.temp);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,27 +89,34 @@ public class SignInUp extends AppCompatActivity implements Dialog.DialogListener
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideKeyboardwithoutPopulate(SignInUp.this);
-                pbar.setVisibility(View.VISIBLE);
-                mAuth.signInWithEmailAndPassword(email.getText().toString().trim(),pass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        pbar.setVisibility(View.GONE);
-                        if(task.isSuccessful())
-                        {
-                            if(mAuth.getCurrentUser().isEmailVerified()){
-                                startActivity(new Intent(SignInUp.this,Bookingchoice.class));
-                                finish();
-                            }
-                            else
-                            {
-                                Toast.makeText(SignInUp.this, "Please Verify Your Email", Toast.LENGTH_SHORT).show();
-                            }
+
+                if(email.getText().toString().equalsIgnoreCase(""))
+                {
+                    email.setError("Enter login ID");
+                }
+                else if(pass.getText().toString().equalsIgnoreCase(""))
+                {
+                    pass.setError("Enter Password");
+                }
+                else {
+                    hideKeyboardwithoutPopulate(SignInUp.this);
+                    pbar.setVisibility(View.VISIBLE);
+                    mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), pass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            pbar.setVisibility(View.GONE);
+                            if (task.isSuccessful()) {
+                                if (mAuth.getCurrentUser().isEmailVerified()) {
+                                    startActivity(new Intent(SignInUp.this, Bookingchoice.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(SignInUp.this, "Please Verify Your Email", Toast.LENGTH_SHORT).show();
+                                }
+                            } else
+                                Toast.makeText(SignInUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        else
-                            Toast.makeText(SignInUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+                }
             }
         });
         forgot.setOnClickListener(new View.OnClickListener() {

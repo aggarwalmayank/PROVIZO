@@ -63,7 +63,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
-    ImageButton deliveryNext;
+    Button deliveryNext;
     EditText pickupdate;
     AutoCompleteTextView droploc;
     AutoCompleteTextView    pickuploc;
@@ -85,9 +85,6 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         setContentView(R.layout.activity_delivery_location);
 
         db = new DatabaseHelperUser(this);
-        TextView tv = findViewById(R.id.appnamesignupsecond);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
         menuicon = findViewById(R.id.menuicon);
         pickuploc = findViewById(R.id.pickuploc);
         droploc = findViewById(R.id.droploc);

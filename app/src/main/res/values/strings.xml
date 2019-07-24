@@ -28,6 +28,11 @@
         <item>Select Truck Type</item>
     </string-array>
 
+    <string name="good_to_see">It\'s always\ngood to see you\nagain :)</string>
+    <string name="delivery_location_text">Let\'s select your\nroute</string>
+    <string name="select_truck_text">Select a truck of\nyour choice</string>
+    <string name="available_truck_text">This is what we\nfound for you</string>
+
     <!-- <item>2.5 MT Open</item>
         <item>2.5 MT Closed</item>
         <item>3.5 MT Closed</item>

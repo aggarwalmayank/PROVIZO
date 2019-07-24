@@ -5,90 +5,113 @@
     android:id="@+id/deliverylocation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInUp">
+    tools:context=".SignInUp"
+    android:background="#FFF">
 
     <RelativeLayout
         android:id="@+id/splash_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ebeef1"
+        android:background="@drawable/black_gradient_background"
         android:gravity="center">
+
+        <TextView
+            android:id="@+id/appsignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Provizo"
+            android:textColor="#FFF"
+            android:textSize="22sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-light"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
 
         <fragment
             android:id="@+id/googlemap"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="example.com.mapexample.MapsActivity" />
+            tools:context="example.com.mapexample.MapsActivity"
+            android:layout_above="@id/location_name"
+            android:layout_below="@id/menuicon"
+            android:layout_marginTop="5dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFF"
+            android:layout_below="@id/googlemap"/>
 
         <ImageView
             android:id="@+id/menuicon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:src="@drawable/menuicon" />
+            android:src="@drawable/nine_circles_white"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"/>
 
         <TextView
             android:id="@+id/location_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/menuicon"
-            android:textColor="#000"
-            android:textSize="20sp"
-            android:background="#ffffff"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_above="@id/choice_layout"
             android:padding="8dp"
-            android:elevation="12dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:textColor="#FFF"
+            android:textSize="20sp"
             android:layout_marginTop="20dp"/>
 
-        <RelativeLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/first"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:layout_height="0.5dp"
+            android:layout_marginTop="1dp"
+            android:background="#FFF"
+            android:layout_below="@id/location_name"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/choice_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingTop="5dp">
+
+            <Button
+                android:id="@+id/truck"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp">
+                android:layout_weight="1"
+                android:background="@drawable/ripple_effect_2"
+                android:text="Intercity Truck"
+                android:layout_marginEnd="5dp"
+                android:textColor="#fff"/>
 
-                <Button
-                    android:id="@+id/truck"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/ripple_effect_2"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="30dp"
-                    android:text="Intercity Truck"
-                    android:layout_marginBottom="5dp"/>
+            <Button
+                android:id="@+id/tempoo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_effect_2"
+                android:text="Intracity Tempo"
+                android:layout_marginStart="5dp"
+                android:textColor="#fff"/>
 
-                <Button
-                    android:id="@+id/tempoo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/ripple_effect_2"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="30dp"
-                    android:text="Intracity Tempo"
-                    android:layout_marginBottom="5dp"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

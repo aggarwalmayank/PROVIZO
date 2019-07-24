@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ import static android.R.layout.simple_spinner_item;
 
 public class SelectServiceTruck extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener{
     EditText material, weight;
-    ImageButton service;
+    Button service;
     private RadioGroup radioWeightGroup;
     private RadioButton radioWeightButton;
     private DrawerLayout dl;
@@ -66,10 +67,6 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         myref = FirebaseDatabase.getInstance().getReference();
         material = findViewById(R.id.materialdesp);
         weight = findViewById(R.id.weight);
-
-        TextView tv = findViewById(R.id.appnamesignupsecond);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
 
         Bundle bundle = getIntent().getExtras();
         orderid = bundle.getString("Order ID");

@@ -77,12 +77,11 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
 
-
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     PendingResult<LocationSettingsResult> result;
     final static int REQUEST_LOCATION = 199;
-
+    ImageView menuicon;
 
     Button truck, tempoo;
     private DrawerLayout dl;
@@ -90,7 +89,6 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
     private NavigationView nv;
 
     boolean doubleBackToExitPressedOnce = false;
-    ImageView menuicon;
     RelativeLayout splashRelative;
     TextView locationName;
 
@@ -102,12 +100,12 @@ public class Bookingchoice extends FragmentActivity implements com.appsaga.provi
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation();
         locationName=findViewById(R.id.location_name);
+        menuicon=findViewById(R.id.menuicon);
        // TextView tv = findViewById(R.id.appnamesigninup);
 
         //Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
        // tv.setTypeface(typeface);
         truck = findViewById(R.id.truck);
-        menuicon = findViewById(R.id.menuicon);
         tempoo = findViewById(R.id.tempoo);
         truck.setOnClickListener(new View.OnClickListener() {
             @Override

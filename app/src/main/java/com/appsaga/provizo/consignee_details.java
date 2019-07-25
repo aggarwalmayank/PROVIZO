@@ -29,7 +29,7 @@ import java.util.HashMap;
 
 public class consignee_details extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener{
 
-    ImageButton pay;
+    Button pay;
     EditText name, address, number, gst;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -45,9 +45,6 @@ public class consignee_details extends AppCompatActivity implements com.appsaga.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consignee_details);
 
-        TextView tv = findViewById(R.id.appnamesignupsecond);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
         menuicon = findViewById(R.id.menuicon);
 
         gst = findViewById(R.id.consigneegst);

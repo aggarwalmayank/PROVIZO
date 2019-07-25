@@ -46,9 +46,6 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
-        TextView tv = findViewById(R.id.appnamesigninup);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
         myref = FirebaseDatabase.getInstance().getReference();
         dl = (DrawerLayout) findViewById(R.id.deliverylocation);
         t = new ActionBarDrawerToggle(this, dl, R.string.open, R.string.close);

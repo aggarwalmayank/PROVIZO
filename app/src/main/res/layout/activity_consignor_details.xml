@@ -4,182 +4,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/deliverylocation"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".consignor_details">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EBEEF1"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:context=".SignUpSecond">
+        android:background="@drawable/black_gradient_background">
 
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/first_new" />
-
-            <ImageView
-                android:id="@+id/menuicon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:src="@drawable/menuicon" />
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/appnamesignupsecond"
+                android:id="@+id/appsignup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="90dp"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
                 android:paddingStart="20dp"
                 android:paddingLeft="20dp"
                 android:paddingEnd="20dp"
                 android:paddingRight="20dp"
-                android:text="@string/app_name"
-                android:textColor="#000000"
-                android:textSize="45sp" />
+                android:text="Provizo"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/third"
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/toolbar"
+            android:background="#FFF" />
+
+        <TextView
+            android:id="@+id/consignor_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:text="@string/consignor_text"
+            android:textColor="#FFF"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/menuicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/nine_circles_white"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/consignorname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="Consignor's Name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:layout_marginTop="50dp"
+            android:textColor="#FFF"
+            android:textColorHint="#FFF"
+            android:layout_below="@id/consignor_text"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#FFF"
+            android:textCursorDrawable="@drawable/cursor_color"/>
+
+        <EditText
+            android:id="@+id/consignoradd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Consignor's Address"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textColorHint="#FFF"
+            android:layout_below="@id/consignorname"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#FFF"
+            android:textCursorDrawable="@drawable/cursor_color"/>
+
+        <EditText
+            android:id="@+id/consignorphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Consignor's Mobile Number"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textColorHint="#FFF"
+            android:layout_below="@id/consignoradd"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#FFF"
+            android:textCursorDrawable="@drawable/cursor_color"/>
+
+        <EditText
+            android:id="@+id/consignorgst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:digits="1234657890abcdefghijklmnopqrstvuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:hint="Consignor's GST Number"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textColorHint="#FFF"
+            android:layout_below="@id/consignorphone"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="#FFF"
+            android:textCursorDrawable="@drawable/cursor_color"/>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:columnCount="2"
+            android:columnOrderPreserved="true"
+            android:rowCount="2"
+            android:rowOrderPreserved="true"
+            android:layout_below="@id/consignorgst"
+            android:layout_centerHorizontal="true">
+
+            <CheckBox
+                android:id="@+id/chkbox1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/third"/>
+                android:layout_marginBottom="10dp"
+                android:text="Owner's \nRisk*"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
 
-            <ScrollView
+            <CheckBox
+                android:id="@+id/chkbox2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_below="@id/first"
-                android:layout_above="@id/third">
+                android:text="Godown \nDelivery*"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
 
-            <LinearLayout
-                android:id="@+id/main_layout"
+            <CheckBox
+                android:id="@+id/chkbox3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:text="Insured \nGoods*"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
 
-                <EditText
-                    android:id="@+id/consignorname"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    android:drawableLeft="@drawable/loginid"
-                    android:gravity="center"
-                    android:hint="Consignor's Name"
-                    android:inputType="text"
-                    android:maxLines="1" />
+            <CheckBox
+                android:id="@+id/chkbox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Door \nDelivery*"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
 
-                <EditText
-                    android:id="@+id/consignoradd"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/calendaricon"
-                    android:gravity="center"
-                    android:hint="Consignor's Address"
-                    android:inputType="text"
-                    android:maxLines="1" />
+        </GridLayout>
 
-                <EditText
-                    android:id="@+id/consignorphone"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/phone"
-                    android:gravity="center"
-                    android:hint="Consignor's Mobile Number"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:id="@+id/consignorgst"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:digits="1234657890abcdefghijklmnopqrstvuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    android:drawableLeft="@drawable/gst"
-                    android:gravity="center"
-                    android:hint="Consignor's GST Number"
-                    android:maxLength="15"
-                    android:maxLines="1" />
-
-                <GridLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:columnCount="2"
-                    android:columnOrderPreserved="true"
-                    android:rowCount="2"
-                    android:rowOrderPreserved="true">
-
-                    <CheckBox
-                        android:id="@+id/chkbox1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="50dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="Owner's \nRisk*" />
-
-                    <CheckBox
-                        android:id="@+id/chkbox2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Godown \nDelivery*" />
-
-                    <CheckBox
-                        android:id="@+id/chkbox3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Insured \nGoods*" />
-
-                    <CheckBox
-                        android:id="@+id/chkbox4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Door \nDelivery*" />
-
-                </GridLayout>
-
-                <ImageButton
-                    android:id="@+id/consignorr"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/ripple_effect_2"
-                    android:clickable="false"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/right_pointer" />
-
-            </LinearLayout>
-            </ScrollView>
-
-            <ImageView
-                android:layout_width="290dp"
-                android:layout_height="290dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="200dp"
-                android:layout_marginStart="200dp"
-                android:layout_marginBottom="-80dp"
-                android:src="@drawable/truck1" />
-        </RelativeLayout>
-    </LinearLayout>
+        <Button
+            android:id="@+id/consignorr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/ripple_effect_2"
+            android:clickable="false"
+            android:text="Continue"
+            android:textColor="#FFF"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nv"

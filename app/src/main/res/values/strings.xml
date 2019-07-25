@@ -32,6 +32,10 @@
     <string name="delivery_location_text">Let\'s select your\nroute</string>
     <string name="select_truck_text">Select a truck of\nyour choice</string>
     <string name="available_truck_text">This is what we\nfound for you</string>
+    <string name="company_details_text">Have a look at\n the company details</string>
+    <string name="consignor_text">Please fill in the\nConsignor Details\nform</string>
+    <string name="consignee_text">We are almost\ndone !!</string>
+    <string name="confirmation_text">You are done :)\nPlease complete the payment and\nyou are good to go</string>
 
     <!-- <item>2.5 MT Open</item>
         <item>2.5 MT Closed</item>

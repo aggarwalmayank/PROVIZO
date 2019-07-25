@@ -78,7 +78,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
 
         spinner = (Spinner) findViewById(R.id.servicetype);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.service, simple_spinner_item);
+                R.array.service, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnTouchListener(new View.OnTouchListener() {
@@ -91,10 +91,9 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
 
         trucktype = (Spinner) findViewById(R.id.truckspinner);
         adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
-                R.array.trucktype, simple_spinner_item);
+                R.array.trucktype, R.layout.spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         trucktype.setAdapter(adapter2);
-
 
         trucktype.setOnTouchListener(new View.OnTouchListener() {
 
@@ -314,7 +313,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list1.add("2.5 MT Closed");
             list1.add("2.5 MT Open");
             list1.add("3.5 MT Closed");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list1);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list1);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 2.5 && wt <= 3.5) {
@@ -325,7 +324,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list2.add("2.5 MT Open");
             list2.add("3.5 MT Closed");
             list2.add("4 MT Open");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list2);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list2);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 3.5 && wt <= 4) {
@@ -334,7 +333,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list3.add("Select Truck Type");
             list3.add("3.5 MT Closed");
             list3.add("4 MT Open");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list3);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this,R.layout.spinner_item, list3);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 4 && wt <= 5) {
@@ -345,7 +344,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list4.add("5 MT Open");
             list4.add("7 MT Open");
             list4.add("7 MT Closed");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list4);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list4);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 5 && wt <= 7) {
@@ -359,7 +358,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
                 list5.add("9 MT Open");
                 list5.add("9 MT Closed");
             }
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list5);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list5);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 7 && wt <= 9) {
@@ -368,7 +367,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list6.add("Select Truck Type");
             list6.add("9 MT Open");
             list6.add("9 MT Closed");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list6);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list6);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 9 && wt <= 16) {
@@ -379,7 +378,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list7.add("9 MT Closed");
             list7.add("16 MT Open");
             list7.add("16 MT Closed");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list7);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list7);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 16 && wt <= 21) {
@@ -390,7 +389,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list8.add("16 MT Closed");
             list8.add("21 MT Open");
             list8.add("21 MT Closed");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list8);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list8);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else if (wt > 21 && wt <= 26) {
@@ -401,7 +400,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list9.add("21 MT Closed");
             list9.add("26 MT Open");
             list9.add("26 MT Closed");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list9);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list9);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         } else {
@@ -423,7 +422,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list10.add("21 MT Closed");
             list10.add("26 MT Open");
             list10.add("26 MT Closed");
-            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, android.R.layout.simple_spinner_item, list10);
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list10);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
         }

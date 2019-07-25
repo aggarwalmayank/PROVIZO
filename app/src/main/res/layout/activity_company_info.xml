@@ -6,16 +6,59 @@
     android:layout_height="match_parent"
     android:background="@drawable/black_gradient_background"
     android:orientation="vertical"
-    tools:context=".SignInUp">
+    tools:context=".CompanyInfo">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/appsignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:text="Provizo"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/toolbar"
+        android:background="#FFF" />
+
+    <TextView
+        android:id="@+id/company_details_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/company_details_text"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-light"
+        android:layout_below="@id/toolbar"/>
 
     <TextView
         android:id="@+id/nooftruck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FFF"
-        android:textSize="15sp"
+        android:textSize="17sp"
+        android:layout_marginTop="50dp"
         android:text="number"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/company_details_text"/>
 
     <TextView
         android:id="@+id/amount"
@@ -23,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="#FFF"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:layout_below="@id/nooftruck"
         android:text="amount"
         android:layout_centerHorizontal="true"/>
@@ -32,25 +75,26 @@
         android:id="@+id/details_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="Company Details"
         android:textColor="#FFF"
+        android:layout_marginTop="40dp"
         android:textSize="19sp"
         android:textStyle="bold"
         android:layout_below="@id/amount"
-        android:layout_centerHorizontal="true"/>
+       android:layout_marginStart="10dp"/>
 
     <RelativeLayout
         android:id="@+id/details"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/details_text_view"
-        android:layout_margin="16dp"
-        android:background="#DCDCDC"
+        android:layout_marginTop="20dp"
+        android:background="#FFF"
         android:elevation="4dp"
         android:padding="10dp"
-        android:layout_centerHorizontal="true">
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
         <TextView
             android:id="@+id/name"
@@ -68,7 +112,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp" />
@@ -79,7 +122,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/owner"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp" />
@@ -102,7 +144,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/experience"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp" />
@@ -111,12 +152,12 @@
 
     <Button
         android:id="@+id/next"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/ripple_effect"
-        android:padding="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/ripple_effect_2"
         android:text="Proceed"
-        android:layout_below="@id/details"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFF"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

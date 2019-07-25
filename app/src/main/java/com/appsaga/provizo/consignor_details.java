@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 
 public class consignor_details extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener, MyBookingDialog.DialogListener {
 
-    ImageButton consignor;
+    Button consignor;
     EditText name, number, gst, address;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -49,10 +50,6 @@ public class consignor_details extends AppCompatActivity implements com.appsaga.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consignor_details);
-
-        TextView tv = findViewById(R.id.appnamesignupsecond);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
 
         name = findViewById(R.id.consignorname);
         number = findViewById(R.id.consignorphone);

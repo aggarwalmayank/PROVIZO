@@ -29,9 +29,7 @@ public class CompanyInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_info);
-        TextView tv = findViewById(R.id.appnamesignupsecond);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
+
         owner = findViewById(R.id.owner);
         company = findViewById(R.id.name);
         address = findViewById(R.id.address);

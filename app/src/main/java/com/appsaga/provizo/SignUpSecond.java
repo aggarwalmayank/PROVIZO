@@ -108,7 +108,7 @@ public class SignUpSecond extends AppCompatActivity {
 
         spinner = findViewById(R.id.genderspinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.gender, android.R.layout.simple_spinner_item);
+                R.array.gender, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 

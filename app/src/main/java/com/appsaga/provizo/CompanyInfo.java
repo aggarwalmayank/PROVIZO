@@ -98,7 +98,6 @@ public class CompanyInfo extends AppCompatActivity {
 
             }
         });
-        // Toast.makeText(this, arrayList.size(), Toast.LENGTH_SHORT).show();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

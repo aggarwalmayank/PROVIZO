@@ -40,80 +40,82 @@
         android:id="@+id/company_details_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/company_details_text"
+        android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true"
-        android:textSize="25sp"
-        android:textColor="#FFF"
-        android:gravity="center"
         android:layout_marginTop="30dp"
         android:fontFamily="sans-serif-light"
-        android:layout_below="@id/toolbar"/>
+        android:gravity="center"
+        android:text="@string/company_details_text"
+        android:textColor="#FFF"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/nooftruck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFF"
-        android:textSize="17sp"
+        android:layout_below="@id/company_details_text"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="number"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/company_details_text"/>
+        android:textColor="#FFF"
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="#FFF"
-        android:textSize="17sp"
         android:layout_below="@id/nooftruck"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:text="amount"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="#FFF"
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/details_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/amount"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
         android:text="Company Details"
         android:textColor="#FFF"
-        android:layout_marginTop="40dp"
         android:textSize="19sp"
-        android:textStyle="bold"
-        android:layout_below="@id/amount"
-       android:layout_marginStart="10dp"/>
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/next"
         android:layout_below="@id/details_text_view"
-        android:layout_marginTop="20dp"
-        android:background="#FFF"
-        android:elevation="4dp"
-        android:padding="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rectback"
+        android:elevation="4dp"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/name"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/owner"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
-            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:textSize="15sp" />
 
         <TextView
@@ -121,9 +123,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/owner"
-            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
+            android:layout_centerVertical="true"
             android:textSize="15sp" />
 
 
@@ -132,10 +135,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/address"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
+            android:layout_centerVertical="true"
             android:textSize="15sp" />
 
         <TextView
@@ -143,9 +146,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/experience"
-            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:textSize="15sp" />
 
     </RelativeLayout>
@@ -154,10 +158,10 @@
         android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/ripple_effect_2"
         android:text="Proceed"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFF"
-        android:layout_alignParentBottom="true"/>
+        android:textColor="#FFF" />
 </RelativeLayout>

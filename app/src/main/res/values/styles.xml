@@ -25,5 +25,7 @@
 
     <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAlignment">center</item>
     </style>
 </resources>

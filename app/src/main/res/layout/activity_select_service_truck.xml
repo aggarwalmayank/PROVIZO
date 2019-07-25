@@ -97,7 +97,7 @@
             android:layout_marginEnd="10dp"
             android:backgroundTint="#FFF"
             android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-/."
-            android:gravity="center"
+
             android:hint="Material Description"
             android:inputType="text"
             android:maxLines="1"
@@ -116,7 +116,6 @@
             android:layout_marginEnd="10dp"
             android:backgroundTint="#FFF"
             android:digits="1234567890."
-            android:gravity="center"
             android:hint="Weight"
             android:inputType="number"
             android:maxLines="1"

@@ -151,7 +151,7 @@ public class Confirmation extends AppCompatActivity implements com.appsaga.provi
             {
 
                 amount.setText("Rs " + String.valueOf(rs + rs * 0.05));
-                amount.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ratechart, 0, R.drawable.arrowdown, 0);
+                amount.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ratechart, 0, R.drawable.arrodown, 0);
                 amount.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

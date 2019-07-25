@@ -16,10 +16,8 @@
 
             </shape>
         </item>
-
         <item>
-
-            <bitmap android:gravity="center|right" android:src="@drawable/arrowdown"/>
+            <bitmap android:gravity="center|right" android:src="@drawable/arrodown"/>
 
         </item>
 

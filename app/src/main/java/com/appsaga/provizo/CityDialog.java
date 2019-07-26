@@ -4,18 +4,27 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -26,12 +35,12 @@ public class CityDialog extends DialogFragment {
     private Spinner unit;
     private DialogListener listener;
     private RadioGroup rg;
-
+    LinearLayout lout;
 
     @Override
     public android.app.Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.citydialog, null);
@@ -47,9 +56,9 @@ public class CityDialog extends DialogFragment {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String ORIGIN= origin.getText().toString();
-                        String DEST= dest.getText().toString();
-                        String PRICE = price.getText().toString();
+                        final String ORIGIN= origin.getText().toString();
+                        final String DEST= dest.getText().toString();
+                        long PRICE = Long.parseLong(price.getText().toString());
                         String UNIT= unit.getSelectedItem().toString();
 
                         int selectedId = rg.getCheckedRadioButtonId();
@@ -57,15 +66,38 @@ public class CityDialog extends DialogFragment {
                         String type=rb.getText().toString();
                         type=type.replaceAll("\\s+","");
                         if(UNIT.equals("Per KG")){
-                            PRICE=String.valueOf((Double.parseDouble(PRICE))*100);
+                            PRICE=PRICE*100;
                         }
                         else if(UNIT.equals("Per Ton")){
-                            PRICE=String.valueOf((Double.parseDouble(PRICE))*0.1);
+                            PRICE= (long) (PRICE*0.1);
                         }
                         else if(UNIT.equals("Per Quintal")){
 
                         }
-                        listener.addcitytoDB(ORIGIN,DEST,PRICE,type);
+                        DatabaseReference mref= FirebaseDatabase.getInstance().getReference();
+                        final String finalType = type;
+                        final long finalPRICE = PRICE;
+                        mref.child("basePrice").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                long p=dataSnapshot.child(finalType).getValue(Long.class);
+                                if(p<finalPRICE)
+                                {
+                                    listener.addcitytoDB(ORIGIN,DEST, finalPRICE, finalType);
+                                }
+                                else{
+                                   // Toast.makeText(getContext(), "Invalid Price", Toast.LENGTH_SHORT).show();
+                                    Snackbar snackbar = Snackbar.make(Partner.l, "Invalid!!! Price Exceeds Base Price ", Snackbar.LENGTH_LONG);
+                                    snackbar.show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                      //  listener.addcitytoDB(ORIGIN,DEST,PRICE,type);
                     }
                 });
 
@@ -74,6 +106,7 @@ public class CityDialog extends DialogFragment {
         price = view.findViewById(R.id.price);
         unit = view.findViewById(R.id.unit);
         rg=view.findViewById(R.id.rg);
+        lout=view.findViewById(R.id.layout);
         ArrayList<String> l=new ArrayList<>();
         l.add("Per Quintal");
         l.add("Per KG");
@@ -97,6 +130,6 @@ public class CityDialog extends DialogFragment {
     }
 
     public interface DialogListener {
-        void addcitytoDB(String origin,String dest,String price,String type);
+        void addcitytoDB(String origin,String dest,long price,String type);
     }
 }

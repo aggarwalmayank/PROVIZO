@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -51,13 +52,14 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
     CheckBox deleteFullTruck , deletePartLoad;
     Dialog customDialog;
     ListView deleteListView;
+    static LinearLayout l;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partner);
         final Button viewbooking=findViewById(R.id.viewbooking);
-
+l=findViewById(R.id.layout);
         newrate = findViewById(R.id.new_rate);
         updaterate = findViewById(R.id.confirmrate);
         updateavail = findViewById(R.id.confirmavail);
@@ -697,7 +699,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
         }
 
     @Override
-    public void addcitytoDB(String origin, String dest, String price,String type) {
+    public void addcitytoDB(String origin, String dest, long price,String type) {
         databaseReference.child("partners").child(username).child("operations").child("locationMap")
                 .child(type).child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
     }

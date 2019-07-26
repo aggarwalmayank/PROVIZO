@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -59,7 +60,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partner);
         final Button viewbooking=findViewById(R.id.viewbooking);
-l=findViewById(R.id.layout);
+        l=findViewById(R.id.layout);
         newrate = findViewById(R.id.new_rate);
         updaterate = findViewById(R.id.confirmrate);
         updateavail = findViewById(R.id.confirmavail);
@@ -150,11 +151,8 @@ l=findViewById(R.id.layout);
             }
         });
 
-        android.support.v7.widget.Toolbar toolbar = (
-                android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.backicon);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.go_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -427,7 +425,7 @@ l=findViewById(R.id.layout);
                                         }
                                         else
                                         {
-                                            Toast.makeText(Partner.this,"The new rate is less than the base rate 100 Rs. per Quintal",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(Partner.this,"The new rate is less than the base rate 60 Rs. per Quintal",Toast.LENGTH_LONG).show();
                                         }
                                     } else if (rbunit.getText().toString().equals("Tonne")) {
 
@@ -444,7 +442,7 @@ l=findViewById(R.id.layout);
                                         }
                                         else
                                         {
-                                            Toast.makeText(Partner.this,"The new rate is less than the base rate 100 Rs. per Quintal",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(Partner.this,"The new rate is less than the base rate 60 Rs. per Quintal",Toast.LENGTH_LONG).show();
                                         }
                                     } else {
                                         if(Long.parseLong(newrate.getText().toString()) >=(long)baserate) {
@@ -702,6 +700,9 @@ l=findViewById(R.id.layout);
     public void addcitytoDB(String origin, String dest, long price,String type) {
         databaseReference.child("partners").child(username).child("operations").child("locationMap")
                 .child(type).child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
+
+        finish();
+        startActivity(getIntent());
     }
 
     void getCitiesToDelete()
@@ -735,17 +736,13 @@ l=findViewById(R.id.layout);
                             ProgressDialog progressDialog = ProgressDialog.show(Partner.this,"Deleting...","Please Wait");
                             int size = deleteListView.getChildCount();
 
-                            if(checkBox1.isChecked())
-                            {
-                                for(int i=0;i<size;i++)
-                                {
+                                for(int i=0;i<size;i++) {
                                     View view = deleteListView.getChildAt(i);
                                     CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
                                     TextView dest = view.findViewById(R.id.dest);
                                     TextView source = view.findViewById(R.id.source);
 
-                                    if(checkBox.isChecked())
-                                    {
+                                    if (checkBox.isChecked()) {
                                         databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
                                                 child(source.getText().toString()).child(dest.getText().toString()).removeValue();
                                     }
@@ -755,28 +752,9 @@ l=findViewById(R.id.layout);
 
                                 progressDialog.dismiss();
                                 Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
-                            }
-                            else if(checkBox2.isChecked())
-                            {
-                                for(int i=0;i<size;i++)
-                                {
-                                    View view = deleteListView.getChildAt(i);
-                                    CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
-                                    TextView dest = view.findViewById(R.id.dest);
-                                    TextView source = view.findViewById(R.id.source);
 
-                                    if(checkBox.isChecked())
-                                    {
-                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
-                                                child(source.getText().toString()).child(dest.getText().toString()).removeValue();
-                                    }
-                                }
-
-                                customDialog.dismiss();
-
-                                progressDialog.dismiss();
-                                Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
-                            }
+                                finish();
+                                startActivity(getIntent());
                         }
                     });
 
@@ -809,6 +787,35 @@ l=findViewById(R.id.layout);
                     DeleteCityAdapter deleteCityAdapter = new DeleteCityAdapter(Partner.this,locMapArrayList);
                     deleteListView.setAdapter(deleteCityAdapter);
                     customDialog.show();
+
+                    delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            ProgressDialog progressDialog = ProgressDialog.show(Partner.this,"Deleting...","Please Wait");
+                            int size = deleteListView.getChildCount();
+
+                            for(int i=0;i<size;i++) {
+                                View view = deleteListView.getChildAt(i);
+                                CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
+                                TextView dest = view.findViewById(R.id.dest);
+                                TextView source = view.findViewById(R.id.source);
+
+                                if (checkBox.isChecked()) {
+                                    databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
+                                            child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                }
+                            }
+
+                            customDialog.dismiss();
+
+                            progressDialog.dismiss();
+                            Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
+
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    });
                 }
 
                 @Override
@@ -817,5 +824,10 @@ l=findViewById(R.id.layout);
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,15 @@ public class CompanyInfo extends AppCompatActivity {
         double wt = Double.parseDouble(getIntent().getStringExtra("weightnounit"));
         wt = wt * 0.1;
         double twt = Double.parseDouble(trucktype);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.go_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         if ((int) Math.floor((wt / twt)) == 0)
             trucks.setText("Number Of Trucks Required: " + String.valueOf(1));

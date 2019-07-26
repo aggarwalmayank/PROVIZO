@@ -35,7 +35,7 @@ import java.util.List;
 import static java.lang.Math.abs;
 
 public class TempooService extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener {
-    ImageView box;
+
     Spinner s;
     EditText l, b, h;
     TextView price;
@@ -51,7 +51,6 @@ public class TempooService extends AppCompatActivity implements com.appsaga.prov
         setContentView(R.layout.activity_tempoo_service);
 
         initi();
-        setProvizofont();
         setBoxAnimation();
         setSpinner();
         setnavigationdrawer();
@@ -81,7 +80,6 @@ public class TempooService extends AppCompatActivity implements com.appsaga.prov
     }
 
     public void initi() {
-        box = findViewById(R.id.box);
         s = findViewById(R.id.spinner);
         l = findViewById(R.id.length);
         b = findViewById(R.id.width);
@@ -92,19 +90,13 @@ public class TempooService extends AppCompatActivity implements com.appsaga.prov
 
     }
 
-    public void setProvizofont() {
-        TextView tv = findViewById(R.id.appnamesignupsecond);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
-    }
-
     public void setSpinner() {
         List<String> list = new ArrayList<>();
         list.add("feet");
         list.add("metre");
         list.add("centimetre");
         list.add("inch");
-        ArrayAdapter adapter2 = new ArrayAdapter<>(TempooService.this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter adapter2 = new ArrayAdapter<>(TempooService.this, R.layout.spinner_item, list);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter2);
 
@@ -200,7 +192,6 @@ public class TempooService extends AppCompatActivity implements com.appsaga.prov
         animRotate.setDuration(abs(4000));
         animRotate.setFillAfter(true);
         animSet.addAnimation(animRotate);
-        box.startAnimation(animSet);
     }
 
     public String amountcalc(double l, double b, double h) {

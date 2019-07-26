@@ -10,17 +10,14 @@
     <item android:state_focused="true">
         <shape android:shape="rectangle">
             <corners android:radius="25dp" />
-            <solid android:color="#DD2ECCFA" />
-            <stroke android:width="2dp"
-                android:color="#DD2ECCFA"/>
+            <solid android:color="#2ECCFA" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="25dp" />
-            <solid android:color="#DD2ECCFA" />
-            <stroke android:width="2dp"
-                android:color="#DD2ECCFA"/>
+            <solid android:color="#2ECCFA" />
+
         </shape>
     </item>
 

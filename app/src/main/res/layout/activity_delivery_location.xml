@@ -49,7 +49,7 @@
             android:background="#FFF" />
 
         <TextView
-            android:id="@+id/good_to_see_text"
+            android:id="@+id/select_route_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delivery_location_text"
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            android:layout_below="@id/good_to_see_text"
+            android:layout_below="@id/select_route_text"
             android:hint="Enter Pick-Up Location"
             android:imeOptions="actionNext"
             android:inputType="text"

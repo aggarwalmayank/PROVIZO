@@ -36,6 +36,7 @@
     <string name="consignor_text">Please fill in the\nConsignor Details\nform</string>
     <string name="consignee_text">We are almost\ndone !!</string>
     <string name="confirmation_text">You are done :)\nPlease complete the payment and\nyou are good to go</string>
+    <string name="box_text">Let\'s select a box\naccording to\nyour requirement</string>
 
     <!-- <item>2.5 MT Open</item>
         <item>2.5 MT Closed</item>

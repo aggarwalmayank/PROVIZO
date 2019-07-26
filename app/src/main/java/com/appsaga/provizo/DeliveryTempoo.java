@@ -57,7 +57,7 @@ public class DeliveryTempoo extends AppCompatActivity implements com.appsaga.pro
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
-    ImageButton deliveryNext;
+    Button deliveryNext;
     EditText pickupdate;
     AutoCompleteTextView droploc,pickuploc;
 
@@ -70,10 +70,6 @@ public class DeliveryTempoo extends AppCompatActivity implements com.appsaga.pro
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_tempoo);
-
-        TextView tv = findViewById(R.id.appnamesignupsecond);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
 
         menuicon = findViewById(R.id.menuicon);
         pickuploc = findViewById(R.id.pickuploc);

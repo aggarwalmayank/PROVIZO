@@ -87,7 +87,6 @@
         android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/next"
         android:layout_below="@id/details_text_view"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
@@ -99,7 +98,6 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -109,7 +107,6 @@
 
         <TextView
             android:id="@+id/owner"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
@@ -126,7 +123,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:textColor="#ffffff"
-            android:layout_centerVertical="true"
             android:textSize="15sp" />
 
 
@@ -138,7 +134,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:textColor="#ffffff"
-            android:layout_centerVertical="true"
             android:textSize="15sp" />
 
         <TextView
@@ -147,7 +142,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/experience"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
             android:textColor="#ffffff"
             android:textSize="15sp" />

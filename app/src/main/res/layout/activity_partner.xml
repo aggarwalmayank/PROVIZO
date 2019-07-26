@@ -12,29 +12,48 @@
         android:layout_width="match_parent"
         android:id="@+id/layout"
         android:layout_height="wrap_content"
-        android:background="#F5F5F5"
+        android:background="@drawable/black_gradient_background"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="12dp"
-            app:title="Partner"
-            app:titleTextAppearance="@style/mystyle"
-            app:titleTextColor="#000000" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/appsignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:text="Partner"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"/>
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#FFF" />
 
         <TextView
             android:id="@+id/companyname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:text="Company Name"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-light"/>
 
         <Button
             android:id="@+id/viewbooking"
@@ -43,8 +62,10 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/ripple_effect"
-            android:text="View Bookings" />
+            android:background="@drawable/ripple_effect_2"
+            android:text="View Bookings"
+            android:textColor="#FFF"
+            android:layout_marginTop="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +73,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="20dp">
 
             <Button
                 android:id="@+id/addcity"
@@ -62,7 +83,8 @@
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/ripple_effect"
-                android:text="Add a City" />
+                android:text="Add a City"
+                android:textColor="#FFF"/>
 
             <Button
                 android:id="@+id/delete_city"
@@ -71,8 +93,9 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_effect_4"
-                android:text="Delete a City"/>
+                android:background="@drawable/ripple_effect_2"
+                android:text="Delete a City"
+                android:textColor="#FFF"/>
 
         </LinearLayout>
 
@@ -90,7 +113,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Trucks Current Status"
-                android:textColor="#000000">
+                android:textColor="#FFF">
 
             </TextView>
 
@@ -101,7 +124,8 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Available">
+                android:text="Available"
+                android:textColor="#FFF">
 
             </TextView>
 
@@ -112,13 +136,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/ripple_effect"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ripple_effect_2"
             android:gravity="center"
             android:padding="5dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="Update Availability">
+            android:text="Update Availability"
+            android:textColor="#FFF">
 
         </Button>
 
@@ -141,12 +166,16 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Available" />
+                    android:text="Available"
+                    android:textColor="#FFF"
+                    android:buttonTint="#FFF"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All Booked" />
+                    android:text="All Booked"
+                    android:textColor="#FFF"
+                    android:buttonTint="#FFF"/>
 
             </RadioGroup>
 
@@ -158,8 +187,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ripple_effect"
-            android:text="Update" />
+            android:background="@drawable/ripple_effect_4"
+            android:text="Update"
+            android:textColor="#FFF"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,7 +207,9 @@
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Full Truck Load" />
+                android:text="Full Truck Load"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
 
             <CheckBox
                 android:id="@+id/checkbox2"
@@ -186,7 +218,9 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:text="Part Load" />
+                android:text="Part Load"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
 
         </LinearLayout>
 
@@ -241,7 +275,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Current Rate"
-                android:textColor="#000000"
+                android:textColor="#FFF"
                 android:textSize="15sp">
 
             </TextView>
@@ -254,7 +288,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="#000000"
+                android:textColor="#FFF"
                 android:textSize="15sp">
 
             </TextView>
@@ -267,12 +301,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/ripple_effect"
+            android:background="@drawable/ripple_effect_2"
             android:gravity="center"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:text="Change Rate"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="15sp">
 
         </Button>
@@ -287,7 +321,10 @@
             android:hint="Enter new Rate "
             android:inputType="number"
             android:padding="10dp"
-            android:textSize="15sp">
+            android:textSize="15sp"
+            android:textColor="#FFF"
+            android:backgroundTint="#FFF"
+            android:textColorHint="#FFF">
 
         </EditText>
 
@@ -305,7 +342,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="per unit"
-                android:textColor="#000000"
+                android:textColor="#FFF"
                 android:textSize="15sp">
 
             </TextView>
@@ -320,17 +357,23 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kg" />
+                    android:text="Kg"
+                    android:textColor="#FFF"
+                    android:buttonTint="#FFF"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tonne" />
+                    android:text="Tonne"
+                    android:textColor="#FFF"
+                    android:buttonTint="#FFF"/>
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quintal" />
+                    android:text="Quintal"
+                    android:textColor="#FFF"
+                    android:buttonTint="#FFF"/>
             </RadioGroup>
 
         </LinearLayout>
@@ -341,8 +384,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ripple_effect"
-            android:text="Update" />
+            android:background="@drawable/ripple_effect_4"
+            android:text="Update"
+            android:textColor="#FFF"/>
 
     </LinearLayout>
 </ScrollView>

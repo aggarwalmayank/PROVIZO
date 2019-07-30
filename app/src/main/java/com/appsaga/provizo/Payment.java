@@ -53,9 +53,6 @@ public class Payment extends AppCompatActivity {
         });
 
         Toast.makeText(this, amount, Toast.LENGTH_SHORT).show();
-        TextView tv = findViewById(R.id.appname);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
 
         gpay = findViewById(R.id.gpay);
         gpay.setOnClickListener(new View.OnClickListener() {

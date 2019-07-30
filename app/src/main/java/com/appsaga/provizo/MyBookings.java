@@ -37,10 +37,8 @@ public class MyBookings extends AppCompatActivity {
         progressDialog = ProgressDialog.show(MyBookings.this, "Loading", "Please Wait...", true);
         android.support.v7.widget.Toolbar toolbar = (
                 android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
-        setSupportActionBar(toolbar);
         nobooking = findViewById(R.id.nobook);
-        toolbar.setNavigationIcon(R.drawable.backicon);
+        toolbar.setNavigationIcon(R.drawable.go_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

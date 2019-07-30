@@ -148,10 +148,6 @@ public class completed extends AppCompatActivity {
                 "Dear Customer\n\nYour Booking With " + company + " with Booking ID: " + orderid + " of amount " + amount + " only is confirmed.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");
         sm.execute();
 
-        TextView tv = findViewById(R.id.appname);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
-
     }
 
     @Override

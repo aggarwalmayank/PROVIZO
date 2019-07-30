@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,12 +37,9 @@ public class MyTempooBookings extends AppCompatActivity {
         setContentView(R.layout.activity_my_tempoo_bookings);
         progressDialog = ProgressDialog.show(MyTempooBookings.this, "Loading", "Please Wait...", true);
 
-        android.support.v7.widget.Toolbar toolbar = (
-                android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         nobooking = findViewById(R.id.nobook);
-        toolbar.setNavigationIcon(R.drawable.backicon);
+        toolbar.setNavigationIcon(R.drawable.go_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +49,7 @@ public class MyTempooBookings extends AppCompatActivity {
         nobooking.setVisibility(View.VISIBLE);
         bookingsList = findViewById(R.id.bookings_list);
 
-            reterivefromDB();
+        reterivefromDB();
 
     }
 

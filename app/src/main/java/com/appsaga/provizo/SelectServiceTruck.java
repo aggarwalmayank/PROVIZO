@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -89,6 +90,15 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             }
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.go_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         trucktype = (Spinner) findViewById(R.id.truckspinner);
         adapter2 = ArrayAdapter.createFromResource(SelectServiceTruck.this,
                 R.array.trucktype, R.layout.spinner_item);
@@ -127,12 +137,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
         t.syncState();
 
         nv = (NavigationView) findViewById(R.id.nv);
-        menuicon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dl.openDrawer(Gravity.LEFT);
-            }
-        });
+
         View headerview = nv.getHeaderView(0);
         TextView profilename = (TextView) headerview.findViewById(R.id.profile);
         TextView mobno = (TextView) headerview.findViewById(R.id.mob_no);

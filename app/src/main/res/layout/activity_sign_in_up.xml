@@ -5,10 +5,15 @@
     android:id="@+id/splash_relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".SignInUp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_background"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/good_to_see_text"

@@ -32,7 +32,6 @@ public class CompletedTempoo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completedtempoo);
-        setFont();
         initl();
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +53,6 @@ public class CompletedTempoo extends AppCompatActivity {
     public void initl() {
 
         home = findViewById(R.id.home);
-    }
-
-    public void setFont() {
-        TextView tv = findViewById(R.id.appname);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/copperplatebold.ttf");
-        tv.setTypeface(typeface);
     }
 
     public void getIntentData() {

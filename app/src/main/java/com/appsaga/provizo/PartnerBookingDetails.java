@@ -3,6 +3,8 @@ package com.appsaga.provizo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 public class PartnerBookingDetails extends AppCompatActivity {
@@ -32,6 +34,15 @@ public class PartnerBookingDetails extends AppCompatActivity {
         TextView description = findViewById(R.id.desc);
         TextView weight = findViewById(R.id.weight);
         TextView truckType = findViewById(R.id.truck_type);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.go_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         id.setText("Booking ID: " + booking.getKey());
         pickup.setText("Pick Up Location: " + booking.getPickUpLocation());

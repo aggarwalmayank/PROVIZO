@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:background="#d2d2d2"
+    android:background="#FFF"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -11,9 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/ripple_effect"
+        android:background="@drawable/ripple_effect_2"
         android:padding="15dp"
-        android:text="Truck Bookings" />
+        android:text="Truck Bookings"
+        android:textColor="#FFF"/>
 
     <Button
         android:id="@+id/tempoo"
@@ -24,5 +25,5 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/ripple_effect"
         android:padding="10dp"
-        android:text="Tempoo Bookings" />
+        android:text="Tempo Bookings" />
 </LinearLayout>

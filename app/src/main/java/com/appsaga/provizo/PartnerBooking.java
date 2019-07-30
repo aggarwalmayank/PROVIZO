@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -40,11 +41,9 @@ public class PartnerBooking extends AppCompatActivity {
         nobooking = findViewById(R.id.nobook);
         progressDialog = ProgressDialog.show(PartnerBooking.this, "Loading", "Please Wait...", true);
         partnerid=getIntent().getStringExtra("partner id");
-        android.support.v7.widget.Toolbar toolbar = (
-                android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#bec1c2"));
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.backicon);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.go_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

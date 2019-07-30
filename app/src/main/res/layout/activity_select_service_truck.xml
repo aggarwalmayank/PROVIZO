@@ -13,7 +13,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/select_service_truck_background3"
+            android:src="@drawable/black_gradient_background"
             android:scaleType="centerCrop"/>
 
         <android.support.v7.widget.Toolbar
@@ -43,14 +43,6 @@
             android:layout_height="0.5dp"
             android:layout_below="@id/toolbar"
             android:background="#FFF" />
-
-        <ImageView
-            android:id="@+id/menuicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/nine_circles_white" />
 
         <TextView
             android:id="@+id/select_truck_text"

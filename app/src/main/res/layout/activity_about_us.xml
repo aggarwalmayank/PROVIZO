@@ -1,76 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9CADB6"
+    android:background="@drawable/black_gradient_background"
     tools:context=".AboutUs">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/about_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:text="About Us"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/toolbar"
+        android:background="#FFF" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="32dp"
-        android:elevation="12dp"
-        android:background="#c8dfe0">
+        android:layout_marginStart="10dp"
+        android:layout_below="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.9"
-            android:background="#c8dfe0"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="About Us"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:textColor="#000000"
-                android:textSize="21sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="India's pioneer app based online Transport Booking platform that connects users to Transport Goods,Hire a Truck with a network of thousands Truck drivers for Quick and Prompt Goods Delivery Option."
-                android:textColor="#000000"
-                android:textSize="15sp" />
+                android:text="@string/about_text"
+                android:textColor="#FFF"
+                android:textSize="15sp"
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Our Vision"
                 android:textStyle="bold"
                 android:padding="10dp"
-                android:textColor="#000000"
+                android:textColor="#FFF"
                 android:textSize="19sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="10dp"
-                android:textColor="#000000"
+                android:textColor="#FFF"
                 android:textSize="15sp"
-                android:text="To Help all the people in the transportation industry like customers, importers, transporters, truckers and other service providers to come under one platform to provide better service to their customers."/>
+                android:text="@string/our_vision_text"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="The Goal"
                 android:padding="10dp"
                 android:textStyle="bold"
-                android:textColor="#000000"
+                android:textColor="#FFF"
                 android:textSize="19sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="10dp"
-                android:textColor="#000000"
+                android:textColor="#FFF"
                 android:textSize="15sp"
-                android:text="Produce smoother user flow between core functions of the application in the orser they are most often utilised."/>
+                android:text="@string/our_goal_text"/>
         </LinearLayout>
     </ScrollView>
 
 
-</LinearLayout>
+</RelativeLayout>
 

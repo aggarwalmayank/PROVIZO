@@ -16,43 +16,64 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/provizo_bg1"
+            android:src="@drawable/black_gradient_background"
             android:scaleType="centerCrop"/>
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/appsignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:text="Provizo"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/toolbar"
+            android:background="#FFF" />
+
         <TextView
-            android:id="@+id/appname"
+            android:id="@+id/select_truck_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingLeft="20dp"
-            android:paddingEnd="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/app_name"
-            android:textColor="#000000"
-            android:textSize="45sp"
+            android:text="@string/select_payment_text"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"/>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true">
+            android:textSize="25sp"
+            android:textColor="#FFF"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@id/toolbar"/>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/gpay"
-        android:src="@drawable/gpay"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/gpay"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/gpay" />
 
-        <ImageView
-            android:layout_alignParentBottom="true"
-            android:layout_width="290dp"
-            android:layout_marginLeft="180dp"
-            android:layout_marginBottom="-80dp"
-            android:layout_height="290dp"
-            android:src="@drawable/truck1"/>
+        </LinearLayout>
+
     </RelativeLayout>
 </LinearLayout>

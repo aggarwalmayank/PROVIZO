@@ -4,36 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@drawable/black_gradient_background"
     tools:context=".BookingsDetails">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F5F5F5">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingBottom="20dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/appsignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:text="Booking Details"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"/>
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#FFF"
+            android:layout_below="@id/toolbar"/>
 
         <TextView
             android:id="@+id/order_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="10dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
+            android:layout_marginStart="10dp"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_below="@id/toolbar"/>
 
         <TextView
             android:id="@+id/truck_comp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/order_id"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -41,11 +69,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/truck_comp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -53,11 +80,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/pick_loc"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -65,11 +91,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/drop_loc"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -77,11 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/pick_date"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -89,11 +113,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/amount"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:text="Consignee Details"
-            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -102,11 +125,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignee_details"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -114,11 +136,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignee_name"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -126,11 +147,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignee_address"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -138,11 +158,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignee_phone"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -150,11 +169,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignee_gst"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:text="Consignor Details"
-            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -163,11 +181,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignor_details"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -175,11 +192,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignor_name"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
+            android:textColor="#FFF"
             android:text="Order ID"
-            android:textColor="#000000"
             android:textSize="17sp" />
 
         <TextView
@@ -187,11 +203,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignor_address"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -199,11 +214,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignor_phone"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -211,11 +225,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consignor_gst"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:text="Service Truck Details"
-            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -224,11 +237,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/truck_details"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -236,11 +248,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/service_type"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -248,11 +259,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/desc"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -260,11 +270,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/truck_type"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Order ID"
-            android:textColor="#000000"
+            android:textColor="#FFF"
             android:textSize="17sp" />
 
         <TextView
@@ -272,11 +281,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/weight"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:text="mode"
-            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -285,20 +293,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/mode"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="risk"
-            android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_below="@+id/risk"
             android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
             <TextView
@@ -308,21 +317,21 @@
                 android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="Rate your Booking experience "
-                android:textColor="#000000" />
+                android:textColor="#FFF" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_marginTop="3dp"
-
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <Button
                 android:layout_marginTop="3dp"
                 android:id="@+id/submit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="#FFF"
                 android:text="Submit"
                 android:background="@drawable/ripple_effect_2"/>
 

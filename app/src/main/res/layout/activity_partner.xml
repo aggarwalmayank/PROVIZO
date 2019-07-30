@@ -65,7 +65,7 @@
             android:background="@drawable/ripple_effect_2"
             android:text="View Bookings"
             android:textColor="#FFF"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="20dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_effect"
+                android:background="@drawable/ripple_effect_2"
                 android:text="Add a City"
                 android:textColor="#FFF"/>
 
@@ -93,7 +93,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_effect_2"
+                android:background="@drawable/ripple_effect"
                 android:text="Delete a City"
                 android:textColor="#FFF"/>
 

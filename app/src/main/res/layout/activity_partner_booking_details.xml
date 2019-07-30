@@ -3,14 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#F5F5F5"
+    android:background="@drawable/black_gradient_background"
     android:layout_height="match_parent"
     tools:context=".BookingsDetails">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F5F5F5">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingBottom="20dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/appsignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:text="Booking Details"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"/>
+
+        </android.support.v7.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#FFF"
+            android:layout_below="@id/toolbar"/>
 
         <TextView
             android:id="@+id/order_id"
@@ -18,13 +47,11 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="20sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:textStyle="bold"/>
-
-
+            android:textStyle="bold"
+            android:layout_below="@id/toolbar"/>
 
         <TextView
             android:id="@+id/pick_loc"
@@ -32,9 +59,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/order_id"/>
 
@@ -44,9 +70,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/pick_loc"/>
 
@@ -56,13 +81,10 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/drop_loc"/>
-
-
 
         <TextView
             android:id="@+id/consignee_details"
@@ -71,10 +93,9 @@
             android:layout_below="@id/pick_date"
             android:text="Consignee Details"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:textColor="#FFF"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
             android:textSize="20sp"/>
 
         <TextView
@@ -83,9 +104,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignee_details"/>
 
@@ -95,9 +115,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignee_name"/>
 
@@ -107,9 +126,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignee_address"/>
 
@@ -119,9 +137,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignee_phone"/>
 
@@ -132,10 +149,9 @@
             android:layout_below="@id/consignee_gst"
             android:text="Consignor Details"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:textColor="#FFF"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
             android:textSize="20sp"/>
 
         <TextView
@@ -144,9 +160,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignor_details"/>
 
@@ -156,9 +171,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignor_name"/>
 
@@ -168,9 +182,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignor_address"/>
 
@@ -180,9 +193,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/consignor_phone"/>
 
@@ -193,10 +205,9 @@
             android:layout_below="@id/consignor_gst"
             android:text="Service Truck Details"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:textColor="#FFF"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
             android:textSize="20sp"/>
 
         <TextView
@@ -205,9 +216,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/truck_details"/>
 
@@ -217,9 +227,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/service_type"/>
 
@@ -229,9 +238,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/desc"/>
 
@@ -241,9 +249,8 @@
             android:layout_height="wrap_content"
             android:text="Order ID"
             android:textSize="17sp"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:textColor="#FFF"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_below="@id/truck_type"/>
 
@@ -254,10 +261,9 @@
             android:layout_below="@id/weight"
             android:text="mode"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:textColor="#FFF"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
             android:textSize="20sp"/>
 
         <TextView
@@ -267,10 +273,9 @@
             android:layout_below="@id/mode"
             android:text="risk"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:textColor="#FFF"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             android:textSize="20sp"/>
     </RelativeLayout>
 </ScrollView>

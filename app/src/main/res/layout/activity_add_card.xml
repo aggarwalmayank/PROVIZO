@@ -223,9 +223,11 @@
                    android:layout_height="wrap_content"
                    android:layout_gravity="left"
                    android:layout_marginTop="5dp"
-                   android:background="@drawable/ripple_effect"
+                   android:background="@drawable/ripple_effect_2"
                    android:gravity="center"
-                   android:text="SAVE" />
+                   android:text="SAVE"
+                   android:textColor="#FFF"/>
+
                <Button
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"

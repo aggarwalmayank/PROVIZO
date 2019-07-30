@@ -53,14 +53,6 @@
             android:textColor="#FFF"
             android:textSize="25sp" />
 
-        <ImageView
-            android:id="@+id/menuicon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/nine_circles_white" />
-
         <EditText
             android:id="@+id/consigneename"
             android:layout_width="match_parent"

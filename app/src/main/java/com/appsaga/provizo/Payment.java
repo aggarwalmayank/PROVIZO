@@ -28,7 +28,6 @@ public class Payment extends AppCompatActivity {
     ImageView gpay;
 
     final int UPI_PAYMENT = 0;
-    DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
     String amount,note,orderid,currentuser,company,emailandname;
 
     @Override
@@ -40,20 +39,6 @@ public class Payment extends AppCompatActivity {
         currentuser=getIntent().getStringExtra("Current User");
         company=getIntent().getStringExtra("company");
         note="Order ID: "+orderid+" Customer ID: "+currentuser+" for Company: "+company;
-        String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        mref.child("LR").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot da:dataSnapshot.getChildren()){
-                    
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
         ref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

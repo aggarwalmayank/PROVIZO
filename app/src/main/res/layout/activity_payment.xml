@@ -67,34 +67,12 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/rg"
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cash On Delivery"
-                    android:textColor="#ffffff"
-                    android:buttonTint="#ffffff"
-                    android:id="@+id/rb1"/>
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="UPI"
-                    android:textColor="#ffffff"
-                    android:buttonTint="#ffffff"
-                    android:id="@+id/rb2"/>
-            </RadioGroup>
-
-            <!--<ImageView
+            <ImageView
                 android:id="@+id/gpay"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/gpay" />
--->
+
         </LinearLayout>
 
     </RelativeLayout>

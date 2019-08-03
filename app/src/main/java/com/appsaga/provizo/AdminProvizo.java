@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDialog.DialogListener {
-    Button addpartner, viewbook;
+    Button addpartner, viewbook,addlr,add;
+    LinearLayout lout;
+    EditText email;
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
 
@@ -34,6 +38,11 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
         setContentView(R.layout.activity_admin_provizo);
         addpartner = findViewById(R.id.partner);
         viewbook = findViewById(R.id.bookings);
+        lout=findViewById(R.id.lout);
+        lout.setVisibility(View.INVISIBLE);
+        addlr=findViewById(R.id.lr);
+        add=findViewById(R.id.add);
+        email=findViewById(R.id.mail);
         viewbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +52,45 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
                 day_x = calendar.get(Calendar.DAY_OF_MONTH);
                 showDialog(DIALOG_ID);
             }
+        });
+        addlr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                email.setText("");
+                if(lout.getVisibility()==View.VISIBLE)
+                    lout.setVisibility(View.INVISIBLE);
+                else
+                lout.setVisibility(View.VISIBLE);
+
+            }
+        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(email.getText().toString().equalsIgnoreCase("")&&!email.getText().toString().contains("@"))
+                {
+                    email.setError("INVALID ID");
+                }
+                else
+                {
+                    final DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
+                    mref.child("LR").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            mref.child("LR").push().setValue(email.getText().toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    lout.setVisibility(View.INVISIBLE);
+                    Toast.makeText(AdminProvizo.this, "Added Successfully", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
         });
         addpartner.setOnClickListener(new View.OnClickListener() {
             @Override

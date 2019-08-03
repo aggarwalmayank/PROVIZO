@@ -60,13 +60,34 @@ public class Payment extends AppCompatActivity {
         rb1 = findViewById(R.id.rb1);
         rb2 = findViewById(R.id.rb2);
         confirm = findViewById(R.id.confirm);
+        rb1.setEnabled(false);
+        DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
+        mref.child("LR").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    if(ds.getValue(String.class).equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                    {
+                        rb1.setEnabled(true);
+                        break;
+                    }
 
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (rb1.isChecked()) {
-                    // write code for cod
+
                     Intent i = new Intent(Payment.this, completed.class);
                     i.putExtra("Order ID", orderid);
                     i.putExtra("Current User", currentuser);

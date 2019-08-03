@@ -41,6 +41,8 @@
     <string name="about_text">India\'s pioneer app based online Transport Booking platform that connects users to Transport Goods,Hire a Truck with a network of thousands Truck drivers for Quick and Prompt Goods Delivery Option.</string>
     <string name="our_vision_text">To Help all the people in the transportation industry like customers, importers, transporters, truckers and other service providers to come under one platform to provide better service to their customers.</string>
     <string name="our_goal_text">Produce smoother user flow between core functions of the application in the orser they are most often utilised.</string>
+    <string name="cod_text">Available only for LRs</string>
+    <string name="razor_pay_text">UPI, Internet Banking, etc.</string>
 
     <!-- <item>2.5 MT Open</item>
         <item>2.5 MT Closed</item>

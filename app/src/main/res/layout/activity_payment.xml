@@ -60,20 +60,161 @@
             android:fontFamily="sans-serif-light"
             android:layout_below="@id/toolbar"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/cod"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:layout_below="@id/select_truck_text"
+            android:text="COD"
+            android:textSize="17sp"
+            android:textColor="#FFF"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:paddingStart="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="30dp"/>
+
+        <RelativeLayout
+            android:id="@+id/COD_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cod"
+            android:background="#FFFFFF">
+
+            <RadioButton
+                android:id="@+id/rb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
 
             <ImageView
-                android:id="@+id/gpay"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/gpay" />
+                android:id="@+id/cod_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/cod"
+                android:layout_alignParentStart="true"
+                android:padding="3dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_centerVertical="true"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/COD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:layout_toEndOf="@id/cod_image"
+                android:gravity="center"
+                android:text="Pay with Cash"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/COD"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@id/cod_image"
+                android:fontFamily="sans-serif-light"
+                android:textSize="15sp"
+                android:text="@string/cod_text"
+                android:layout_toStartOf="@id/rb1"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/COD_layout"
+            android:text="Other"
+            android:textSize="17sp"
+            android:textColor="#FFF"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:paddingStart="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"/>
+
+        <RelativeLayout
+            android:id="@+id/UPI_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/other"
+            android:background="#FFFFFF">
+
+            <RadioButton
+                android:id="@+id/rb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
+
+            <ImageView
+                android:id="@+id/upi_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/razorpay_icon"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/UPI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Razorpay"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/upi_image"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/UPI"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@id/upi_image"
+                android:fontFamily="sans-serif-light"
+                android:textSize="15sp"
+                android:text="@string/razor_pay_text"
+                android:layout_toStartOf="@id/rb2"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="15dp"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ripple_effect_2"
+            android:clickable="false"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:scaleType="centerInside"
+            android:text="Confirm"
+            android:textSize="19sp"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="#FFF"/>
 
     </RelativeLayout>
 </LinearLayout>

@@ -11,7 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,25 +28,27 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Payment extends AppCompatActivity {
-    ImageView gpay;
+
+    RadioButton rb1, rb2;
+    Button confirm;
 
     final int UPI_PAYMENT = 0;
-    String amount,note,orderid,currentuser,company,emailandname;
+    String amount, note, orderid, currentuser, company, emailandname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        amount=getIntent().getStringExtra("amount");
-        orderid=getIntent().getStringExtra("Order ID");
-        currentuser=getIntent().getStringExtra("Current User");
-        company=getIntent().getStringExtra("company");
-        note="Order ID: "+orderid+" Customer ID: "+currentuser+" for Company: "+company;
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
+        amount = getIntent().getStringExtra("amount");
+        orderid = getIntent().getStringExtra("Order ID");
+        currentuser = getIntent().getStringExtra("Current User");
+        company = getIntent().getStringExtra("company");
+        note = "Order ID: " + orderid + " Customer ID: " + currentuser + " for Company: " + company;
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                emailandname=dataSnapshot.child("Email").getValue()+"   "+dataSnapshot.child("Name").getValue();
+                emailandname = dataSnapshot.child("Email").getValue() + "   " + dataSnapshot.child("Name").getValue();
             }
 
             @Override
@@ -52,13 +57,73 @@ public class Payment extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(this, amount, Toast.LENGTH_SHORT).show();
+        rb1 = findViewById(R.id.rb1);
+        rb2 = findViewById(R.id.rb2);
+        confirm = findViewById(R.id.confirm);
 
-        gpay = findViewById(R.id.gpay);
-        gpay.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(Payment.this,completed.class);
+
+                if (rb1.isChecked()) {
+                    // write code for cod
+                    Intent i = new Intent(Payment.this, completed.class);
+                    i.putExtra("Order ID", orderid);
+                    i.putExtra("Current User", currentuser);
+                    i.putExtra("type of service", getIntent().getStringExtra("type of service"));
+                    i.putExtra("pickup", getIntent().getStringExtra("pickup"));
+                    i.putExtra("drop", getIntent().getStringExtra("drop"));
+                    i.putExtra("date", getIntent().getStringExtra("date"));
+                    i.putExtra("weight", getIntent().getStringExtra("weight"));
+                    i.putExtra("Material", getIntent().getStringExtra("Material"));
+                    i.putExtra("truck", getIntent().getStringExtra("truck"));
+                    i.putExtra("company", getIntent().getStringExtra("company"));
+                    i.putExtra("consignorname", getIntent().getStringExtra("consignorname"));
+                    i.putExtra("consignoraddress", getIntent().getStringExtra("consignoraddress"));
+                    i.putExtra("consignorphone", getIntent().getStringExtra("consignorphone"));
+                    i.putExtra("consignor gst", getIntent().getStringExtra("consignor gst"));
+                    i.putExtra("amount", amount);
+                    i.putExtra("ownerrisk", getIntent().getStringExtra("ownerrisk"));
+                    i.putExtra("doordelivery", getIntent().getStringExtra("doordelivery"));
+                    i.putExtra("drop", getIntent().getStringExtra("drop"));
+                    i.putExtra("consignee gst", getIntent().getStringExtra("consignee gst"));
+                    i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
+                    i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
+                    i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));
+                    startActivity(i);
+                } else if (rb2.isChecked()) {
+                    // write code for razorpay;
+                } else {
+                    Toast.makeText(Payment.this, "Please select a payment option", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        rb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (rb1.isChecked()) {
+                    rb2.setChecked(false);
+                } else {
+                    rb2.setChecked(true);
+                }
+            }
+        });
+
+        rb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (rb2.isChecked()) {
+                    rb1.setChecked(false);
+                } else {
+                    rb1.setChecked(true);
+                }
+            }
+        });
+
+                /*Intent i=new Intent(Payment.this,completed.class);
 
                 i.putExtra("Order ID",orderid);
                 i.putExtra("Current User",currentuser);
@@ -82,126 +147,7 @@ public class Payment extends AppCompatActivity {
                 i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
                 i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
                 i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
-                startActivity(i);
-                // payUsingUpi(amount);
-            }
-        });
-    }
-
-    void payUsingUpi(String amount) {
-
-        Uri uri = Uri.parse("upi://pay").buildUpon()
-                .appendQueryParameter("pa", "99mayankagg@okhdfcbank")
-                .appendQueryParameter("pn", emailandname)
-                .appendQueryParameter("tn", note)
-                .appendQueryParameter("am", "1")
-                .appendQueryParameter("cu", "INR")
-                .build();
-
-
-        Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
-        upiPayIntent.setData(uri);
-
-        // will always show a dialog to user to choose an app
-        Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
-
-        // check if intent resolves
-        if (null != chooser.resolveActivity(getPackageManager())) {
-            startActivityForResult(chooser, UPI_PAYMENT);
-        } else {
-            Toast.makeText(Payment.this, "No UPI app found, please install one to continue",  Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case UPI_PAYMENT:
-                if ((RESULT_OK == resultCode) || (resultCode == 11)) {
-                    if (data != null) {
-                        String trxt = data.getStringExtra("response");
-                        Log.d("UPI", "onActivityResult: " + trxt);
-                        ArrayList<String> dataList = new ArrayList<>();
-                        dataList.add(trxt);
-                        upiPaymentDataOperation(dataList);
-                    } else {
-                        Log.d("UPI", "onActivityResult: " + "Return data is null");
-                        ArrayList<String> dataList = new ArrayList<>();
-                        dataList.add("nothing");
-                        upiPaymentDataOperation(dataList);
-                    }
-                } else {
-                    Log.d("UPI", "onActivityResult: " + "Return data is null"); //when user simply back without payment
-                    ArrayList<String> dataList = new ArrayList<>();
-                    dataList.add("nothing");
-                    upiPaymentDataOperation(dataList);
-                }
-                break;
-        }
-    }
-
-    private void upiPaymentDataOperation(ArrayList<String> data) {
-        if ((Boolean) isConnectionAvailable(Payment.this)) {
-            String str = data.get(0);
-            Log.d("UPIPAY", "upiPaymentDataOperation: " + str);
-            String paymentCancel = "";
-            if (str == null) str = "discard";
-            String status = "";
-            String approvalRefNo = "";
-            String response[] = str.split("&");
-            for (int i = 0; i < response.length; i++) {
-                String equalStr[] = response[i].split("=");
-                if (equalStr.length >= 2) {
-                    if (equalStr[0].toLowerCase().equals("Status".toLowerCase())) {
-                        status = equalStr[1].toLowerCase();
-                    } else if (equalStr[0].toLowerCase().equals("ApprovalRefNo".toLowerCase()) || equalStr[0].toLowerCase().equals("txnRef".toLowerCase())) {
-                        approvalRefNo = equalStr[1];
-                    }
-                } else {
-                    paymentCancel = "Payment cancelled by user.";
-                }
-            }
-
-            if (status.equals("success")) {
-                //Code to handle successful transaction here.
-                Intent i=new Intent(Payment.this,completed.class);
-
-                i.putExtra("Order ID",orderid);
-                i.putExtra("Current User",currentuser);
-                i.putExtra("type of service",getIntent().getStringExtra("type of service"));
-                i.putExtra("pickup",getIntent().getStringExtra("pickup"));
-                i.putExtra("drop",getIntent().getStringExtra("drop"));
-                i.putExtra("date",getIntent().getStringExtra("date"));
-                i.putExtra("weight",getIntent().getStringExtra("weight"));
-                i.putExtra("Material",getIntent().getStringExtra("Material"));
-                i.putExtra("truck",getIntent().getStringExtra("truck"));
-                i.putExtra("company",getIntent().getStringExtra("company"));
-                i.putExtra("consignorname",getIntent().getStringExtra("consignorname"));
-                i.putExtra("consignoraddress",getIntent().getStringExtra("consignoraddress"));
-                i.putExtra("consignorphone",getIntent().getStringExtra("consignorphone"));
-                i.putExtra("consignor gst",getIntent().getStringExtra("consignor gst"));
-                i.putExtra("drop",getIntent().getStringExtra("drop"));
-                i.putExtra("consignee gst",getIntent().getStringExtra("consignee gst"));
-                i.putExtra("consigneename",getIntent().getStringExtra("consigneename"));
-                i.putExtra("ownerrrisk",getIntent().getStringExtra("ownerrisk"));
-                i.putExtra("doordelivery",getIntent().getStringExtra("doordelivery"));
-                i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
-                i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
-                i.putExtra("amount",amount);
-                startActivity(i);
-                Toast.makeText(Payment.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
-                Log.d("UPI", "responseStr: " + approvalRefNo);
-            } else if ("Payment cancelled by user.".equals(paymentCancel)) {
-                Toast.makeText(Payment.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(Payment.this, "Transaction failed.Please try again", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(Payment.this, "Internet connection is not available. Please check and try again", Toast.LENGTH_SHORT).show();
-        }
+                startActivity(i);*/
     }
 
     public static boolean isConnectionAvailable(Payment context) {

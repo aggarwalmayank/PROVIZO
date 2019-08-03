@@ -1,5 +1,6 @@
 package com.appsaga.provizo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -24,10 +25,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Payment extends AppCompatActivity {
+public class Payment extends AppCompatActivity implements PaymentResultListener {
 
     RadioButton rb1, rb2;
     Button confirm;
@@ -86,36 +91,44 @@ public class Payment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (rb1.isChecked()) {
+                if(isConnectionAvailable(Payment.this)!=Boolean.TRUE)
+                {
+                    Toast.makeText(Payment.this,"No Internet Connection Available",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if (rb1.isChecked()) {
 
-                    Intent i = new Intent(Payment.this, completed.class);
-                    i.putExtra("Order ID", orderid);
-                    i.putExtra("Current User", currentuser);
-                    i.putExtra("type of service", getIntent().getStringExtra("type of service"));
-                    i.putExtra("pickup", getIntent().getStringExtra("pickup"));
-                    i.putExtra("drop", getIntent().getStringExtra("drop"));
-                    i.putExtra("date", getIntent().getStringExtra("date"));
-                    i.putExtra("weight", getIntent().getStringExtra("weight"));
-                    i.putExtra("Material", getIntent().getStringExtra("Material"));
-                    i.putExtra("truck", getIntent().getStringExtra("truck"));
-                    i.putExtra("company", getIntent().getStringExtra("company"));
-                    i.putExtra("consignorname", getIntent().getStringExtra("consignorname"));
-                    i.putExtra("consignoraddress", getIntent().getStringExtra("consignoraddress"));
-                    i.putExtra("consignorphone", getIntent().getStringExtra("consignorphone"));
-                    i.putExtra("consignor gst", getIntent().getStringExtra("consignor gst"));
-                    i.putExtra("amount", amount);
-                    i.putExtra("ownerrisk", getIntent().getStringExtra("ownerrisk"));
-                    i.putExtra("doordelivery", getIntent().getStringExtra("doordelivery"));
-                    i.putExtra("drop", getIntent().getStringExtra("drop"));
-                    i.putExtra("consignee gst", getIntent().getStringExtra("consignee gst"));
-                    i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
-                    i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
-                    i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));
-                    startActivity(i);
-                } else if (rb2.isChecked()) {
-                    // write code for razorpay;
-                } else {
-                    Toast.makeText(Payment.this, "Please select a payment option", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(Payment.this, completed.class);
+                        i.putExtra("Order ID", orderid);
+                        i.putExtra("Current User", currentuser);
+                        i.putExtra("type of service", getIntent().getStringExtra("type of service"));
+                        i.putExtra("pickup", getIntent().getStringExtra("pickup"));
+                        i.putExtra("drop", getIntent().getStringExtra("drop"));
+                        i.putExtra("date", getIntent().getStringExtra("date"));
+                        i.putExtra("weight", getIntent().getStringExtra("weight"));
+                        i.putExtra("Material", getIntent().getStringExtra("Material"));
+                        i.putExtra("truck", getIntent().getStringExtra("truck"));
+                        i.putExtra("company", getIntent().getStringExtra("company"));
+                        i.putExtra("consignorname", getIntent().getStringExtra("consignorname"));
+                        i.putExtra("consignoraddress", getIntent().getStringExtra("consignoraddress"));
+                        i.putExtra("consignorphone", getIntent().getStringExtra("consignorphone"));
+                        i.putExtra("consignor gst", getIntent().getStringExtra("consignor gst"));
+                        i.putExtra("amount", amount);
+                        i.putExtra("ownerrisk", getIntent().getStringExtra("ownerrisk"));
+                        i.putExtra("doordelivery", getIntent().getStringExtra("doordelivery"));
+                        i.putExtra("drop", getIntent().getStringExtra("drop"));
+                        i.putExtra("consignee gst", getIntent().getStringExtra("consignee gst"));
+                        i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
+                        i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
+                        i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));
+                        startActivity(i);
+                        finish();
+                    } else if (rb2.isChecked()) {
+
+                        startPayment();
+                    } else {
+                        Toast.makeText(Payment.this, "Please select a payment option", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -169,6 +182,94 @@ public class Payment extends AppCompatActivity {
                 i.putExtra("consigneeaddress",getIntent().getStringExtra("consigneeaddress"));
                 i.putExtra("consigneephone",getIntent().getStringExtra("consigneephone"));
                 startActivity(i);*/
+    }
+
+    public void startPayment() {
+        /**
+         * Instantiate Checkout
+         */
+        Checkout checkout = new Checkout();
+
+        /**
+         * Set your logo here
+         */
+         checkout.setImage(R.mipmap.ic_launcher);
+
+        /**
+         * Reference to current activity
+         */
+        final Activity activity = Payment.this;
+
+        /**
+         * Pass your payment options to the Razorpay Checkout as a JSONObject
+         */
+        try {
+            JSONObject options = new JSONObject();
+
+            /**
+             * Merchant Name
+             * eg: ACME Corp || HasGeek etc.
+             */
+            options.put("name", "Merchant Name");
+
+            /**
+             * Description can be anything
+             * eg: Order #123123 - This order number is passed by you for your internal reference. This is not the `razorpay_order_id`.
+             *     Invoice Payment
+             *     etc.
+             */
+            //options.put("description", "Order #123456");
+            //options.put("order_id", "order_9A33XWu170gUtm");
+            options.put("currency", "INR");
+
+            /**
+             * Amount is always passed in currency subunits
+             * Eg: "500" = INR 5.00
+             */
+            options.put("amount", Float.parseFloat(amount)*100+"");
+
+            checkout.open(activity, options);
+        } catch(Exception e) {
+            Log.d("Test...", "Error in starting Razorpay Checkout", e);
+        }
+    }
+
+    @Override
+    public void onPaymentSuccess(String razorpayPaymentID) {
+
+        Intent i = new Intent(Payment.this, completed.class);
+        i.putExtra("Order ID", orderid);
+        i.putExtra("Current User", currentuser);
+        i.putExtra("type of service", getIntent().getStringExtra("type of service"));
+        i.putExtra("pickup", getIntent().getStringExtra("pickup"));
+        i.putExtra("drop", getIntent().getStringExtra("drop"));
+        i.putExtra("date", getIntent().getStringExtra("date"));
+        i.putExtra("weight", getIntent().getStringExtra("weight"));
+        i.putExtra("Material", getIntent().getStringExtra("Material"));
+        i.putExtra("truck", getIntent().getStringExtra("truck"));
+        i.putExtra("company", getIntent().getStringExtra("company"));
+        i.putExtra("consignorname", getIntent().getStringExtra("consignorname"));
+        i.putExtra("consignoraddress", getIntent().getStringExtra("consignoraddress"));
+        i.putExtra("consignorphone", getIntent().getStringExtra("consignorphone"));
+        i.putExtra("consignor gst", getIntent().getStringExtra("consignor gst"));
+        i.putExtra("amount", amount);
+        i.putExtra("ownerrisk", getIntent().getStringExtra("ownerrisk"));
+        i.putExtra("doordelivery", getIntent().getStringExtra("doordelivery"));
+        i.putExtra("drop", getIntent().getStringExtra("drop"));
+        i.putExtra("consignee gst", getIntent().getStringExtra("consignee gst"));
+        i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
+        i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
+        i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));
+        startActivity(i);
+        finish();
+    }
+
+    @Override
+    public void onPaymentError(int code, String response) {
+        /**
+         * Add your logic here for a failed payment response
+         */
+        Toast.makeText(Payment.this,response,Toast.LENGTH_LONG).show();
     }
 
     public static boolean isConnectionAvailable(Payment context) {

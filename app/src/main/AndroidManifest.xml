@@ -19,7 +19,10 @@
         android:largeHeap="true">
         <activity android:name=".AdminTempoo"></activity>
         <activity android:name=".AdminProvizo" />
-
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_mI83I18h3EgtCH"
+            />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />

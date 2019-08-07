@@ -78,7 +78,6 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
         selectunit.setVisibility(View.INVISIBLE);
         newrate.setVisibility(View.INVISIBLE);
         deleteCity = findViewById(R.id.delete_city);
-
         checkBox1 =findViewById(R.id.checkbox1);
         checkBox2=findViewById(R.id.checkbox2);
 

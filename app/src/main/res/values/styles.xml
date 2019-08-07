@@ -28,4 +28,10 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:textAlignment">center</item>
     </style>
+
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#D3D3D3</item>
+        <item name="colorControlActivated">#ffc922</item>
+    </style>
 </resources>

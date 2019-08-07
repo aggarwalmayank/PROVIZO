@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -20,39 +21,48 @@ import com.google.firebase.database.ValueEventListener;
 public class BookingsDetails extends AppCompatActivity {
     Bookings booking;
     RatingBar ratingbar;
+    EditText rateText;
     Button submit;
-    DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookings_details);
 
-        ratingbar=findViewById(R.id.ratingBar);
-        submit=findViewById(R.id.submit);
-         booking = (Bookings) getIntent().getSerializableExtra("booking");
-         ratingbar.setRating(booking.getRating());
+        ratingbar = findViewById(R.id.ratingBar);
+        submit = findViewById(R.id.submit);
+        booking = (Bookings) getIntent().getSerializableExtra("booking");
+        ratingbar.setRating(booking.getStar());
 
-         submit.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TruckNooking").child(booking.getKey())
-                         .addListenerForSingleValueEvent(new ValueEventListener() {
-                             @Override
-                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                 mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings")
-                                         .child("TruckBooking").child(booking.getKey()).child("Rating").setValue(ratingbar.getRating());
-                                 addtoRatings(ratingbar.getRating());
+        rateText = findViewById(R.id.ratetext);
+        rateText.setText(booking.getReview());
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rateText.getText().toString().equalsIgnoreCase("")) {
+                    rateText.setError("Can't be empty");
+                } else {
+                    mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings").child("TruckNooking").child(booking.getKey())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings")
+                                            .child("TruckBooking").child(booking.getKey()).child("star").setValue(ratingbar.getRating());
+                                    mref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Bookings")
+                                            .child("TruckBooking").child(booking.getKey()).child("Review").setValue(rateText.getText().toString());
+                                    addtoRatings(ratingbar.getRating());
 
-                             }
+                                }
 
-                             @Override
-                             public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                             }
-                         });
-
-             }
-         });
+                                }
+                            });
+                }
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.go_back);
@@ -64,8 +74,8 @@ public class BookingsDetails extends AppCompatActivity {
         });
 
         TextView id = findViewById(R.id.order_id);
-        TextView mode=findViewById(R.id.mode);
-        TextView risk=findViewById(R.id.risk);
+        TextView mode = findViewById(R.id.mode);
+        TextView risk = findViewById(R.id.risk);
         TextView comp = findViewById(R.id.truck_comp);
         TextView pickup = findViewById(R.id.pick_loc);
         TextView drop = findViewById(R.id.drop_loc);
@@ -98,21 +108,23 @@ public class BookingsDetails extends AppCompatActivity {
         consignorAddress.setText("Address: " + booking.getConsignor().get("Address"));
         consignorGST.setText("GST: " + booking.getConsignor().get("GST"));
         consignorPhone.setText("Phone Number: " + booking.getConsignor().get("PhoneNumber"));
-        serviceType.setText("Service Type: "+booking.getServiceTruckDetails().get("ServiceType"));
-        description.setText("Description: "+booking.getServiceTruckDetails().get("MaterialDescription"));
-        weight.setText("Weight: "+booking.getServiceTruckDetails().get("Weight"));
-        truckType.setText("Truck Type: "+booking.getServiceTruckDetails().get("TruckType"));
-        mode.setText("Delivery Mode: "+booking.getDeliveryMode());
-        risk.setText("Goods Risk: "+booking.getGoodsRisk());
+        serviceType.setText("Service Type: " + booking.getServiceTruckDetails().get("ServiceType"));
+        description.setText("Description: " + booking.getServiceTruckDetails().get("MaterialDescription"));
+        weight.setText("Weight: " + booking.getServiceTruckDetails().get("Weight"));
+        truckType.setText("Truck Type: " + booking.getServiceTruckDetails().get("TruckType"));
+        mode.setText("Delivery Mode: " + booking.getDeliveryMode());
+        risk.setText("Goods Risk: " + booking.getGoodsRisk());
     }
-    public void addtoRatings(final float a)
-    {
-        mref.child("Ratings").child(booking.getTruckCompany().replaceAll(" ","")).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+
+    public void addtoRatings(final float a) {
+        mref.child("Ratings").child(booking.getTruckCompany().replaceAll(" ", "")).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        mref.child("Ratings").child(booking.getTruckCompany().replaceAll(" ","")).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(a);
+                        mref.child("Ratings").child(booking.getTruckCompany().replaceAll(" ", "")).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("star").setValue(a);
+                        mref.child("Ratings").child(booking.getTruckCompany().replaceAll(" ", "")).child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("Review").setValue(rateText.getText().toString());
                     }
 
                     @Override

@@ -5,12 +5,13 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,16 +22,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CompanyInfo extends AppCompatActivity {
-    TextView owner, company, address, experience, amount, trucks, rating;
+    TextView owner, company, address, experience, amount, trucks;
     Button next;
     DatabaseReference mref;
     String cname, weight, trucktype;
+    ReviewAdapter adapter;
+    RecyclerView rtext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_info);
-
+        rtext = findViewById(R.id.reviews);
         owner = findViewById(R.id.owner);
         company = findViewById(R.id.name);
         address = findViewById(R.id.address);
@@ -38,12 +41,15 @@ public class CompanyInfo extends AppCompatActivity {
         amount = findViewById(R.id.amount);
         trucks = findViewById(R.id.nooftruck);
         next = findViewById(R.id.next);
-        rating = findViewById(R.id.rating);
         mref = FirebaseDatabase.getInstance().getReference();
         weight = getIntent().getStringExtra("weight");
-
         cname = getIntent().getStringExtra("company");
         company.setText(cname);
+        rtext.setHasFixedSize(true);
+        rtext.setLayoutManager(new LinearLayoutManager(CompanyInfo.this));
+        rtext.addItemDecoration(new DividerItemDecoration(CompanyInfo.this, LinearLayoutManager.VERTICAL));
+
+
         trucktype = getIntent().getStringExtra("exacttruckwt");
         double wt = Double.parseDouble(getIntent().getStringExtra("weightnounit"));
         wt = wt * 0.1;
@@ -83,24 +89,13 @@ public class CompanyInfo extends AppCompatActivity {
         mref.child("Ratings").child(cname.replaceAll(" ", "")).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    final ArrayList<String> arrayList = new ArrayList<>();
-                    arrayList.clear();
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        //Log.d("mayank", String.valueOf(ds.getValue()));
-                        arrayList.add(String.valueOf(ds.getValue()));
-                    }
-                if (!arrayList.isEmpty()) {
-                    double sum = 0, average = 0, count = arrayList.size();
-                    for (int i = 0; i < arrayList.size(); i++) {
-
-                        //Log.d("mayanksum",String.valueOf(sum));
-                        sum = sum + Double.parseDouble(arrayList.get(i));
-                    }
-                    average = sum / count;
-                    //Toast.makeText(this, String.valueOf(average), Toast.LENGTH_SHORT).show();
-                    rating.setText("Rating: " + String.valueOf(average));
+                final ArrayList<Rating> ratings = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Rating rate = new Rating(ds.getValue(Rating.class));
+                    ratings.add(rate);
                 }
+                adapter = new ReviewAdapter(ratings, CompanyInfo.this);
+                rtext.setAdapter(adapter);
             }
 
             @Override

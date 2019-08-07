@@ -149,7 +149,7 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
                 mref.child("partners").child(id).child("operations").child("companyName").setValue(finalCorrectname);
                 mref.child("partners").child(id).child("operations").child("truckStatus").setValue("Available");
                 mref.child("partners").child(id).child("operations").child("locationMap").child(type)
-                        .child(origin).child(dest).setValue(price);
+                        .child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
 
             }
 

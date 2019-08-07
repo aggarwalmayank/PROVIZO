@@ -75,6 +75,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:textColor="#FFF"
+            android:textAllCaps="false"
             android:textColorHint="#FFF"
             android:backgroundTint="#FFF"
             android:textCursorDrawable="@drawable/cursor_color"/>
@@ -89,6 +90,7 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLines="1"
+            android:textAllCaps="false"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:textColor="#FFF"

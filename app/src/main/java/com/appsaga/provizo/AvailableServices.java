@@ -45,6 +45,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
+    String truckType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
         serviceType = getIntent().getStringExtra("type of service");
         serviceView = findViewById(R.id.service_list);
         services = new ArrayList<>();
+        truckType=getIntent().getStringExtra("truck");
 
         orderid = getIntent().getStringExtra("Order ID");
         currentuser = getIntent().getStringExtra("Current User");
@@ -137,7 +139,23 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
             }
         });
         final ProgressDialog progressDialog = ProgressDialog.show(AvailableServices.this, "Loading", "Please Wait...", true);
-        databaseReference.child("typesOfServices").child(serviceType).addValueEventListener(new ValueEventListener() {
+
+        DatabaseReference myRef;
+
+        if(truckType.toLowerCase().contains("closed"))
+        {
+            int firebaseWeight = (int)(Float.valueOf(truckType.replace("MT Closed",""))*10);
+
+            myRef= databaseReference.child("typesOfServices").child(serviceType).child("Closed").child(firebaseWeight+"");
+        }
+        else
+        {
+            int firebaseWeight = (int)(Float.valueOf(truckType.replace("MT Open",""))*10);
+
+            myRef= databaseReference.child("typesOfServices").child(serviceType).child("Open").child(firebaseWeight+"");
+        }
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

@@ -77,11 +77,10 @@
         android:layout_above="@+id/next"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/details_text_view"
@@ -147,19 +146,18 @@
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
 
-
-
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
                 android:id="@+id/reviews"
                 android:background="@drawable/rectback"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details"/>
+        </RelativeLayout>
     </ScrollView>
 
     <Button

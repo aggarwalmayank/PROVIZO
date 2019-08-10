@@ -32,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AvailableServices extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener , MyBookingDialog.DialogListener {
+public class AvailableServices extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener, MyBookingDialog.DialogListener {
 
     String serviceType;
     DatabaseReference databaseReference;
@@ -57,7 +57,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
         serviceType = getIntent().getStringExtra("type of service");
         serviceView = findViewById(R.id.service_list);
         services = new ArrayList<>();
-        truckType=getIntent().getStringExtra("truck");
+        truckType = getIntent().getStringExtra("truck");
 
         orderid = getIntent().getStringExtra("Order ID");
         currentuser = getIntent().getStringExtra("Current User");
@@ -142,17 +142,14 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
 
         DatabaseReference myRef;
 
-        if(truckType.toLowerCase().contains("closed"))
-        {
-            int firebaseWeight = (int)(Float.valueOf(truckType.replace("MT Closed",""))*10);
+        if (truckType.toLowerCase().contains("closed")) {
+            int firebaseWeight = (int) (Float.valueOf(truckType.replace("MT Closed", "")) * 10);
 
-            myRef= databaseReference.child("typesOfServices").child(serviceType).child("Closed").child(firebaseWeight+"");
-        }
-        else
-        {
-            int firebaseWeight = (int)(Float.valueOf(truckType.replace("MT Open",""))*10);
+            myRef = databaseReference.child("typesOfServices").child(serviceType).child("Closed").child(firebaseWeight + "");
+        } else {
+            int firebaseWeight = (int) (Float.valueOf(truckType.replace("MT Open", "")) * 10);
 
-            myRef= databaseReference.child("typesOfServices").child(serviceType).child("Open").child(firebaseWeight+"");
+            myRef = databaseReference.child("typesOfServices").child(serviceType).child("Open").child(firebaseWeight + "");
         }
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -177,26 +174,32 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
 
                                 companyName = dataSnapshot.child(s).child("operations").child("companyName").getValue(String.class);
 
+                                String closedoropen = "";
+                                if (truckType.toLowerCase().contains("closed")) {
+                                    closedoropen = "closed";
+                                }
+                                else
+                                    closedoropen="open";
                                 HashMap<String, Long> locationMap = (HashMap<String, Long>) dataSnapshot.
-                                        child(s).child("operations").child("locationMap").child(serviceType.replaceAll("\\s+", "")).child(getIntent()
+                                        child(s).child("operations").child("locationMap").child(serviceType.replaceAll("\\s+", "")).child(closedoropen).child(getIntent()
                                         .getStringExtra("pickup")).getValue();
 
                                 String priceVal = "0";
 
                                 if (locationMap != null) {
                                     for (HashMap.Entry<String, Long> entry : locationMap.entrySet()) {
-                                            if (entry.getKey().equalsIgnoreCase(getIntent().getStringExtra("drop"))) {
-                                                priceVal = entry.getValue() + "";
-                                                break;
-                                            }
+                                        if (entry.getKey().equalsIgnoreCase(getIntent().getStringExtra("drop"))) {
+                                            priceVal = entry.getValue() + "";
+                                            break;
+                                        }
                                     }
                                 }
 
 
                                 price = "" + Double.parseDouble(getIntent().getStringExtra("weightnounit")) * Double.parseDouble(priceVal);
-                              if(!price.equals("0.0"))
-                              {
-                                  services.add(new Services(companyName, price));}
+                                if (!price.equals("0.0")) {
+                                    services.add(new Services(companyName, price));
+                                }
                             }
                             if (!services.isEmpty()) {
                                 nobooking.setVisibility(View.INVISIBLE);
@@ -249,7 +252,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
                 i.putExtra("truck", getIntent().getStringExtra("truck"));
                 i.putExtra("weightnounit", getIntent().getStringExtra("weightnounit"));
                 i.putExtra("company", company.getText());
-                i.putExtra("exacttruckwt",getIntent().getStringExtra("exacttruckwt"));
+                i.putExtra("exacttruckwt", getIntent().getStringExtra("exacttruckwt"));
                 i.putExtra("amount", price.getText().toString());
                 startActivity(i);
 
@@ -268,7 +271,7 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
         if (a.equals("partner")) {
             PartnerDialog dialog = new PartnerDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
-        }else if(a.equals("Booking")){
+        } else if (a.equals("Booking")) {
             MyBookingDialog dialog = new MyBookingDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
         } else {

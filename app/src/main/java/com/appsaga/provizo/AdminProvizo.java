@@ -130,7 +130,7 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
 
     @Override
     public void addpartner(final String id, String name, final String exp, final String add, final String owner, final Boolean part, Boolean full
-                            , final String origin, final String dest, final long price, final String type) {
+                            , final String origin, final String dest, final long price, final String type,Boolean Close,Boolean Open) {
         String[] splitted = name.split(" ");
         String namenospace = "",correctname="";
         for (String a : splitted) {
@@ -200,13 +200,21 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
             });
 
         }
-        if (full) {
+        if(part&&Open)
+        {
 
+        }
+        if(part&&Close)
+        {
+
+        }
+        if(full&&Open)
+        {
             final String finalNamenospace2 = namenospace;
             mref.child("typesOfServices").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mref.child("typesOfServices").child("Full Truck Load").child(finalNamenospace2).setValue(id);
+                    mref.child("typesOfServices").child("Full Truck Load").child("Open").child(finalNamenospace2).setValue(id);
                 }
 
                 @Override
@@ -214,6 +222,14 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
 
                 }
             });
+        }
+        if(full&&Close)
+        {
+
+        }
+        if (full) {
+
+
         }
     }
 }

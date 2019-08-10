@@ -140,34 +140,11 @@
                 android:layout_marginLeft="5dp"
                 android:text="Full Truck Load" />
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Check Truck Types"
-            android:textColor="#000" />
-
-        <LinearLayout
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Open " />
-
-            <CheckBox
-                android:id="@+id/cb4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Closed " />
-        </LinearLayout>
-
+            android:text="Select Trucks"
+            android:id="@+id/select"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -212,24 +189,39 @@
             android:id="@+id/rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/rb1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="FullTruckLoad" />
+                android:text="FullTruckLoad OPEN" />
 
             <RadioButton
                 android:id="@+id/rb2"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="PartLoad" />
-        </RadioGroup>
+                android:text="PartLoad OPEN" />
+            <RadioButton
+                android:id="@+id/rb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="FullTruckLoad CLOSED" />
 
+            <RadioButton
+                android:id="@+id/rb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="PartLoad CLOSED" />
+        </RadioGroup>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/submit"/>
     </LinearLayout>
 </ScrollView>

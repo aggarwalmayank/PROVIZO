@@ -3,6 +3,7 @@ package com.appsaga.provizo;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import static android.R.layout.simple_spinner_item;
 public class AdminAddPartnerDialog extends DialogFragment {
     private EditText address,name,id,experience,owner,origin,dest,price;
     private DialogListener listener;
-    private CheckBox partload,fulltruckload;
+    private CheckBox partload,fulltruckload,open,close;
     RadioGroup rg;
     RadioButton rb1;
 
@@ -60,12 +61,17 @@ public class AdminAddPartnerDialog extends DialogFragment {
                         RadioButton rb = (RadioButton) view.findViewById(selectedId);
                         String type=rb.getText().toString();
                         long PRICE= Long.parseLong(price.getText().toString());
-                        Boolean Part=false,fullload=false;
+                        Boolean Part=false,fullload=false,Open=false,Close=false;
                         if(partload.isChecked())
                             Part=true;
                         if(fulltruckload.isChecked())
                             fullload=true;
-                        listener.addpartner(ID,NAME,EXP,Add,OWNER,Part,fullload,ORIGIN,DEST,PRICE,type);
+
+                        if(open.isChecked())
+                            Open =true;
+                        if(close.isChecked())
+                            Close=true;
+                        listener.addpartner(ID,NAME,EXP,Add,OWNER,Part,fullload,ORIGIN,DEST,PRICE,type,Close,Open);
                     }
                 });
 
@@ -82,6 +88,8 @@ public class AdminAddPartnerDialog extends DialogFragment {
         rb1=view.findViewById(R.id.rb1);
         rb1.setChecked(true);
         fulltruckload=view.findViewById(R.id.cb2);
+        open=view.findViewById(R.id.cb3);
+        close=view.findViewById(R.id.cb4);
         return builder.create();
     }
 
@@ -98,6 +106,7 @@ public class AdminAddPartnerDialog extends DialogFragment {
     }
 
     public interface DialogListener {
-        void addpartner(String id,String name,String exp,String add,String owner,Boolean part,Boolean full,String origin,String dest,long price,String type);
+        void addpartner(String id,String name,String exp,String add,String owner,Boolean part,Boolean full,String origin,String dest,long price,String type
+        ,Boolean Close,Boolean Open);
     }
 }

@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDialog.DialogListener {
+public class AdminProvizo extends AppCompatActivity {
     Button addpartner, viewbook,addlr,add;
     LinearLayout lout;
     EditText email;
@@ -95,7 +95,8 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
         addpartner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+//                openDialog();
+                startActivity(new Intent(AdminProvizo.this,AddPartnerToDB.class));
             }
         });
     }
@@ -127,6 +128,7 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
         AdminAddPartnerDialog exampleDialog = new AdminAddPartnerDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");
     }
+/*
 
     @Override
     public void addpartner(final String id, String name, final String exp, final String add, final String owner, final Boolean part, Boolean full
@@ -199,15 +201,7 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
                 }
             });
 
-        }
-        if(part&&Open)
-        {
 
-        }
-        if(part&&Close)
-        {
-
-        }
         if(full&&Open)
         {
             final String finalNamenospace2 = namenospace;
@@ -222,14 +216,7 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
 
                 }
             });
-        }
-        if(full&&Close)
-        {
 
-        }
-        if (full) {
-
-
-        }
     }
+*/
 }

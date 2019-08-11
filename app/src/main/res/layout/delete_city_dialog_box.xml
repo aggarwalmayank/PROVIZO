@@ -11,29 +11,52 @@
 
         <CheckBox
             android:id="@+id/delete_full_truck"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Full Truck Load"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:layout_marginStart="10dp"/>
+            android:text="Full Truck Load" />
 
         <CheckBox
             android:id="@+id/delete_part_load"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Part Load"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:layout_marginEnd="10dp"/>
+            android:text="Part Load" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/radio_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_layout">
+
+        <CheckBox
+            android:id="@+id/closed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="Closed" />
+
+        <CheckBox
+            android:id="@+id/open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="Open" />
     </LinearLayout>
 
     <ListView
-        android:layout_below="@id/radio_layout"
         android:id="@+id/delete_city_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/dialog_layout"
+        android:layout_below="@id/radio_layout_2"
         android:divider="@android:color/transparent"
-        android:dividerHeight="2dp"
-        android:layout_above="@id/dialog_layout">
+        android:dividerHeight="2dp">
 
     </ListView>
 
@@ -41,11 +64,11 @@
         android:id="@+id/dialog_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <Button
             android:id="@+id/delete"
@@ -56,7 +79,7 @@
             android:layout_weight="1"
             android:background="@drawable/ripple_effect_2"
             android:text="Delete"
-            android:textColor="#FFF"/>
+            android:textColor="#FFF" />
 
         <Button
             android:id="@+id/done"
@@ -66,7 +89,7 @@
             android:layout_marginEnd="15dp"
             android:layout_weight="1"
             android:background="@drawable/ripple_effect"
-            android:text="Done"/>
+            android:text="Done" />
 
     </LinearLayout>
 </RelativeLayout>

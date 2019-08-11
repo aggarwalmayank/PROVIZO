@@ -54,6 +54,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
     Dialog customDialog;
     ListView deleteListView;
     static LinearLayout l;
+    CheckBox open,closed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +96,14 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
         done = customDialog.findViewById(R.id.done);
         delete = customDialog.findViewById(R.id.delete);
 
+        open=customDialog.findViewById(R.id.open);
+        closed=customDialog.findViewById(R.id.closed);
+
         deleteFullTruck = customDialog.findViewById(R.id.delete_full_truck);
         deletePartLoad=customDialog.findViewById(R.id.delete_part_load);
 
         deleteFullTruck.setChecked(true);
+        closed.setChecked(true);
 
         deleteListView = customDialog.findViewById(R.id.delete_city_list);
 
@@ -130,7 +135,11 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                 {
                     deletePartLoad.setChecked(true);
                 }
-                getCitiesToDelete();
+
+                if(open.isChecked()||closed.isChecked())
+                {
+                    getCitiesToDelete();
+                }
             }
         });
 
@@ -145,6 +154,42 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                 else
                 {
                     deleteFullTruck.setChecked(true);
+                }
+
+                if(open.isChecked()||closed.isChecked())
+                {
+                    getCitiesToDelete();
+                }
+            }
+        });
+
+        open.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    closed.setChecked(false);
+                }
+                else
+                {
+                    closed.setChecked(true);
+                }
+                getCitiesToDelete();
+            }
+        });
+
+        closed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    open.setChecked(false);
+                }
+                else
+                {
+                    open.setChecked(true);
                 }
                 getCitiesToDelete();
             }
@@ -213,12 +258,12 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                 if(checkBox1.isChecked())
                 {
-                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,HashMap<String,Long>>>> entry : partnerValue.getLocationMap().entrySet()) {
 
                         Log.d("Testing...",entry.getKey());
                         if(entry.getKey().equalsIgnoreCase("FullTruckLoad"))
                         {
-                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
                                 if(!source.contains(entry1.getKey()))
                                 {
@@ -230,11 +275,11 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                 }
                 else if(checkBox2.isChecked())
                 {
-                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,HashMap<String,Long>>>> entry : partnerValue.getLocationMap().entrySet()) {
 
                         if(entry.getKey().equalsIgnoreCase("PartLoad"))
                         {
-                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
                                 if(!source.contains(entry1.getKey()))
                                 {
@@ -260,8 +305,17 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                         final HashMap<String, HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
 
                         if(checkBox1.isChecked()) {
-                            source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad");
 
+                            if(closed.isChecked())
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("closed");
+                            }
+                            else
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("open");
+                            }
+
+                            if(source_dest[0]!=null)
                             for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
 
                                 if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
@@ -279,9 +333,18 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                             }
                         }
                         else if(checkBox2.isChecked()) {
-                            source_dest[0] = partnerValue.getLocationMap().get("PartLoad");
+
+                            if(closed.isChecked())
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("PartLoad").get("closed");
+                            }
+                            else
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("PartLoad").get("open");
+                            }
                             dest.clear();
 
+                            if(source_dest[0]!=null)
                             for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
 
                                 if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
@@ -561,12 +624,12 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                 if(checkBox1.isChecked())
                 {
-                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,HashMap<String,Long>>>> entry : partnerValue.getLocationMap().entrySet()) {
 
                         Log.d("Testing...",entry.getKey());
                         if(entry.getKey().equalsIgnoreCase("FullTruckLoad"))
                         {
-                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
                                 if(!source.contains(entry1.getKey()))
                                 {
@@ -578,11 +641,11 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                 }
                 else if(checkBox2.isChecked())
                 {
-                    for (HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry : partnerValue.getLocationMap().entrySet()) {
+                    for (HashMap.Entry<String,HashMap<String,HashMap<String,HashMap<String,Long>>>> entry : partnerValue.getLocationMap().entrySet()) {
 
                         if(entry.getKey().equalsIgnoreCase("PartLoad"))
                         {
-                            for(HashMap.Entry<String,HashMap<String,Long>> entry1 : entry.getValue().entrySet())
+                            for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
                                 if(!source.contains(entry1.getKey()))
                                 {
@@ -608,7 +671,15 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                         final HashMap<String, HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
 
                         if(checkBox1.isChecked()) {
-                            source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad");
+
+                            if(closed.isChecked())
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("closed");
+                            }
+                            else
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("open");
+                            }
 
                             for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
 
@@ -627,7 +698,16 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                             }
                         }
                         else if(checkBox2.isChecked()) {
-                            source_dest[0] = partnerValue.getLocationMap().get("PartLoad");
+
+                            if(closed.isChecked())
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("PartLoad").get("closed");
+                            }
+                            else
+                            {
+                                source_dest[0] = partnerValue.getLocationMap().get("PartLoad").get("open");
+                            }
+
                             dest.clear();
 
                             for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
@@ -708,7 +788,18 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
     {
         if(deleteFullTruck.isChecked())
         {
-            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").addListenerForSingleValueEvent(new ValueEventListener() {
+            DatabaseReference myRef;
+
+            if(closed.isChecked())
+            {
+                myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").child("closed");
+            }
+            else
+            {
+                myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").child("open");
+            }
+
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
@@ -742,8 +833,17 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                                     TextView source = view.findViewById(R.id.source);
 
                                     if (checkBox.isChecked()) {
-                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
-                                                child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+
+                                        if(closed.isChecked())
+                                        {
+                                            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                                    child("closed").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                        }
+                                        else
+                                        {
+                                            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                                    child("open").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                        }
                                     }
                                 }
 
@@ -767,7 +867,18 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
         }
         else if(deletePartLoad.isChecked())
         {
-            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").addListenerForSingleValueEvent(new ValueEventListener() {
+            DatabaseReference myRef;
+
+            if(closed.isChecked())
+            {
+                myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").child("closed");
+            }
+            else
+            {
+                myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").child("open");
+            }
+
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -801,8 +912,17 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                                 TextView source = view.findViewById(R.id.source);
 
                                 if (checkBox.isChecked()) {
-                                    databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
-                                            child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+
+                                    if(closed.isChecked())
+                                    {
+                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
+                                                child("closed").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                    }
+                                    else
+                                    {
+                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
+                                                child("open").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                    }
                                 }
                             }
 

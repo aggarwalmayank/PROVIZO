@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.abdeveloper.library.MultiSelectDialog;
 import com.abdeveloper.library.MultiSelectModel;
@@ -30,10 +31,10 @@ public class AddPartnerToDB extends AppCompatActivity {
     ArrayList<String> fullcloselist = new ArrayList<>();
     ArrayList<String> partopenlist = new ArrayList<>();
     ArrayList<String> partcloselist = new ArrayList<>();
-    private EditText address, name, id, experience, owner, origin, dest, price;
-    private CheckBox partload, fulltruckload;
+    private EditText address, name, id, experience, owner, origin, dest, price, email;
+
     RadioGroup rg;
-    RadioButton rb1;
+    RadioButton rb1, rb;
     DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -41,14 +42,13 @@ public class AddPartnerToDB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_partner_to_db);
 
+        email = findViewById(R.id.owneremail);
         selecttruck = findViewById(R.id.select);
         id = findViewById(R.id.partnerid);
         name = findViewById(R.id.companyname);
         experience = findViewById(R.id.Experience);
         address = findViewById(R.id.address);
         owner = findViewById(R.id.owner);
-        partload = findViewById(R.id.cb1);
-        fulltruckload = findViewById(R.id.cb2);
         origin = findViewById(R.id.origin);
         dest = findViewById(R.id.dest);
         price = findViewById(R.id.price);
@@ -130,28 +130,27 @@ public class AddPartnerToDB extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (id.getText().toString().equalsIgnoreCase("") && name.getText().toString().equalsIgnoreCase("")
+                if (email.getText().toString().equalsIgnoreCase("") && id.getText().toString().equalsIgnoreCase("") && name.getText().toString().equalsIgnoreCase("")
                         && experience.getText().toString().equalsIgnoreCase("") && address.getText().toString().equalsIgnoreCase("") &&
                         owner.getText().toString().equalsIgnoreCase("") && origin.getText().toString().equalsIgnoreCase("") &&
                         dest.getText().toString().equalsIgnoreCase("") && price.getText().toString().equalsIgnoreCase("")) {
                     alertbox("Incomplete Details");
                 } else {
-                    mref.child("typeOfServices").child("Full Truck Load").child("Closed").addListenerForSingleValueEvent(new ValueEventListener() {
+                    mref.child("typesOfServices").child("Full Truck Load").child("Closed").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (int i = 0; i < fullcloselist.size(); i++) {
-                                String value=fullcloselist.get(i);
-                                String finalvalue="";
-                                int j=0;
-                                for( j=0;j<value.length();j++)
-                                {
-                                    if(value.charAt(j)==' '){
+                                String value = fullcloselist.get(i);
+                                String finalvalue = "";
+                                int j;
+                                for (j = 0; j < value.length(); j++) {
+                                    if (value.charAt(j) == ' ') {
                                         break;
                                     }
                                 }
-                                finalvalue=value.substring(0,j);
-                                finalvalue=String.valueOf(Double.parseDouble(finalvalue)*10);
-                                mref.child("typeOfServices").child("Full Truck Load").child("Closed").child(finalvalue).push().setValue(id.getText().toString());
+                                finalvalue = value.substring(0, j);
+                                finalvalue = String.valueOf(Integer.parseInt(finalvalue) * 10);
+                                mref.child("typesOfServices").child("Full Truck Load").child("Closed").child(finalvalue).push().setValue(id.getText().toString());
                             }
                         }
 
@@ -160,22 +159,21 @@ public class AddPartnerToDB extends AppCompatActivity {
 
                         }
                     });
-                    mref.child("typeOfServices").child("Full Truck Load").child("Open").addListenerForSingleValueEvent(new ValueEventListener() {
+                    mref.child("typesOfServices").child("Full Truck Load").child("Open").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (int i = 0; i < fullopenlist.size(); i++) {
-                                String value=fullopenlist.get(i);
-                                String finalvalue="";
-                                int j=0;
-                                for( j=0;j<value.length();j++)
-                                {
-                                    if(value.charAt(j)==' '){
+                                String value = fullopenlist.get(i);
+                                String finalvalue = "";
+                                int j = 0;
+                                for (j = 0; j < value.length(); j++) {
+                                    if (value.charAt(j) == ' ') {
                                         break;
                                     }
                                 }
-                                finalvalue=value.substring(0,j);
-                                finalvalue=String.valueOf(Double.parseDouble(finalvalue)*10);
-                                mref.child("typeOfServices").child("Full Truck Load").child("Open").child(finalvalue).push().setValue(id.getText().toString());
+                                finalvalue = value.substring(0, j);
+                                finalvalue = String.valueOf(Integer.parseInt(finalvalue) * 10);
+                                mref.child("typesOfServices").child("Full Truck Load").child("Open").child(finalvalue).push().setValue(id.getText().toString());
                             }
                         }
 
@@ -184,22 +182,21 @@ public class AddPartnerToDB extends AppCompatActivity {
 
                         }
                     });
-                    mref.child("typeOfServices").child("Part Load").child("Closed").addListenerForSingleValueEvent(new ValueEventListener() {
+                    mref.child("typesOfServices").child("Part Load").child("Closed").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (int i = 0; i < partcloselist.size(); i++) {
-                                String value=partcloselist.get(i);
-                                String finalvalue="";
-                                int j=0;
-                                for( j=0;j<value.length();j++)
-                                {
-                                    if(value.charAt(j)==' '){
+                                String value = partcloselist.get(i);
+                                String finalvalue = "";
+                                int j = 0;
+                                for (j = 0; j < value.length(); j++) {
+                                    if (value.charAt(j) == ' ') {
                                         break;
                                     }
                                 }
-                                finalvalue=value.substring(0,j);
-                                finalvalue=String.valueOf(Double.parseDouble(finalvalue)*10);
-                                mref.child("typeOfServices").child("Part Load").child("Closed").child(finalvalue).push().setValue(id.getText().toString());
+                                finalvalue = value.substring(0, j);
+                                finalvalue = String.valueOf(Integer.parseInt(finalvalue) * 10);
+                                mref.child("typesOfServices").child("Part Load").child("Closed").child(finalvalue).push().setValue(id.getText().toString());
                             }
                         }
 
@@ -208,22 +205,21 @@ public class AddPartnerToDB extends AppCompatActivity {
 
                         }
                     });
-                    mref.child("typeOfServices").child("Part Load").child("Open").addListenerForSingleValueEvent(new ValueEventListener() {
+                    mref.child("typesOfServices").child("Part Load").child("Open").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (int i = 0; i < partopenlist.size(); i++) {
-                                String value=partopenlist.get(i);
-                                String finalvalue="";
-                                int j=0;
-                                for( j=0;j<value.length();j++)
-                                {
-                                    if(value.charAt(j)==' '){
+                                String value = partopenlist.get(i);
+                                String finalvalue = "";
+                                int j = 0;
+                                for (j = 0; j < value.length(); j++) {
+                                    if (value.charAt(j) == ' ') {
                                         break;
                                     }
                                 }
-                                finalvalue=value.substring(0,j);
-                                finalvalue=String.valueOf(Double.parseDouble(finalvalue)*10);
-                                mref.child("typeOfServices").child("Part Load").child("Open").child(finalvalue).push().setValue(id.getText().toString());
+                                finalvalue = value.substring(0, j);
+                                finalvalue = String.valueOf(Integer.parseInt(finalvalue) * 10);
+                                mref.child("typesOfServices").child("Part Load").child("Open").child(finalvalue).push().setValue(id.getText().toString());
                             }
                         }
 
@@ -232,9 +228,135 @@ public class AddPartnerToDB extends AppCompatActivity {
 
                         }
                     });
+
+                    String ID = id.getText().toString();
+                    String CNAME = name.getText().toString();
+                    String EXP = experience.getText().toString();
+                    String OWNER = owner.getText().toString();
+                    String EMAIL = email.getText().toString();
+                    String ADD = address.getText().toString();
+                    String ORIGIN = origin.getText().toString().toLowerCase();
+                    String DEST = dest.getText().toString().toLowerCase();
+                    long PRICE = Long.parseLong(price.getText().toString());
+                    int selectedId = rg.getCheckedRadioButtonId();
+                    rb = (RadioButton) findViewById(selectedId);
+                    ADDTODB(ID, CNAME, EXP, OWNER, EMAIL, ADD, ORIGIN, DEST, PRICE, rb.getText().toString());
+
+
                 }
+                Toast.makeText(AddPartnerToDB.this, "Added", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
+
+    }
+
+    public void ADDTODB(final String id, String cname, final String exp, final String owner, final String email, final String address, final String origin, final String dest, final long price, String type) {
+        String[] splitted = cname.split(" ");
+        String namenospace = "", correctname = "";
+        for (String a : splitted) {
+            namenospace += a.substring(0, 1).toUpperCase() + a.substring(1).toLowerCase();
+        }
+        for (String a : splitted) {
+            correctname += a.substring(0, 1).toUpperCase() + a.substring(1).toLowerCase();
+            correctname = correctname + " ";
+        }
+        final String finalNamenospace = namenospace;
+        mref.child("Company").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mref.child("Company").child(finalNamenospace).child("Address").setValue(address);
+                mref.child("Company").child(finalNamenospace).child("Experience").setValue(exp);
+                mref.child("Company").child(finalNamenospace).child("Owner").setValue(owner);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        final String finalCorrectname = correctname;
+        mref.child("PartnerID").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mref.child("PartnerID").child(finalCorrectname).setValue(id);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        if (type.equals("FullTruckLoad OPEN")) {
+            final String finalCorrectname1 = correctname;
+            mref.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mref.child("partners").child(id).child("operations").child("Email").setValue(email);
+                    mref.child("partners").child(id).child("operations").child("companyName").setValue(finalCorrectname1);
+                    mref.child("partners").child(id).child("operations").child("truckStatus").setValue("Available");
+                    mref.child("partners").child(id).child("operations").child("locationMap").child("FullTruckLoad").child("open")
+                            .child(origin).child(dest).setValue(price);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        } else if (type.equals("FullTruckLoad CLOSED")) {
+            final String finalCorrectname1 = correctname;
+            mref.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mref.child("partners").child(id).child("operations").child("companyName").setValue(finalCorrectname1);
+                    mref.child("partners").child(id).child("operations").child("truckStatus").setValue("Available");
+                    mref.child("partners").child(id).child("operations").child("Email").setValue(email);
+                    mref.child("partners").child(id).child("operations").child("locationMap").child("FullTruckLoad").child("closed")
+                            .child(origin).child(dest).setValue(price);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        } else if (type.equals("PartLoad CLOSED")) {
+            final String finalCorrectname1 = correctname;
+            mref.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mref.child("partners").child(id).child("operations").child("Email").setValue(email);
+                    mref.child("partners").child(id).child("operations").child("companyName").setValue(finalCorrectname1);
+                    mref.child("partners").child(id).child("operations").child("truckStatus").setValue("Available");
+                    mref.child("partners").child(id).child("operations").child("locationMap").child("PartLoad").child("closed")
+                            .child(origin).child(dest).setValue(price);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        } else if (type.equals("PartLoad OPEN")) {
+            final String finalCorrectname1 = correctname;
+            mref.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mref.child("partners").child(id).child("operations").child("Email").setValue(email);
+                    mref.child("partners").child(id).child("operations").child("companyName").setValue(finalCorrectname1);
+                    mref.child("partners").child(id).child("operations").child("truckStatus").setValue("Available");
+                    mref.child("partners").child(id).child("operations").child("locationMap").child("PartLoad").child("open")
+                            .child(origin).child(dest).setValue(price);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
     }
 

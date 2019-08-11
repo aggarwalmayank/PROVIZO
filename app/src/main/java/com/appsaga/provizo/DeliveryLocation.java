@@ -187,10 +187,15 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     HashMap<String, ArrayList<String>> hashMap;
                     HashMap<String, ArrayList<String>> hashMap1;
-                    hashMap = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("FullTruckLoad").getValue();
+                    hashMap = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("FullTruckLoad").child("open").getValue();
 
-                    hashMap1 = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("PartLoad").getValue();
+                    hashMap1 = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("PartLoad").child("open").getValue();
 
+                    HashMap<String, ArrayList<String>> hashMap2;
+                    HashMap<String, ArrayList<String>> hashMap3;
+                    hashMap2 = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("FullTruckLoad").child("closed").getValue();
+
+                    hashMap3 = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("PartLoad").child("closed").getValue();
                     if (hashMap != null) {
 
                         for(HashMap.Entry<String, ArrayList<String>> entry : hashMap.entrySet())
@@ -204,6 +209,26 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     if (hashMap1 != null) {
 
                         for(HashMap.Entry<String, ArrayList<String>> entry : hashMap1.entrySet())
+                        {
+                            if(!picklocs.contains(entry.getKey()))
+                            {
+                                picklocs.add(entry.getKey());
+                            }
+                        }
+                    }
+                    if (hashMap2 != null) {
+
+                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap2.entrySet())
+                        {
+                            if(!picklocs.contains(entry.getKey()))
+                            {
+                                picklocs.add(entry.getKey());
+                            }
+                        }
+                    }
+                    if (hashMap3 != null) {
+
+                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap3.entrySet())
                         {
                             if(!picklocs.contains(entry.getKey()))
                             {
@@ -229,9 +254,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     HashMap<String, HashMap<String, Integer>> hashMap;
                                     HashMap<String, HashMap<String, Integer>> hashMap1;
+                                    HashMap<String, HashMap<String, Integer>> hashMap3;
+                                    HashMap<String, HashMap<String, Integer>> hashMap4;
 
-                                    hashMap = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("FullTruckLoad").getValue();
-                                    hashMap1 = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("PartLoad").getValue();
+                                    hashMap = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("FullTruckLoad").child("open").getValue();
+                                    hashMap1 = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("PartLoad").child("open").getValue();
+
+                                    hashMap3 = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("FullTruckLoad").child("closed").getValue();
+                                    hashMap4 = (HashMap<String, HashMap<String, Integer>>) ds.child("operations").child("locationMap").child("PartLoad").child("closed").getValue();
 
                                     if (hashMap != null) {
 
@@ -254,6 +284,41 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                                     if (hashMap1 != null) {
 
                                         for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap1.entrySet())
+                                        {
+                                            if(picklocs.contains(entry.getKey()))
+                                            {
+                                                HashMap<String, Integer> hashMap2 = entry.getValue();
+                                                for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
+
+                                                    if(!droplocs.contains(entry1.getKey()))
+                                                    {
+                                                        droplocs.add(entry1.getKey());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (hashMap3 != null) {
+
+                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap3.entrySet())
+                                        {
+                                            if(picklocs.contains(entry.getKey()))
+                                            {
+                                                HashMap<String, Integer> hashMap2 = entry.getValue();
+                                                for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
+
+                                                    if(!droplocs.contains(entry1.getKey()))
+                                                    {
+                                                        droplocs.add(entry1.getKey());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (hashMap4 != null) {
+
+                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap4.entrySet())
                                         {
                                             if(picklocs.contains(entry.getKey()))
                                             {

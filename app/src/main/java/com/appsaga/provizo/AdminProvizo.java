@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDialog.DialogListener {
+public class AdminProvizo extends AppCompatActivity {
     Button addpartner, viewbook,addlr,add;
     LinearLayout lout;
     EditText email;
@@ -95,7 +95,8 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
         addpartner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+//                openDialog();
+                startActivity(new Intent(AdminProvizo.this,AddPartnerToDB.class));
             }
         });
     }
@@ -127,10 +128,11 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
         AdminAddPartnerDialog exampleDialog = new AdminAddPartnerDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");
     }
+/*
 
     @Override
     public void addpartner(final String id, String name, final String exp, final String add, final String owner, final Boolean part, Boolean full
-                            , final String origin, final String dest, final long price, final String type) {
+                            , final String origin, final String dest, final long price, final String type,Boolean Close,Boolean Open) {
         String[] splitted = name.split(" ");
         String namenospace = "",correctname="";
         for (String a : splitted) {
@@ -199,14 +201,14 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
                 }
             });
 
-        }
-        if (full) {
 
+        if(full&&Open)
+        {
             final String finalNamenospace2 = namenospace;
             mref.child("typesOfServices").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mref.child("typesOfServices").child("Full Truck Load").child(finalNamenospace2).setValue(id);
+                    mref.child("typesOfServices").child("Full Truck Load").child("Open").child(finalNamenospace2).setValue(id);
                 }
 
                 @Override
@@ -214,6 +216,7 @@ public class AdminProvizo extends AppCompatActivity implements AdminAddPartnerDi
 
                 }
             });
-        }
+
     }
+*/
 }

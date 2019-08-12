@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AdminTempoo extends AppCompatActivity {
+public class AdminTruck extends AppCompatActivity {
     RecyclerView bookingsList;
     ProgressDialog progressDialog;
     TextView nobooking;
@@ -34,11 +34,11 @@ public class AdminTempoo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_tempoo);
+        setContentView(R.layout.activity_admin_truck);
         toolbar=findViewById(R.id.toolbar);
         date=getIntent().getStringExtra("date");
         toolbar.setTitle(date);
-        progressDialog = ProgressDialog.show(AdminTempoo.this, "Loading", "Please Wait...", true);
+        progressDialog = ProgressDialog.show(AdminTruck.this, "Loading", "Please Wait...", true);
         nobooking = findViewById(R.id.nobook);
         nobooking.setVisibility(View.VISIBLE);
         bookingsList = findViewById(R.id.bookings_list);
@@ -46,14 +46,14 @@ public class AdminTempoo extends AppCompatActivity {
 
     }
     public void reterivefromDB() {
-        mref.child("AdminTempoo").child(getIntent().getStringExtra("date"))
+        mref.child("AdminTruck").child(getIntent().getStringExtra("date"))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        ArrayList<AdminTempooHelper> array = new ArrayList<>();
+                        ArrayList<AdminTruckHelper> array = new ArrayList<>();
 
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            AdminTempooHelper t = new AdminTempooHelper(ds.getValue(AdminTempooHelper.class), ds.getKey());
+                            AdminTruckHelper t = new AdminTruckHelper(ds.getValue(AdminTruckHelper.class), ds.getKey());
                             array.add(t);
 
                         }
@@ -71,8 +71,8 @@ public class AdminTempoo extends AppCompatActivity {
                         } else {
                             nobooking.setVisibility(View.INVISIBLE);
                             bookingsList.setHasFixedSize(true);
-                            bookingsList.setLayoutManager(new LinearLayoutManager(AdminTempoo.this));
-                            AdminTempooAdapter adapter = new AdminTempooAdapter(array, AdminTempoo.this);
+                            bookingsList.setLayoutManager(new LinearLayoutManager(AdminTruck.this));
+                            AdminTruckAdapter adapter = new AdminTruckAdapter(array, AdminTruck.this);
                             bookingsList.setAdapter(adapter);
                             toolbar.setTitle(getIntent().getStringExtra("date")+" #bookings: "+adapter.getItemCount());
                         }

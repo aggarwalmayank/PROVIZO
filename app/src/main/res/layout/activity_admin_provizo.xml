@@ -18,7 +18,13 @@
         android:background="@drawable/ripple_effect_2"
         android:layout_margin="16dp"
         android:text="Manage Tempoo Bookings"/>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Truck Booking"
+        android:id="@+id/truckbooking"
+        android:layout_margin="16dp"
+        android:background="@drawable/ripple_effect_2"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

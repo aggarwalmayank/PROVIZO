@@ -26,10 +26,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AdminProvizo extends AppCompatActivity {
-    Button addpartner, viewbook,addlr,add;
+    Button addpartner, viewbook,addlr,add,truckbook;
     LinearLayout lout;
     EditText email;
     int year_x, month_x, day_x;
+    Boolean flag=false;
     static final int DIALOG_ID = 0;
 
     @Override
@@ -39,10 +40,21 @@ public class AdminProvizo extends AppCompatActivity {
         addpartner = findViewById(R.id.partner);
         viewbook = findViewById(R.id.bookings);
         lout=findViewById(R.id.lout);
+        truckbook=findViewById(R.id.truckbooking);
         lout.setVisibility(View.INVISIBLE);
         addlr=findViewById(R.id.lr);
         add=findViewById(R.id.add);
         email=findViewById(R.id.mail);
+        truckbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                year_x = calendar.get(Calendar.YEAR);
+                month_x = calendar.get(Calendar.MONTH);
+                day_x = calendar.get(Calendar.DAY_OF_MONTH);
+                showDialog(DIALOG_ID);
+            }
+        });
         viewbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +62,7 @@ public class AdminProvizo extends AppCompatActivity {
                 year_x = calendar.get(Calendar.YEAR);
                 month_x = calendar.get(Calendar.MONTH);
                 day_x = calendar.get(Calendar.DAY_OF_MONTH);
+                flag=true;
                 showDialog(DIALOG_ID);
             }
         });
@@ -95,7 +108,6 @@ public class AdminProvizo extends AppCompatActivity {
         addpartner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                openDialog();
                 startActivity(new Intent(AdminProvizo.this,AddPartnerToDB.class));
             }
         });
@@ -117,106 +129,19 @@ public class AdminProvizo extends AppCompatActivity {
             month_x = month + 1;
             day_x = dayOfMonth;
             String selectedDate = day_x + "-" + month_x + "-" + year_x;
+            if(flag){
             Intent i = new Intent(AdminProvizo.this, AdminTempoo.class);
             i.putExtra("date", selectedDate);
-            startActivity(i);
+            startActivity(i);}
+            else
+            {
+                Intent i = new Intent(AdminProvizo.this, AdminTruck.class);
+                i.putExtra("date", selectedDate);
+                startActivity(i);
+        }
             Toast.makeText(AdminProvizo.this, selectedDate, Toast.LENGTH_SHORT).show();
         }
     };
 
-    public void openDialog() {
-        AdminAddPartnerDialog exampleDialog = new AdminAddPartnerDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
-    }
-/*
 
-    @Override
-    public void addpartner(final String id, String name, final String exp, final String add, final String owner, final Boolean part, Boolean full
-                            , final String origin, final String dest, final long price, final String type,Boolean Close,Boolean Open) {
-        String[] splitted = name.split(" ");
-        String namenospace = "",correctname="";
-        for (String a : splitted) {
-            namenospace += a.substring(0, 1).toUpperCase() + a.substring(1);
-        }
-        for (String a : splitted) {
-            correctname+= a.substring(0, 1).toUpperCase() + a.substring(1);
-            correctname=correctname+" ";
-        }
-        final DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
-
-        final String finalCorrectname = correctname;
-        mref.child("partners").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mref.child("partners").child(id).child("operations").child("companyName").setValue(finalCorrectname);
-                mref.child("partners").child(id).child("operations").child("truckStatus").setValue("Available");
-                mref.child("partners").child(id).child("operations").child("locationMap").child(type)
-                        .child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        mref.child("PartnerID").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mref.child("PartnerID").child(finalCorrectname).setValue(id);
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        final String finalNamenospace = namenospace;
-        mref.child("Company").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mref.child("Company").child(finalNamenospace).child("Address").setValue(add);
-                mref.child("Company").child(finalNamenospace).child("Experience").setValue(exp);
-                mref.child("Company").child(finalNamenospace).child("Owner").setValue(owner);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        if (part) {
-            final String finalNamenospace1 = namenospace;
-            mref.child("typesOfServices").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mref.child("typesOfServices").child("Part Load").child(finalNamenospace1).setValue(id);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-
-        if(full&&Open)
-        {
-            final String finalNamenospace2 = namenospace;
-            mref.child("typesOfServices").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    mref.child("typesOfServices").child("Full Truck Load").child("Open").child(finalNamenospace2).setValue(id);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-    }
-*/
 }

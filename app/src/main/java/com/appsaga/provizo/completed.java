@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class completed extends AppCompatActivity {
@@ -101,6 +104,46 @@ public class completed extends AppCompatActivity {
 
             }
         });
+
+        mref.child("AdminTruck").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String mode;
+                if(getIntent().getStringExtra("doordelivery").equals("no"))
+                    mode="Godown Delivery";
+                else
+                    mode="Door Delivery";
+                String risk;
+                if(getIntent().getStringExtra("ownerrisk").equals("yes"))
+                    risk="Owner's Risk";
+                else
+                    risk="Insured Goods";
+
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("dd-M-yyyy");
+                String todaydate= df.format(c);
+
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("PaymentStatus").setValue("Successfull");
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("Consignee").setValue(Consignee);
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("Consignor").setValue(Consignor);
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("ServiceTruckDetails").setValue(TypeOfService);
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("PickUpLocation").setValue(getIntent().getStringExtra("pickup"));
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("DropLocation").setValue(getIntent().getStringExtra("drop"));
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("PickUpDate").setValue(getIntent().getStringExtra("date"));
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("amount").setValue(getIntent().getStringExtra("amount"));
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("TruckCompany").setValue(company);
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("DeliveryMode").setValue(mode);
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("goodsRisk").setValue(risk);
+                mref.child("AdminTruck").child(todaydate).child(orderid).child("user").setValue(currentuser);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         mref.child("PartnerID").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPartnerToDB"></activity>
+        <activity android:name=".AdminTruckDetails"></activity>
+        <activity android:name=".AdminTruck" />
+        <activity android:name=".AddPartnerToDB" />
         <activity android:name=".AdminTempoo" />
         <activity android:name=".AdminProvizo" />
 

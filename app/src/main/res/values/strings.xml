@@ -44,7 +44,7 @@
     <string name="cod_text">Available only for LRs</string>
     <string name="razor_pay_text">UPI, Internet Banking, etc.</string>
 
-   <!-- <string-array name="listtruck">
+    <!-- <string-array name="listtruck">
      <item>2.5 MT Open</item>
         <item>2.5 MT Closed</item>
         <item>3.5 MT Closed</item>

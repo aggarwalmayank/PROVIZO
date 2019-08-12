@@ -64,7 +64,6 @@ public class CityDialog extends DialogFragment {
                         int selectedId = rg.getCheckedRadioButtonId();
                         RadioButton rb = (RadioButton) view.findViewById(selectedId);
                         String type=rb.getText().toString();
-                        type=type.replaceAll("\\s+","");
                         if(UNIT.equals("Per KG")){
                             PRICE=PRICE*100;
                         }
@@ -80,8 +79,9 @@ public class CityDialog extends DialogFragment {
                         mref.child("basePrice").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                                 long p=dataSnapshot.child(finalType).getValue(Long.class);
-                                if(p<finalPRICE)
+                                if(p<=finalPRICE)
                                 {
                                     listener.addcitytoDB(ORIGIN,DEST, finalPRICE, finalType);
                                 }

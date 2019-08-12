@@ -777,8 +777,29 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
     @Override
     public void addcitytoDB(String origin, String dest, long price,String type) {
-        databaseReference.child("partners").child(username).child("operations").child("locationMap")
-                .child(type).child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
+        if(type.equals("Full Truck Load CLOSED"))
+        {
+            databaseReference.child("partners").child(username).child("operations").child("locationMap")
+                    .child("FullTruckLoad").child("closed").child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
+
+        }
+        else if(type.equals("Part Load CLOSED"))
+        {
+            databaseReference.child("partners").child(username).child("operations").child("locationMap")
+                    .child("PartLoad").child("closed").child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
+
+
+        }
+        else if(type.equals("Part Load OPEN")){
+
+            databaseReference.child("partners").child(username).child("operations").child("locationMap")
+                    .child("PartLoad").child("open").child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
+
+        }
+        else if(type.equals("Full Truck Load OPEN")){
+            databaseReference.child("partners").child(username).child("operations").child("locationMap")
+                    .child("FullTruckLoad").child("open").child(origin.toLowerCase()).child(dest.toLowerCase()).setValue(price);
+        }
 
         finish();
         startActivity(getIntent());

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#d2d2d2"
-    android:id="@+id/layout"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -29,11 +29,12 @@
             android:gravity="center"
             android:hint="Destination" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <EditText
@@ -45,30 +46,51 @@
             android:hint="Price" />
 
         <Spinner
+            android:id="@+id/unit"
             android:layout_width="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:id="@+id/unit"/>
+            android:layout_gravity="center"
+            android:layout_weight="1" />
     </LinearLayout>
+
     <RadioGroup
         android:id="@+id/rg"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Full Truck Load"
-            android:id="@+id/rb1"/>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Part Load"
-            android:id="@+id/rb2"/>
+
+            <RadioButton
+                android:id="@+id/rb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Full Truck Load CLOSED" />
+
+            <RadioButton
+                android:id="@+id/rb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Part Load Closed" />
+
+
+
+            <RadioButton
+                android:id="@+id/rb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full Truck Load OPEN" />
+
+            <RadioButton
+                android:id="@+id/rb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Part Load OPEN" />
+
+
     </RadioGroup>
 
 

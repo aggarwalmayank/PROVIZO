@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#F5F5F5"
     android:orientation="vertical"
     tools:context=".Partner">
@@ -201,7 +201,7 @@
 
             <CheckBox
                 android:id="@+id/checkbox1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
@@ -213,12 +213,44 @@
 
             <CheckBox
                 android:id="@+id/checkbox2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:text="Part Load"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/closed_partner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Closed"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"/>
+
+            <CheckBox
+                android:id="@+id/open_partner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="Open"
                 android:textColor="#FFF"
                 android:buttonTint="#FFF"/>
 

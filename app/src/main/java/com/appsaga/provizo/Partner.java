@@ -1,5 +1,7 @@
 package com.appsaga.provizo;
 
+//2nd
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -55,6 +57,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
     ListView deleteListView;
     static LinearLayout l;
     CheckBox open,closed;
+    CheckBox openPartner, closedPartner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,8 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
         deleteCity = findViewById(R.id.delete_city);
         checkBox1 =findViewById(R.id.checkbox1);
         checkBox2=findViewById(R.id.checkbox2);
+        openPartner=findViewById(R.id.open_partner);
+        closedPartner=findViewById(R.id.closed_partner);
 
         username = getIntent().getStringExtra("partner id");
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -160,6 +165,40 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                 {
                     getCitiesToDelete();
                 }
+            }
+        });
+
+        openPartner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    closedPartner.setChecked(false);
+                }
+                else
+                {
+                    closedPartner.setChecked(true);
+                }
+
+                performChange();
+            }
+        });
+
+        closedPartner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked)
+                {
+                    openPartner.setChecked(false);
+                }
+                else
+                {
+                    openPartner.setChecked(true);
+                }
+
+                performChange();
             }
         });
 
@@ -247,6 +286,10 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                 final PartnerValue partnerValue = dataSnapshot.getValue(PartnerValue.class);
 
+
+                HashMap.Entry<String,HashMap<String,HashMap<String,HashMap<String,Long>>>> entry_test = partnerValue.getLocationMap().entrySet().iterator().next();
+                Log.d("Testing...3",entry_test.getKey()+"");
+
                 companyname.setText(partnerValue.getCompanyName());
                 availability.setText(partnerValue.getTruckStatus());
                 if (availability.getText().equals("Available"))
@@ -260,14 +303,31 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                 {
                     for (HashMap.Entry<String,HashMap<String,HashMap<String,HashMap<String,Long>>>> entry : partnerValue.getLocationMap().entrySet()) {
 
-                        Log.d("Testing...",entry.getKey());
                         if(entry.getKey().equalsIgnoreCase("FullTruckLoad"))
                         {
                             for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
-                                if(!source.contains(entry1.getKey()))
-                                {
-                                    source.add(entry1.getKey());
+                                if(closedPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("closed"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                        if (!source.contains(entry2.getKey())) {
+                                            source.add(entry2.getKey());
+                                        }
+                                    }
+                                }
+                                else if(openPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("open"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                            if (!source.contains(entry2.getKey())) {
+                                                source.add(entry2.getKey());
+                                            }
+                                    }
                                 }
                             }
                         }
@@ -281,9 +341,27 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                         {
                             for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
-                                if(!source.contains(entry1.getKey()))
-                                {
-                                    source.add(entry1.getKey());
+                                if(closedPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("closed"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                            if (!source.contains(entry2.getKey())) {
+                                                source.add(entry2.getKey());
+                                            }
+                                    }
+                                }
+                                else if(openPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("open"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                            if (!source.contains(entry2.getKey())) {
+                                                source.add(entry2.getKey());
+                                            }
+                                    }
                                 }
                             }
                         }
@@ -302,7 +380,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                     public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
 
                         final ArrayList<String> dest = new ArrayList<>();
-                        final HashMap<String, HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
+                        final HashMap<String,HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
 
                         if(checkBox1.isChecked()) {
 
@@ -316,21 +394,21 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                             }
 
                             if(source_dest[0]!=null)
-                            for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
+                                for (HashMap.Entry<String,HashMap<String, Long>> entry : source_dest[0].entrySet()) {
 
-                                if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
-                                {
-                                    HashMap<String,Long> hashMap = entry.getValue();
-
-                                    for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
+                                    if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
                                     {
-                                        if(!dest.contains(entry1.getKey()))
+                                        HashMap<String,Long> hashMap = entry.getValue();
+
+                                        for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
                                         {
-                                            dest.add(entry1.getKey());
+                                            if(!dest.contains(entry1.getKey()))
+                                            {
+                                                dest.add(entry1.getKey());
+                                            }
                                         }
                                     }
                                 }
-                            }
                         }
                         else if(checkBox2.isChecked()) {
 
@@ -345,21 +423,21 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                             dest.clear();
 
                             if(source_dest[0]!=null)
-                            for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
+                                for (HashMap.Entry<String,HashMap<String, Long>> entry : source_dest[0].entrySet()) {
 
-                                if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
-                                {
-                                    HashMap<String,Long> hashMap = entry.getValue();
-
-                                    for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
+                                    if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
                                     {
-                                        if(!dest.contains(entry1.getKey()))
+                                        HashMap<String,Long> hashMap = entry.getValue();
+
+                                        for(HashMap.Entry<String,Long> entry1 : hashMap.entrySet())
                                         {
-                                            dest.add(entry1.getKey());
+                                            if(!dest.contains(entry1.getKey()))
+                                            {
+                                                dest.add(entry1.getKey());
+                                            }
                                         }
                                     }
                                 }
-                            }
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(Partner.this,
@@ -369,7 +447,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                         spinner2.setAdapter(null);
                         spinner2.setAdapter(arrayAdapter);
 
-                        final HashMap<String, HashMap<String, Long>> finalSource_dest = source_dest[0];
+                        final HashMap<String,HashMap<String, Long>> finalSource_dest = source_dest[0];
                         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -434,18 +512,33 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                     newrate.setError("Invalid Rate");
                 else {
 
-                    Log.d("Run....", "Yes2");
                     DatabaseReference myRef = null;
 
                     if(checkBox1.isChecked())
                     {
-                        myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
-                                child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                        if(closedPartner.isChecked())
+                        {
+                            myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                    child("closed").child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                        }
+                        else
+                        {
+                            myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                    child("open").child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                        }
                     }
                     else if(checkBox2.isChecked())
                     {
-                        myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
-                                child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                        if(closedPartner.isChecked())
+                        {
+                            myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
+                                    child("closed").child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                        }
+                        else
+                        {
+                            myRef = databaseReference.child("partners").child(username).child("operations").child("locationMap").child("PartLoad").
+                                    child("open").child(spinner1.getSelectedItem().toString()).child(spinner2.getSelectedItem().toString());
+                        }
                     }
 
                     final DatabaseReference finalMyRef = myRef;
@@ -459,11 +552,25 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                             if(checkBox1.isChecked())
                             {
-                                baserate = dataSnapshot.child("FullTruckLoad").getValue(Integer.class);
+                                if(closedPartner.isChecked())
+                                {
+                                    baserate = dataSnapshot.child("Full Truck Load CLOSED").getValue(Integer.class);
+                                }
+                                else
+                                {
+                                    baserate = dataSnapshot.child("Full Truck Load OPEN").getValue(Integer.class);
+                                }
                             }
                             else
                             {
-                                baserate = dataSnapshot.child("PartLoad").getValue(Integer.class);
+                                if(closedPartner.isChecked())
+                                {
+                                    baserate = dataSnapshot.child("Part Load CLOSED").getValue(Integer.class);
+                                }
+                                else
+                                {
+                                    baserate = dataSnapshot.child("Part Load OPEN").getValue(Integer.class);
+                                }
                             }
 
                             Log.d("bareRate",baserate+"");
@@ -621,19 +728,37 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                     availability.setTextColor(Color.parseColor("#ff0000"));
 
                 final ArrayList<String> source = new ArrayList<>();
+                currentRate.setText("");
 
                 if(checkBox1.isChecked())
                 {
                     for (HashMap.Entry<String,HashMap<String,HashMap<String,HashMap<String,Long>>>> entry : partnerValue.getLocationMap().entrySet()) {
 
-                        Log.d("Testing...",entry.getKey());
                         if(entry.getKey().equalsIgnoreCase("FullTruckLoad"))
                         {
                             for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
-                                if(!source.contains(entry1.getKey()))
-                                {
-                                    source.add(entry1.getKey());
+                                if(closedPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("closed"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                            if (!source.contains(entry2.getKey())) {
+                                                source.add(entry2.getKey());
+                                            }
+                                    }
+                                }
+                                else if(openPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("open"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                            if (!source.contains(entry2.getKey())) {
+                                                source.add(entry2.getKey());
+                                            }
+                                    }
                                 }
                             }
                         }
@@ -647,9 +772,27 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                         {
                             for(HashMap.Entry<String,HashMap<String,HashMap<String,Long>>> entry1 : entry.getValue().entrySet())
                             {
-                                if(!source.contains(entry1.getKey()))
-                                {
-                                    source.add(entry1.getKey());
+                                if(closedPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("closed"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                            if (!source.contains(entry2.getKey())) {
+                                                source.add(entry2.getKey());
+                                            }
+                                    }
+                                }
+                                else if(openPartner.isChecked()) {
+                                    //Log.d("Testing...2", entry1.getValue() + "");
+
+                                    if(entry1.getKey().equalsIgnoreCase("open"))
+                                    {
+                                        for(HashMap.Entry<String,HashMap<String,Long>> entry2 : entry1.getValue().entrySet())
+                                            if (!source.contains(entry2.getKey())) {
+                                                source.add(entry2.getKey());
+                                            }
+                                    }
                                 }
                             }
                         }
@@ -661,6 +804,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner1.setAdapter(null);
+                spinner2.setAdapter(null);
                 spinner1.setAdapter(arrayAdapter);
 
                 spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -668,11 +812,11 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                     public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
 
                         final ArrayList<String> dest = new ArrayList<>();
-                        final HashMap<String, HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
+                        final HashMap<String,HashMap<String, Long>>[] source_dest = new HashMap[]{new HashMap<>()};
 
                         if(checkBox1.isChecked()) {
 
-                            if(closed.isChecked())
+                            if(closedPartner.isChecked())
                             {
                                 source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("closed");
                             }
@@ -681,7 +825,8 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                                 source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("open");
                             }
 
-                            for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
+                            if(source_dest[0]!=null)
+                            for (HashMap.Entry<String,HashMap<String, Long>> entry : source_dest[0].entrySet()) {
 
                                 if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
                                 {
@@ -699,7 +844,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                         }
                         else if(checkBox2.isChecked()) {
 
-                            if(closed.isChecked())
+                            if(closedPartner.isChecked())
                             {
                                 source_dest[0] = partnerValue.getLocationMap().get("PartLoad").get("closed");
                             }
@@ -710,6 +855,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                             dest.clear();
 
+                            if(source_dest[0]!=null)
                             for (HashMap.Entry<String, HashMap<String, Long>> entry : source_dest[0].entrySet()) {
 
                                 if(entry.getKey().equalsIgnoreCase(spinner1.getItemAtPosition(position).toString()))
@@ -771,9 +917,9 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
     }
 
     public void openDialog() {
-            CityDialog exampleDialog = new CityDialog();
-            exampleDialog.show(getSupportFragmentManager(), "example dialog");
-        }
+        CityDialog exampleDialog = new CityDialog();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    }
 
     @Override
     public void addcitytoDB(String origin, String dest, long price,String type) {
@@ -847,34 +993,34 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                             ProgressDialog progressDialog = ProgressDialog.show(Partner.this,"Deleting...","Please Wait");
                             int size = deleteListView.getChildCount();
 
-                                for(int i=0;i<size;i++) {
-                                    View view = deleteListView.getChildAt(i);
-                                    CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
-                                    TextView dest = view.findViewById(R.id.dest);
-                                    TextView source = view.findViewById(R.id.source);
+                            for(int i=0;i<size;i++) {
+                                View view = deleteListView.getChildAt(i);
+                                CheckBox checkBox = view.findViewById(R.id.delete_checkbox);
+                                TextView dest = view.findViewById(R.id.dest);
+                                TextView source = view.findViewById(R.id.source);
 
-                                    if (checkBox.isChecked()) {
+                                if (checkBox.isChecked()) {
 
-                                        if(closed.isChecked())
-                                        {
-                                            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
-                                                    child("closed").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
-                                        }
-                                        else
-                                        {
-                                            databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
-                                                    child("open").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
-                                        }
+                                    if(closed.isChecked())
+                                    {
+                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                                child("closed").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
+                                    }
+                                    else
+                                    {
+                                        databaseReference.child("partners").child(username).child("operations").child("locationMap").child("FullTruckLoad").
+                                                child("open").child(source.getText().toString()).child(dest.getText().toString()).removeValue();
                                     }
                                 }
+                            }
 
-                                customDialog.dismiss();
+                            customDialog.dismiss();
 
-                                progressDialog.dismiss();
-                                Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                            Toast.makeText(Partner.this,"Selected city deleted",Toast.LENGTH_SHORT).show();
 
-                                finish();
-                                startActivity(getIntent());
+                            finish();
+                            startActivity(getIntent());
                         }
                     });
 

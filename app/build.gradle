@@ -7,9 +7,9 @@ android {
         applicationId "com.appsaga.provizo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
+        versionCode 3
         multiDexEnabled true
-        versionName "1.1"
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         lintOptions {
 

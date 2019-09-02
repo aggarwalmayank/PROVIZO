@@ -65,7 +65,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         rb1 = findViewById(R.id.rb1);
         rb2 = findViewById(R.id.rb2);
         confirm = findViewById(R.id.confirm);
-        rb1.setEnabled(false);
+       /* rb1.setEnabled(false);
         DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
         mref.child("LR").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -86,7 +86,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -114,7 +114,7 @@ public class CompletedTempoo extends AppCompatActivity {
 
     public void sendmail() {
         SendMail sm = new SendMail(CompletedTempoo.this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), "Tempoo Booking Confirmed ",
-                "Dear Customer\n\nYour Booking of Tempoo with Booking ID: " + orderid + " of estimated amount Rs " + amount + " only is confirmed.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");
+                "Dear Customer\n\nYour Booking of Tempoo with Booking ID: " + orderid + " of estimated amount Rs " + amount + " only is under processing.\nPlease keep this Email for future reference\n\n\nTeam PROVIZO");
         sm.execute();
     }
 

@@ -200,6 +200,7 @@ public class SignUpSecond extends AppCompatActivity {
         insert.put("Date of Birth",dob.getText().toString());
         insert.put("Email Verification","Not Verified");
         insert.put("Bookings","");
+        insert.put("FirstOrder","NO ");
 
         databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

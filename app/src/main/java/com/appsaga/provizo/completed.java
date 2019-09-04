@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class completed extends AppCompatActivity {
     DatabaseReference mref;
     ImageView home;
-    String number, orderid, currentuser, amount, company;
+    String number, orderid, currentuser, amount, company,coupon;
     String numbers;
     String partnerid="";
 
@@ -39,6 +39,7 @@ public class completed extends AppCompatActivity {
         currentuser = getIntent().getStringExtra("Current User");
         company = getIntent().getStringExtra("company");
         amount = getIntent().getStringExtra("amount");
+        coupon=getIntent().getStringExtra("couponapplied");
         home = findViewById(R.id.home);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +98,7 @@ public class completed extends AppCompatActivity {
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("DeliveryMode").setValue(mode);
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("goodsRisk").setValue(risk);
                 mref.child("users").child(currentuser).child("Bookings").child("TruckBooking").child(orderid).child("Rating").setValue(rating);
+                mref.child("users").child(currentuser).child("FirstOrder").setValue(coupon);
             }
 
             @Override

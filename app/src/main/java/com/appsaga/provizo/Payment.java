@@ -3,6 +3,7 @@ package com.appsaga.provizo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,7 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +38,12 @@ import java.util.ArrayList;
 public class Payment extends AppCompatActivity implements PaymentResultListener {
 
     RadioButton rb1, rb2;
-    Button confirm;
-
+    Button confirm,apply;
+    LinearLayout code,afterapplied;
+    EditText Promocode;
+    TextView promodetails;
+    ImageView cancelpromo;
+    final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     final int UPI_PAYMENT = 0;
     String amount, note, orderid, currentuser, company, emailandname;
 
@@ -44,12 +51,18 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        cancelpromo=findViewById(R.id.cancelpromo);
+        promodetails=findViewById(R.id.promodetails);
+        apply=findViewById(R.id.apply);
+        code=findViewById(R.id.code);
+        afterapplied=findViewById(R.id.applied);
+        Promocode=findViewById(R.id.coupon);
         amount = getIntent().getStringExtra("amount");
         orderid = getIntent().getStringExtra("Order ID");
-        currentuser = getIntent().getStringExtra("Current User");
+        currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         company = getIntent().getStringExtra("company");
         note = "Order ID: " + orderid + " Customer ID: " + currentuser + " for Company: " + company;
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
         ref.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,6 +78,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         rb1 = findViewById(R.id.rb1);
         rb2 = findViewById(R.id.rb2);
         confirm = findViewById(R.id.confirm);
+        confirm.setText("Pay: "+amount);
        /* rb1.setEnabled(false);
         DatabaseReference mref=FirebaseDatabase.getInstance().getReference();
         mref.child("LR").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -87,9 +101,65 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
 
             }
         });*/
+
+       apply.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               if(Promocode.getText().toString().equalsIgnoreCase(""))
+               {
+                   Promocode.setError("Invalid Code");
+               }
+               else
+               {
+                   String promo=Promocode.getText().toString().toLowerCase();
+                   if(promo.equals("first"))
+                   {
+
+                       ref.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                               if(dataSnapshot.child(currentuser).child("FirstOrder").getValue(String.class).equals("NO"))
+                               {
+                                   Promocode.setVisibility(View.GONE);
+                                   code.setVisibility(View.INVISIBLE);
+                                   afterapplied.setVisibility(View.VISIBLE);
+                                   double p=Double.parseDouble(amount)*0.02;
+                                   double amt=Double.parseDouble(amount);
+                                   amt=amt-p;
+                                   promodetails.setText("Rs "+String.valueOf(p)+"  Discounted");
+                                   promodetails.setTextColor(Color.parseColor("#008000"));
+                                   confirm.setText("Pay: "+String.valueOf(amt));
+                                   cancelpromo.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                            afterapplied.setVisibility(View.INVISIBLE);
+                                            code.setVisibility(View.VISIBLE);
+                                            Promocode.setVisibility(View.VISIBLE);
+                                            Promocode.setText("");
+                                            confirm.setText("Pay: "+amount);
+                                       }
+                                   });
+
+                               }
+                               else
+                               {
+                                   Promocode.setError("Already Used");
+                               }
+                           }
+
+                           @Override
+                           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                           }
+                       });
+                   }
+               }
+           }
+       });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 if(isConnectionAvailable(Payment.this)!=Boolean.TRUE)
                 {
@@ -113,12 +183,13 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
                         i.putExtra("consignoraddress", getIntent().getStringExtra("consignoraddress"));
                         i.putExtra("consignorphone", getIntent().getStringExtra("consignorphone"));
                         i.putExtra("consignor gst", getIntent().getStringExtra("consignor gst"));
-                        i.putExtra("amount", amount);
+                        i.putExtra("amount", confirm.getText().toString().substring(5));
                         i.putExtra("ownerrisk", getIntent().getStringExtra("ownerrisk"));
                         i.putExtra("doordelivery", getIntent().getStringExtra("doordelivery"));
                         i.putExtra("drop", getIntent().getStringExtra("drop"));
                         i.putExtra("consignee gst", getIntent().getStringExtra("consignee gst"));
                         i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
+                        i.putExtra("Couponapplied","first");
                         i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
                         i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));
                         startActivity(i);
@@ -252,7 +323,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         i.putExtra("consignoraddress", getIntent().getStringExtra("consignoraddress"));
         i.putExtra("consignorphone", getIntent().getStringExtra("consignorphone"));
         i.putExtra("consignor gst", getIntent().getStringExtra("consignor gst"));
-        i.putExtra("amount", amount);
+        i.putExtra("amount", confirm.getText().toString().substring(5));
         i.putExtra("ownerrisk", getIntent().getStringExtra("ownerrisk"));
         i.putExtra("doordelivery", getIntent().getStringExtra("doordelivery"));
         i.putExtra("drop", getIntent().getStringExtra("drop"));
@@ -260,6 +331,7 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         i.putExtra("consigneename", getIntent().getStringExtra("consigneename"));
         i.putExtra("consigneeaddress", getIntent().getStringExtra("consigneeaddress"));
         i.putExtra("consigneephone", getIntent().getStringExtra("consigneephone"));
+        i.putExtra("Couponapplied","first");
         startActivity(i);
         finish();
     }
@@ -284,4 +356,20 @@ public class Payment extends AppCompatActivity implements PaymentResultListener 
         }
         return false;
     }
+
+   /* @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ref.child("users").child(currentuser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ref.child("users").child(currentuser).child("FirstOrder").setValue("NO");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }*/
 }

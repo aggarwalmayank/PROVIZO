@@ -73,6 +73,32 @@
             android:hint="Enter Promo Code"
             android:layout_below="@+id/select_truck_text"/>
         <LinearLayout
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/select_truck_text"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/applied">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:id="@+id/promodetails"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cancelcode"
+                android:id="@+id/cancelpromo"/>
+
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_below="@+id/coupon"
@@ -86,7 +112,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Use FIRST to get Discount"
+                android:text="Use FIRST to get Discount\n(Only for new Users)"
                 android:textColor="#ffffff" />
             <Button
                 android:layout_width="wrap_content"
@@ -94,92 +120,12 @@
                 android:text="Apply"
                 android:id="@+id/apply"/>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/rs"
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/code"
-            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:textSize="16sp"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Amount: "
-                    android:textColor="#ffffff"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/price"
-                    android:text="6266"
-                    android:textSize="16sp"
-                    android:textColor="#ffffff"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-               <ImageView
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                    android:id="@+id/cancel"
-                   android:textSize="16sp"
-                   android:src="@drawable/cancelcode"
-                   android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-100"
-                    android:textSize="16sp"
-                    android:textColor="#ffffff"/>
-            </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#FFF" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="To Pay: "
-                    android:textSize="16sp"
-                    android:textColor="#ffffff"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/discount"
-                    android:text="6266"
-                    android:textSize="16sp"
-                    android:textColor="#ffffff"/>
-            </LinearLayout>
-
-
-        </LinearLayout>
         <TextView
             android:id="@+id/cod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rs"
+            android:layout_below="@id/code"
             android:text="COD"
             android:textSize="17sp"
             android:textColor="#FFF"

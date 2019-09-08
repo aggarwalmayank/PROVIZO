@@ -232,18 +232,6 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/closed_partner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="Closed"
-                android:textColor="#FFF"
-                android:buttonTint="#FFF"/>
-
-            <CheckBox
                 android:id="@+id/open_partner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -251,6 +239,18 @@
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:text="Open"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"
+                android:checked="true"/>
+            
+            <CheckBox
+                android:id="@+id/closed_partner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="Closed"
                 android:textColor="#FFF"
                 android:buttonTint="#FFF"/>
 

@@ -60,8 +60,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-
-
             <RadioButton
                 android:id="@+id/rb1"
                 android:layout_width="wrap_content"

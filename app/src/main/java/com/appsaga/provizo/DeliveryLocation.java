@@ -200,9 +200,9 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                         for(HashMap.Entry<String, ArrayList<String>> entry : hashMap.entrySet())
                         {
-                            if(!picklocs.contains(entry.getKey()))
+                            if(!picklocs.contains(entry.getKey().trim()))
                             {
-                                picklocs.add(entry.getKey());
+                                picklocs.add(entry.getKey().trim());
                             }
                         }
                     }
@@ -210,9 +210,9 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                         for(HashMap.Entry<String, ArrayList<String>> entry : hashMap1.entrySet())
                         {
-                            if(!picklocs.contains(entry.getKey()))
+                            if(!picklocs.contains(entry.getKey().trim()))
                             {
-                                picklocs.add(entry.getKey());
+                                picklocs.add(entry.getKey().trim());
                             }
                         }
                     }
@@ -220,9 +220,9 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                         for(HashMap.Entry<String, ArrayList<String>> entry : hashMap2.entrySet())
                         {
-                            if(!picklocs.contains(entry.getKey()))
+                            if(!picklocs.contains(entry.getKey().trim()))
                             {
-                                picklocs.add(entry.getKey());
+                                picklocs.add(entry.getKey().trim());
                             }
                         }
                     }
@@ -230,9 +230,9 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                         for(HashMap.Entry<String, ArrayList<String>> entry : hashMap3.entrySet())
                         {
-                            if(!picklocs.contains(entry.getKey()))
+                            if(!picklocs.contains(entry.getKey().trim()))
                             {
-                                picklocs.add(entry.getKey());
+                                picklocs.add(entry.getKey().trim());
                             }
                         }
                     }
@@ -267,14 +267,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                         for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap.entrySet())
                                         {
-                                            if(picklocs.contains(entry.getKey()))
+                                            if(picklocs.contains(entry.getKey().trim()))
                                             {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
                                                     if(!droplocs.contains(entry1.getKey()))
                                                     {
-                                                        droplocs.add(entry1.getKey());
+                                                        droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
                                             }
@@ -285,14 +285,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                         for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap1.entrySet())
                                         {
-                                            if(picklocs.contains(entry.getKey()))
+                                            if(picklocs.contains(entry.getKey().trim()))
                                             {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
                                                     if(!droplocs.contains(entry1.getKey()))
                                                     {
-                                                        droplocs.add(entry1.getKey());
+                                                        droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
                                             }
@@ -302,14 +302,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                         for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap3.entrySet())
                                         {
-                                            if(picklocs.contains(entry.getKey()))
+                                            if(picklocs.contains(entry.getKey().trim()))
                                             {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
                                                     if(!droplocs.contains(entry1.getKey()))
                                                     {
-                                                        droplocs.add(entry1.getKey());
+                                                        droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
                                             }
@@ -320,14 +320,14 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                         for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap4.entrySet())
                                         {
-                                            if(picklocs.contains(entry.getKey()))
+                                            if(picklocs.contains(entry.getKey().trim()))
                                             {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
                                                     if(!droplocs.contains(entry1.getKey()))
                                                     {
-                                                        droplocs.add(entry1.getKey());
+                                                        droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
                                             }

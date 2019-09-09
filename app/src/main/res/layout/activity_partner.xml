@@ -242,7 +242,7 @@
                 android:textColor="#FFF"
                 android:buttonTint="#FFF"
                 android:checked="true"/>
-            
+
             <CheckBox
                 android:id="@+id/closed_partner"
                 android:layout_width="0dp"

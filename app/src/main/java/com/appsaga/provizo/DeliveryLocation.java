@@ -59,14 +59,14 @@ import java.util.HashMap;
 
 import android.support.design.widget.NavigationView;
 
-public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener ,MyBookingDialog.DialogListener {
+public class DeliveryLocation extends AppCompatActivity implements com.appsaga.provizo.ProfileDialog.DialogListener, MyBookingDialog.DialogListener {
 
     int year_x, month_x, day_x;
     static final int DIALOG_ID = 0;
     Button deliveryNext;
     EditText pickupdate;
     AutoCompleteTextView droploc;
-    AutoCompleteTextView    pickuploc;
+    AutoCompleteTextView pickuploc;
     DatabaseHelperUser db;
     String orderid;
     ImageView menuicon;
@@ -198,40 +198,32 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                     hashMap3 = (HashMap<String, ArrayList<String>>) ds.child("operations").child("locationMap").child("PartLoad").child("closed").getValue();
                     if (hashMap != null) {
 
-                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap.entrySet())
-                        {
-                            if(!picklocs.contains(entry.getKey().trim()))
-                            {
+                        for (HashMap.Entry<String, ArrayList<String>> entry : hashMap.entrySet()) {
+                            if (!picklocs.contains(entry.getKey().trim())) {
                                 picklocs.add(entry.getKey().trim());
                             }
                         }
                     }
                     if (hashMap1 != null) {
 
-                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap1.entrySet())
-                        {
-                            if(!picklocs.contains(entry.getKey().trim()))
-                            {
+                        for (HashMap.Entry<String, ArrayList<String>> entry : hashMap1.entrySet()) {
+                            if (!picklocs.contains(entry.getKey().trim())) {
                                 picklocs.add(entry.getKey().trim());
                             }
                         }
                     }
                     if (hashMap2 != null) {
 
-                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap2.entrySet())
-                        {
-                            if(!picklocs.contains(entry.getKey().trim()))
-                            {
+                        for (HashMap.Entry<String, ArrayList<String>> entry : hashMap2.entrySet()) {
+                            if (!picklocs.contains(entry.getKey().trim())) {
                                 picklocs.add(entry.getKey().trim());
                             }
                         }
                     }
                     if (hashMap3 != null) {
 
-                        for(HashMap.Entry<String, ArrayList<String>> entry : hashMap3.entrySet())
-                        {
-                            if(!picklocs.contains(entry.getKey().trim()))
-                            {
+                        for (HashMap.Entry<String, ArrayList<String>> entry : hashMap3.entrySet()) {
+                            if (!picklocs.contains(entry.getKey().trim())) {
                                 picklocs.add(entry.getKey().trim());
                             }
                         }
@@ -265,15 +257,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                     if (hashMap != null) {
 
-                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap.entrySet())
-                                        {
-                                            if(picklocs.contains(entry.getKey().trim()))
-                                            {
+                                        for (HashMap.Entry<String, HashMap<String, Integer>> entry : hashMap.entrySet()) {
+                                            if (picklocs.contains(entry.getKey().trim())) {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
-                                                    if(!droplocs.contains(entry1.getKey()))
-                                                    {
+                                                    if (!droplocs.contains(entry1.getKey())) {
                                                         droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
@@ -283,15 +272,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                     if (hashMap1 != null) {
 
-                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap1.entrySet())
-                                        {
-                                            if(picklocs.contains(entry.getKey().trim()))
-                                            {
+                                        for (HashMap.Entry<String, HashMap<String, Integer>> entry : hashMap1.entrySet()) {
+                                            if (picklocs.contains(entry.getKey().trim())) {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
-                                                    if(!droplocs.contains(entry1.getKey()))
-                                                    {
+                                                    if (!droplocs.contains(entry1.getKey())) {
                                                         droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
@@ -300,15 +286,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
                                     }
                                     if (hashMap3 != null) {
 
-                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap3.entrySet())
-                                        {
-                                            if(picklocs.contains(entry.getKey().trim()))
-                                            {
+                                        for (HashMap.Entry<String, HashMap<String, Integer>> entry : hashMap3.entrySet()) {
+                                            if (picklocs.contains(entry.getKey().trim())) {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
-                                                    if(!droplocs.contains(entry1.getKey()))
-                                                    {
+                                                    if (!droplocs.contains(entry1.getKey())) {
                                                         droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
@@ -318,15 +301,12 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
 
                                     if (hashMap4 != null) {
 
-                                        for(HashMap.Entry<String, HashMap<String,Integer>> entry : hashMap4.entrySet())
-                                        {
-                                            if(picklocs.contains(entry.getKey().trim()))
-                                            {
+                                        for (HashMap.Entry<String, HashMap<String, Integer>> entry : hashMap4.entrySet()) {
+                                            if (picklocs.contains(entry.getKey().trim())) {
                                                 HashMap<String, Integer> hashMap2 = entry.getValue();
                                                 for (HashMap.Entry<String, Integer> entry1 : hashMap2.entrySet()) {
 
-                                                    if(!droplocs.contains(entry1.getKey()))
-                                                    {
+                                                    if (!droplocs.contains(entry1.getKey())) {
                                                         droplocs.add(entry1.getKey().trim());
                                                     }
                                                 }
@@ -446,6 +426,7 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         c.set(Calendar.MILLISECOND, 0);
         timeinmuli = (c.getTimeInMillis() - 86400000/*-System.currentTimeMillis()*/);
 
+        boolean flag2=false;
 
         String finaldate = day_x + "-" + month_x + "-" + year_x;
         String selectedDate = day_x + "-" + month_x + "-" + year_x + " " + "00:00:00";
@@ -454,14 +435,25 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
             java.util.Date mDate = sdf.parse(selectedDate);
             timeInMilliseconds = mDate.getTime();
             // Toast.makeText(this, day_x + "-" + month_x + "-" + year_x+" "+"00:00:00"+"   "+timeInMilliseconds+"    "+timeinmuli, Toast.LENGTH_SHORT).show();
-            if (timeInMilliseconds < timeinmuli)
+            if (timeInMilliseconds < timeinmuli) {
                 flag = Boolean.FALSE;
+                flag2=true;
+            }
+            else if (timeInMilliseconds>timeinmuli+432000000) {
+                flag=false;
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (!flag) {
+        if (!flag ) {
+
+            if(flag2)
             alertbox("INVALID DATE");
-        } else {
+            else
+                alertbox("Date cannot exceed 5 days");
+
+        }
+        else {
             pickupdate.setText(finaldate);
 
             if (pickuploc.getText().toString().equalsIgnoreCase(""))
@@ -503,12 +495,10 @@ public class DeliveryLocation extends AppCompatActivity implements com.appsaga.p
         if (a.equals("partner")) {
             PartnerDialog dialog = new PartnerDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
-        }
-        else if(a.equals("Booking")){
+        } else if (a.equals("Booking")) {
             MyBookingDialog dialog = new MyBookingDialog();
             dialog.show(getSupportFragmentManager(), "example dialog");
-        }
-        else {
+        } else {
             ProfileDialog exampleDialog = new ProfileDialog();
             exampleDialog.show(getSupportFragmentManager(), "example dialog");
         }

@@ -311,104 +311,99 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
     }
 
     public void setSpinner(double wt) {
-        if (wt <= 2.5) {
+        if (wt == 2.5) {
             List<String> list1 = new ArrayList<>();
             list1.clear();
             list1.add("Select Truck Type");
-            list1.add("2.5 MT Closed");
             list1.add("2.5 MT Open");
-            list1.add("3.5 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list1);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 2.5 && wt <= 3.5) {
+        } else if (wt== 3.5) {
             List<String> list2 = new ArrayList<>();
             list2.clear();
             list2.add("Select Truck Type");
-            list2.add("2.5 MT Closed");
-            list2.add("2.5 MT Open");
-            list2.add("3.5 MT Closed");
-            list2.add("4 MT Open");
+            list2.add("3.5 MT Open");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list2);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 3.5 && wt <= 4) {
+        } else if (wt== 4) {
             List<String> list3 = new ArrayList<>();
             list3.clear();
             list3.add("Select Truck Type");
-            list3.add("3.5 MT Closed");
             list3.add("4 MT Open");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this,R.layout.spinner_item, list3);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 4 && wt <= 5) {
+        } else if (wt== 5.5) {
             List<String> list4 = new ArrayList<>();
             list4.clear();
             list4.add("Select Truck Type");
-            list4.add("4 MT Open");
-            list4.add("5 MT Open");
-            list4.add("7 MT Open");
-            list4.add("7 MT Closed");
+            list4.add("5.5 MT Open");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list4);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 5 && wt <= 7) {
+        } else if (wt > 5.5 && wt <= 10) {
             List<String> list5 = new ArrayList<>();
             list5.clear();
             list5.add("Select Truck Type");
-            list5.add("5 MT Open");
             list5.add("7 MT Open");
-            list5.add("7 MT Closed");
-            if (wt >= 6) {
-                list5.add("9 MT Open");
-                list5.add("9 MT Closed");
-            }
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list5);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 7 && wt <= 9) {
+        } else if (wt > 10 && wt <= 18) {
             List<String> list6 = new ArrayList<>();
             list6.clear();
             list6.add("Select Truck Type");
-            list6.add("9 MT Open");
-            list6.add("9 MT Closed");
+            list6.add("15 MT Open");
+            list6.add("15 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list6);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 9 && wt <= 16) {
+        } else if (wt > 18 && wt <= 25) {
             List<String> list7 = new ArrayList<>();
             list7.clear();
             list7.add("Select Truck Type");
-            list7.add("9 MT Open");
-            list7.add("9 MT Closed");
-            list7.add("16 MT Open");
-            list7.add("16 MT Closed");
+            list7.add("21 MT Open");
+            list7.add("21 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list7);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 16 && wt <= 21) {
+        } else if (wt > 26 && wt <= 34) {
             List<String> list8 = new ArrayList<>();
             list8.clear();
             list8.add("Select Truck Type");
-            list8.add("16 MT Open");
-            list8.add("16 MT Closed");
-            list8.add("21 MT Open");
-            list8.add("21 MT Closed");
+            list8.add("30 MT Open");
+            list8.add("30 MT Closed");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list8);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else if (wt > 21 && wt <= 26) {
+        } else if (wt==35) {
             List<String> list9 = new ArrayList<>();
             list9.clear();
             list9.add("Select Truck Type");
-            list9.add("21 MT Open");
-            list9.add("21 MT Closed");
-            list9.add("26 MT Open");
-            list9.add("26 MT Closed");
+            list9.add("35 MT (Trailor)");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list9);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        } else {
+        }else if (wt==40) {
+            List<String> list9 = new ArrayList<>();
+            list9.clear();
+            list9.add("Select Truck Type");
+            list9.add("40 MT (Trailor)");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list9);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        } else if (wt > 35 && wt < 40) {
+            List<String> list8 = new ArrayList<>();
+            list8.clear();
+            list8.add("Select Truck Type");
+            list8.add("36 MT Open");
+            list8.add("36 MT Closed");
+            adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list8);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            trucktype.setAdapter(adapter2);
+        }else {
             List<String> list10 = new ArrayList<>();
             list10.clear();
             list10.add("Select Truck Type");

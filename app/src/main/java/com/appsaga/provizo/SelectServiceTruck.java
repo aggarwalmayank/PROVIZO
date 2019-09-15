@@ -257,18 +257,22 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             b="3.5";
         else if (a.equals("4 MT Closed")||a.equals("4 MT Open"))
             b="4";
-        else if (a.equals("5 MT Closed")||a.equals("5 MT Open"))
-            b="5";
-        else if (a.equals("7 MT Closed")||a.equals("7 MT Open"))
+        else if (a.equals("5.5 MT Open"))
+            b="5.5";
+        else if (a.equals("7 MT Open"))
             b="7";
-        else if (a.equals("9 MT Closed")||a.equals("9 MT Open"))
-            b="9";
-        else if (a.equals("16 MT Closed")||a.equals("16 MT Open"))
-            b="16";
-        else if (a.equals("26 MT Closed")||a.equals("26 MT Open"))
-            b="26";
+        else if (a.equals("15 MT Closed")||a.equals("15 MT Open"))
+            b="15";
+        else if (a.equals("30 MT Closed")||a.equals("30 MT Open"))
+            b="30";
+        else if (a.equals("36 MT Closed")||a.equals("36 MT Open"))
+            b="36";
         else if (a.equals("21 MT Closed")||a.equals("21 MT Open"))
             b="21";
+        else if (a.equals("40 MT (Trailor)"))
+            b="40";
+        else if (a.equals("35 MT (Trailor)"))
+            b="35";
 
         return b;
     }
@@ -407,21 +411,21 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             List<String> list10 = new ArrayList<>();
             list10.clear();
             list10.add("Select Truck Type");
-            list10.add("2.5 MT Closed");
             list10.add("2.5 MT Open");
-            list10.add("3.5 MT Closed");
+            list10.add("3.5 MT open");
             list10.add("4 MT Open");
-            list10.add("5 MT Open");
+            list10.add("5.5 MT Open");
             list10.add("7 MT Open");
-            list10.add("7 MT Closed");
-            list10.add("9 MT Open");
-            list10.add("9 MT Closed");
-            list10.add("16 MT Open");
-            list10.add("16 MT Closed");
+            list10.add("15 MT Open");
+            list10.add("15 MT Closed");
             list10.add("21 MT Open");
             list10.add("21 MT Closed");
-            list10.add("26 MT Open");
-            list10.add("26 MT Closed");
+            list10.add("30 MT Open");
+            list10.add("30 MT Closed");
+            list10.add("36 MT Open");
+            list10.add("36 MT Closed");
+            list10.add("35 MT (Trailor)");
+            list10.add("40 MT (Trailor)");
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list10);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);

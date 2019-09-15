@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import static android.R.layout.simple_spinner_item;
 
 public class CityDialog extends DialogFragment {
-    private EditText origin,dest,price;
-    private Spinner unit;
+    private EditText origin,dest,price,returnprice;
+    private Spinner unit,runit;
     private DialogListener listener;
     private RadioGroup rg;
     LinearLayout lout;
@@ -59,7 +59,9 @@ public class CityDialog extends DialogFragment {
                         final String ORIGIN= origin.getText().toString();
                         final String DEST= dest.getText().toString();
                         long PRICE = Long.parseLong(price.getText().toString());
+                        long RPRICE = Long.parseLong(returnprice.getText().toString());
                         String UNIT= unit.getSelectedItem().toString();
+                        String RUNIT= runit.getSelectedItem().toString();
 
                         int selectedId = rg.getCheckedRadioButtonId();
                         RadioButton rb = (RadioButton) view.findViewById(selectedId);
@@ -73,17 +75,27 @@ public class CityDialog extends DialogFragment {
                         else if(UNIT.equals("Per Quintal")){
 
                         }
+                        if(RUNIT.equals("Per KG")){
+                            RPRICE=RPRICE*100;
+                        }
+                        else if(RUNIT.equals("Per Ton")){
+                            RPRICE= (long) (RPRICE*0.1);
+                        }
+                        else if(RUNIT.equals("Per Quintal")){
+
+                        }
                         DatabaseReference mref= FirebaseDatabase.getInstance().getReference();
                         final String finalType = type;
                         final long finalPRICE = PRICE;
+                        final long finalRPRICE = RPRICE;
                         mref.child("basePrice").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                 long p=dataSnapshot.child(finalType).getValue(Long.class);
-                                if(p<=finalPRICE)
+                                if(p<=finalPRICE&&p<= finalRPRICE)
                                 {
-                                    listener.addcitytoDB(ORIGIN,DEST, finalPRICE, finalType);
+                                    listener.addcitytoDB(ORIGIN,DEST, finalPRICE, finalType,finalRPRICE);
                                 }
                                 else{
                                    // Toast.makeText(getContext(), "Invalid Price", Toast.LENGTH_SHORT).show();
@@ -107,6 +119,8 @@ public class CityDialog extends DialogFragment {
         unit = view.findViewById(R.id.unit);
         rg=view.findViewById(R.id.rg);
         lout=view.findViewById(R.id.layout);
+        returnprice=view.findViewById(R.id.rprice);
+        runit=view.findViewById(R.id.runit);
         ArrayList<String> l=new ArrayList<>();
         l.add("Per Quintal");
         l.add("Per KG");
@@ -114,6 +128,7 @@ public class CityDialog extends DialogFragment {
         ArrayAdapter a= new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, l);
         a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unit.setAdapter(a);
+        runit.setAdapter(a);
         return builder.create();
     }
 
@@ -130,6 +145,6 @@ public class CityDialog extends DialogFragment {
     }
 
     public interface DialogListener {
-        void addcitytoDB(String origin,String dest,long price,String type);
+        void addcitytoDB(String origin,String dest,long price,String type,long rprice);
     }
 }

@@ -407,7 +407,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             adapter2 = new ArrayAdapter<>(SelectServiceTruck.this, R.layout.spinner_item, list8);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             trucktype.setAdapter(adapter2);
-        }else {
+        }else  if (wt>40){
             List<String> list10 = new ArrayList<>();
             list10.clear();
             list10.add("Select Truck Type");

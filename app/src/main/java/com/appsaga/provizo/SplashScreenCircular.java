@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -91,15 +92,22 @@ public class SplashScreenCircular extends AppCompatActivity {
 
     private void checkForUpdate() {
         int latestAppVersion = (int) mFirebaseRemoteConfig.getDouble(VERSION_CODE_KEY);
+
+        Log.d("current",latestAppVersion+"");
+        Log.d("new",getCurrentVersionCode()+"");
         if (latestAppVersion > getCurrentVersionCode()) {
             new AlertDialog.Builder(this).setTitle("Please Update the App")
                     .setMessage("A new version of this app is available. Please update it").setPositiveButton(
                     "OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast
-                                    .makeText(SplashScreenCircular.this, "Take user to Google Play Store", Toast.LENGTH_SHORT)
-                                    .show();
+
+                            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
                         }
                     }).setCancelable(false).show();
         } else {

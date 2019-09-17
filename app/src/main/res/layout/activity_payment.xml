@@ -60,72 +60,11 @@
             android:fontFamily="sans-serif-light"
             android:layout_below="@id/toolbar"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:layout_height="30dp"
-            android:id="@+id/coupon"
-            android:background="#ffffff"
-            android:hint="Enter Promo Code"
-            android:layout_below="@+id/select_truck_text"/>
-        <LinearLayout
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@+id/select_truck_text"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/applied">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#ffffff"
-                android:id="@+id/promodetails"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cancelcode"
-                android:id="@+id/cancelpromo"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_below="@+id/coupon"
-            android:id="@+id/code"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Use FIRST to get Discount\n(Only for new Users)"
-                android:textColor="#ffffff" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apply"
-                android:id="@+id/apply"/>
-        </LinearLayout>
-
         <TextView
             android:id="@+id/cod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/code"
+            android:layout_below="@id/select_truck_text"
             android:text="COD"
             android:textSize="17sp"
             android:textColor="#FFF"
@@ -133,7 +72,8 @@
             android:textStyle="bold"
             android:paddingStart="15dp"
             android:paddingTop="10dp"
-            android:paddingBottom="15dp"/>
+            android:paddingBottom="15dp"
+            android:layout_marginTop="20dp"/>
 
         <RelativeLayout
             android:id="@+id/COD_layout"
@@ -195,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/COD_layout"
-            android:text="Other"
+            android:text="Other (Coming Soon)"
             android:textSize="17sp"
             android:textColor="#FFF"
             android:fontFamily="sans-serif-light"
@@ -209,7 +149,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/other"
-            android:background="#FFFFFF">
+            android:background="#FFFFFF"
+            android:clickable="false">
 
             <RadioButton
                 android:id="@+id/rb2"
@@ -217,7 +158,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:clickable="false"/>
 
             <ImageView
                 android:id="@+id/upi_image"
@@ -256,6 +198,72 @@
                 android:layout_marginBottom="15dp"/>
 
         </RelativeLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:layout_height="30dp"
+            android:id="@+id/coupon"
+            android:background="#ffffff"
+            android:hint="Enter Promo Code"
+            android:layout_below="@+id/UPI_layout"/>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/UPI_layout"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/applied">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:id="@+id/promodetails"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cancelcode"
+                android:id="@+id/cancelpromo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_below="@+id/applied"
+            android:id="@+id/code"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Use FIRST to get Discount\n(Only for new Users)"
+                android:textColor="#ffffff" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:id="@+id/apply"
+                android:background="@drawable/ripple_effect_4"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/confirm"

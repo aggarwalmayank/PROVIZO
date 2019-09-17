@@ -146,8 +146,14 @@ public class AvailableServices extends AppCompatActivity implements com.appsaga.
             int firebaseWeight = (int) (Float.valueOf(truckType.replace("MT Closed", "")) * 10);
 
             myRef = databaseReference.child("typesOfServices").child(serviceType).child("Closed").child(firebaseWeight + "");
-        } else {
+        } else if(truckType.toLowerCase().contains("open")) {
             int firebaseWeight = (int) (Float.valueOf(truckType.replace("MT Open", "")) * 10);
+
+            myRef = databaseReference.child("typesOfServices").child(serviceType).child("Open").child(firebaseWeight + "");
+        }
+        else
+        {
+            int firebaseWeight = (int) (Float.valueOf(truckType.replace("MT (Trailor)", "")) * 10);
 
             myRef = databaseReference.child("typesOfServices").child(serviceType).child("Open").child(firebaseWeight + "");
         }

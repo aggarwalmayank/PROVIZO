@@ -39,7 +39,7 @@ public class completed extends AppCompatActivity {
         currentuser = getIntent().getStringExtra("Current User");
         company = getIntent().getStringExtra("company");
         amount = getIntent().getStringExtra("amount");
-        coupon=getIntent().getStringExtra("couponapplied");
+        coupon=getIntent().getStringExtra("Couponapplied");
         home = findViewById(R.id.home);
         home.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -345,7 +345,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
                         if (checkBox1.isChecked()) {
 
-                            if (closed.isChecked()) {
+                            if (closedPartner.isChecked()) {
                                 source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("closed");
                             } else {
                                 source_dest[0] = partnerValue.getLocationMap().get("FullTruckLoad").get("open");
@@ -366,7 +366,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                                 }
                         } else if (checkBox2.isChecked()) {
 
-                            if (closed.isChecked()) {
+                            if (closedPartner.isChecked()) {
                                 source_dest[0] = partnerValue.getLocationMap().get("PartLoad").get("closed");
                             } else {
                                 source_dest[0] = partnerValue.getLocationMap().get("PartLoad").get("open");

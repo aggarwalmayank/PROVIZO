@@ -412,7 +412,7 @@ public class SelectServiceTruck extends AppCompatActivity implements com.appsaga
             list10.clear();
             list10.add("Select Truck Type");
             list10.add("2.5 MT Open");
-            list10.add("3.5 MT open");
+            list10.add("3.5 MT Open");
             list10.add("4 MT Open");
             list10.add("5.5 MT Open");
             list10.add("7 MT Open");

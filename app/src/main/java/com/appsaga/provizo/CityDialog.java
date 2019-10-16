@@ -59,7 +59,9 @@ public class CityDialog extends DialogFragment {
                         final String ORIGIN= origin.getText().toString();
                         final String DEST= dest.getText().toString();
                         long PRICE = Long.parseLong(price.getText().toString());
-                        long RPRICE = Long.parseLong(returnprice.getText().toString());
+                        long RPRICE=0;
+                        if(!returnprice.getText().toString().equalsIgnoreCase(""))
+                             RPRICE = Long.parseLong(returnprice.getText().toString());
                         String UNIT= unit.getSelectedItem().toString();
                         String RUNIT= runit.getSelectedItem().toString();
 
@@ -93,7 +95,7 @@ public class CityDialog extends DialogFragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                 long p=dataSnapshot.child(finalType).getValue(Long.class);
-                                if(p<=finalPRICE&&p<= finalRPRICE)
+                                if(p<=finalPRICE||p<= finalRPRICE)
                                 {
                                     listener.addcitytoDB(ORIGIN,DEST, finalPRICE, finalType,finalRPRICE);
                                 }

@@ -817,12 +817,14 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
         if (type.equals("Full Truck Load CLOSED")) {
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("FullTruckLoad").child("closed").child(origin.toLowerCase().trim()).child(dest.toLowerCase().trim()).setValue(price);
+            if(rprice!=0)
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("FullTruckLoad").child("closed").child(dest.toLowerCase().trim()).child(origin.toLowerCase().trim()).setValue(rprice);
 
         } else if (type.equals("Part Load CLOSED")) {
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("PartLoad").child("closed").child(origin.toLowerCase().trim()).child(dest.toLowerCase().trim()).setValue(price);
+            if(rprice!=0)
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("PartLoad").child("closed").child(dest.toLowerCase().trim()).child(origin.toLowerCase().trim()).setValue(rprice);
 
@@ -831,7 +833,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
 
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("PartLoad").child("open").child(origin.toLowerCase().trim()).child(dest.toLowerCase().trim()).setValue(price);
-
+            if(rprice!=0)
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("PartLoad").child("open").child(dest.toLowerCase().trim()).child(origin.toLowerCase().trim()).setValue(rprice);
 
@@ -839,6 +841,7 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("FullTruckLoad").child("open").child(origin.toLowerCase().trim()).child(dest.toLowerCase().trim()).setValue(price);
 
+            if(rprice!=0)
             databaseReference.child("partners").child(username).child("operations").child("locationMap")
                     .child("FullTruckLoad").child("open").child(dest.toLowerCase().trim()).child(origin.toLowerCase().trim()).setValue(rprice);
         }

@@ -69,7 +69,7 @@ public class CityDialog extends DialogFragment {
                         RadioButton rb = (RadioButton) view.findViewById(selectedId);
                         String type=rb.getText().toString();
                         if(UNIT.equals("Per KG")){
-                            PRICE=PRICE*100;
+                            PRICE= (long) (PRICE*0.01);
                         }
                         else if(UNIT.equals("Per Ton")){
                             PRICE= (long) (PRICE*0.1);
@@ -78,7 +78,7 @@ public class CityDialog extends DialogFragment {
 
                         }
                         if(RUNIT.equals("Per KG")){
-                            RPRICE=RPRICE*100;
+                            RPRICE= (long) (RPRICE*0.01);
                         }
                         else if(RUNIT.equals("Per Ton")){
                             RPRICE= (long) (RPRICE*0.1);

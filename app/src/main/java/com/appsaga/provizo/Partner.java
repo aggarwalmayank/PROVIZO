@@ -523,9 +523,9 @@ public class Partner extends AppCompatActivity implements CityDialog.DialogListe
                                         }
                                     } else if (rbunit.getText().toString().equals("Tonne")) {
 
-                                        if (Long.parseLong(newrate.getText().toString()) * 10 >= (long) baserate) {
-                                            finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 10);
-                                            currentRate.setText(Long.parseLong(newrate.getText().toString()) * 10 + " per Quintal");
+                                        if (Long.parseLong(newrate.getText().toString()) * 0.1 >= (long) baserate) {
+                                            finalMyRef.setValue(Long.parseLong(newrate.getText().toString()) * 0.1);
+                                            currentRate.setText(Long.parseLong(newrate.getText().toString()) * 0.1 + " per Quintal");
 
                                             rgunit.setVisibility(View.INVISIBLE);
                                             selectunit.setVisibility(View.INVISIBLE);
